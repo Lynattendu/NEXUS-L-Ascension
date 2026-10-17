@@ -4572,36 +4572,53 @@ function getItemVisual(item) {
   const name =
     item.name.toLowerCase();
 
-  if (name.includes("méduse astrale")) {
+
+  if (
+    name.includes("méduse astrale")
+  ) {
+
     return `
-      <div class="visual-meduse">
-        <div class="meduse-bell"></div>
-        <div class="meduse-tentacles">
-          <span></span><span></span><span></span><span></span>
-        </div>
-      </div>
+      <img
+        src="images/Objet-Meduse-Astrale.PNG"
+        alt="Méduse astrale"
+        class="collection-object-image"
+      >
     `;
+
   }
 
-  if (name.includes("éclat d'azur") || name.includes("eclat d'azur")) {
+
+  if (
+    name.includes("éclat d'azur") ||
+    name.includes("eclat d'azur")
+  ) {
+
     return `
-      <div class="visual-azur">
-        <div class="azur-crystal"></div>
-        <div class="azur-glow"></div>
-      </div>
+      <img
+        src="images/Objet-Eclat-Azur.PNG"
+        alt="Éclat d'azur"
+        class="collection-object-image"
+      >
     `;
+
   }
 
-  if (name.includes("relique des marées") || name.includes("relique des marees")) {
+
+  if (
+    name.includes("relique des marées") ||
+    name.includes("relique des marees")
+  ) {
+
     return `
-      <div class="visual-marees">
-        <div class="marees-ring"></div>
-        <div class="marees-core"></div>
-        <div class="marees-wave marees-wave-1"></div>
-        <div class="marees-wave marees-wave-2"></div>
-      </div>
+      <img
+        src="images/Objet-Relique-Marees.PNG"
+        alt="Relique des Marées"
+        class="collection-object-image"
+      >
     `;
+
   }
+
 
   return `
     <div class="visual-generic">
