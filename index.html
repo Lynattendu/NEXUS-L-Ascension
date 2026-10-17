@@ -1823,84 +1823,83 @@
 
 
 
-  <!-- =======================================================
-       MODALE POUVOIR RENFORCÉ
-  ======================================================== -->
+  <!-- =====================================================
+     CHOIX DU POUVOIR
+===================================================== -->
+<div
+  class="overlay hidden"
+  id="powerOverlay"
+>
+  <div class="modal-card power-modal">
 
-  <div
-    class="overlay hidden"
-    id="powerOverlay"
-  >
+    <p class="small-label">
+      Résonance forte
+    </p>
 
-    <div class="modal-card">
+    <h2>
+      Choisis ton pouvoir
+    </h2>
 
-      <p class="small-label">
-        Résonance forte
-      </p>
+    <p class="power-intro">
+      Ton énergie du jour te permet d’emporter un pouvoir renforcé.
+    </p>
 
-      <h2>
-        Choisis ton pouvoir
-      </h2>
+    <div class="power-grid">
 
-      <p>
-        Ton énergie du jour te permet d'emporter un pouvoir renforcé.
-      </p>
+      <button
+        class="power-card shield-power"
+        data-power="shield"
+        type="button"
+      >
+        <div class="power-visual">
+          <div class="power-orb">🛡</div>
+        </div>
 
-
-      <div class="power-grid">
-
-
-        <button
-          class="power-card"
-          type="button"
-          data-power="shield"
-        >
-
-          <span class="power-icon">
-            ◈
-          </span>
-
-          <strong>
+        <div class="power-text">
+          <div class="power-name">
             Bouclier runique
-          </strong>
+          </div>
 
-          <span>
-            Le premier échec ne coûte aucune stabilité.
-          </span>
+          <div class="power-desc">
+            Le premier échec ne coûte
+            aucune stabilité.
+          </div>
 
-        </button>
+          <div class="power-tag">
+            Protection
+          </div>
+        </div>
+      </button>
 
+      <button
+        class="power-card vision-power"
+        data-power="vision"
+        type="button"
+      >
+        <div class="power-visual">
+          <div class="power-orb">◉</div>
+        </div>
 
-
-        <button
-          class="power-card"
-          type="button"
-          data-power="vision"
-        >
-
-          <span class="power-icon">
-            ◉
-          </span>
-
-          <strong>
+        <div class="power-text">
+          <div class="power-name">
             Vision du NEXUS
-          </strong>
+          </div>
 
-          <span>
-            Révèle davantage d'informations sur certains choix.
-          </span>
+          <div class="power-desc">
+            Révèle davantage d’informations
+            sur certains choix.
+          </div>
 
-        </button>
-
-
-      </div>
+          <div class="power-tag">
+            Clairvoyance
+          </div>
+        </div>
+      </button>
 
     </div>
 
   </div>
-
-
-
+</div>
   <!-- =======================================================
        MODALE ÉPREUVE
   ======================================================== -->
