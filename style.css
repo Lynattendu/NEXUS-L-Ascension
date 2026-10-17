@@ -2613,7 +2613,69 @@ p {
     align-self: center;
   }
 }
+/* =========================================================
+   IMAGE DE SALLE — CORRECTION
+========================================================= */
 
+.room-visual {
+  position: relative;
+  width: 100%;
+  height: min(64vh, 660px);
+  overflow: hidden;
+  background: #041018;
+}
+
+.room-scene-image {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center;
+
+  z-index: 1;
+}
+
+.room-visual::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  z-index: 2;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,0.01) 0%,
+      rgba(0,0,0,0.02) 60%,
+      rgba(1,8,12,0.28) 82%,
+      rgba(1,8,12,0.62) 100%
+    );
+}
+
+.temporary-symbol {
+  position: absolute !important;
+
+  left: 50%;
+  bottom: 28px;
+
+  z-index: 3 !important;
+
+  transform: translateX(-50%);
+
+  font-size: 3.4rem;
+
+  color: #6af9ea;
+
+  text-shadow:
+    0 0 20px rgba(106,249,234,.8),
+    0 0 45px rgba(105,184,255,.35);
+}
 
 
 
