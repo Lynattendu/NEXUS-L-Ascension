@@ -4499,26 +4499,13 @@ function updateSanctuary() {
 
 function renderCollection() {
 
-  if (
-    collection.length === 0
-  ) {
+  if (collection.length === 0) {
 
     collectionGrid.innerHTML =
       `
-        <div
-          class="empty-collection"
-        >
-
-          <div
-            class="empty-symbol"
-          >
-            ◇
-          </div>
-
-          <p>
-            Ton Sanctuaire attend ses premiers trésors.
-          </p>
-
+        <div class="empty-collection">
+          <div class="empty-symbol">◇</div>
+          <p>Ton Sanctuaire attend ses premiers trésors.</p>
         </div>
       `;
 
@@ -4531,59 +4518,32 @@ function renderCollection() {
     collection
       .slice()
       .reverse()
-      .map(
-        item => `
+      .map(item => `
 
-          <article
-            class="collection-item"
-          >
+        <article class="collection-item ${getItemClass(item)}">
 
-            <div
-              class="
-                collection-item-icon
-                rarity-${item.rarity}
-              "
-            >
-              ${item.icon}
-            </div>
+          <div class="collection-item-visual">
+            ${getItemVisual(item)}
+          </div>
 
-            <div
-              class="collection-item-name"
-            >
-              ${item.name}
-            </div>
+          <div class="collection-item-name">
+            ${item.name}
+          </div>
 
-            <div
-              class="
-                collection-item-rarity
-                rarity-${item.rarity}
-              "
-            >
-              ${
-                getRarityLabel(
-                  item.rarity
-                )
-              }
-            </div>
+          <div class="collection-item-rarity rarity-${item.rarity}">
+            ${getRarityLabel(item.rarity)}
+          </div>
 
-            <div
-              style="
-                margin-top:4px;
-                font-size:.72rem;
-                color:#718893;
-              "
-            >
-              ${item.type}
-            </div>
+          <div class="collection-item-type">
+            ${item.type}
+          </div>
 
-          </article>
+        </article>
 
-        `
-      )
+      `)
       .join("");
 
 }
-
 
 /* =========================================================
    CONFIRMATION
