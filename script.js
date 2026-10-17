@@ -4545,6 +4545,73 @@ function renderCollection() {
 
 }
 
+function getItemClass(item) {
+
+  const name =
+    item.name.toLowerCase();
+
+  if (name.includes("méduse astrale")) {
+    return "item-meduse";
+  }
+
+  if (name.includes("éclat d'azur") || name.includes("eclat d'azur")) {
+    return "item-azur";
+  }
+
+  if (name.includes("relique des marées") || name.includes("relique des marees")) {
+    return "item-marees";
+  }
+
+  return "item-generic";
+
+}
+
+
+function getItemVisual(item) {
+
+  const name =
+    item.name.toLowerCase();
+
+  if (name.includes("méduse astrale")) {
+    return `
+      <div class="visual-meduse">
+        <div class="meduse-bell"></div>
+        <div class="meduse-tentacles">
+          <span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+    `;
+  }
+
+  if (name.includes("éclat d'azur") || name.includes("eclat d'azur")) {
+    return `
+      <div class="visual-azur">
+        <div class="azur-crystal"></div>
+        <div class="azur-glow"></div>
+      </div>
+    `;
+  }
+
+  if (name.includes("relique des marées") || name.includes("relique des marees")) {
+    return `
+      <div class="visual-marees">
+        <div class="marees-ring"></div>
+        <div class="marees-core"></div>
+        <div class="marees-wave marees-wave-1"></div>
+        <div class="marees-wave marees-wave-2"></div>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="visual-generic">
+      <span>${item.icon}</span>
+    </div>
+  `;
+
+}
+   
+
 /* =========================================================
    CONFIRMATION
 ========================================================= */
