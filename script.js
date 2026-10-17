@@ -1,7 +1,7 @@
 /* =========================================================
    NEXUS VITAL — L'ASCENSION
    SCRIPT.JS
-   V1
+   V2 — MONDES + VISUELS + SALLES
 ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -12,80 +12,82 @@ document.addEventListener("DOMContentLoaded", () => {
 ========================================================= */
 
 const STORAGE = {
-  dayDate: "nexusVital_dayDate",
-  habits: "nexusVital_habits",
-  totalCrystals: "nexusVital_totalCrystals",
-  collection: "nexusVital_collection",
-  ascensionLevel: "nexusVital_ascensionLevel",
-  world: "nexusVital_world",
-  stats: "nexusVital_stats"
+
+  dayDate:
+    "nexusVital_dayDate",
+
+  habits:
+    "nexusVital_habits",
+
+  totalCrystals:
+    "nexusVital_totalCrystals",
+
+  collection:
+    "nexusVital_collection",
+
+  ascensionLevel:
+    "nexusVital_ascensionLevel",
+
+  world:
+    "nexusVital_world",
+
+  stats:
+    "nexusVital_stats"
+
 };
 
 
 /* =========================================================
-   CONFIGURATION QUOTIDIENNE
+   VISUELS
 ========================================================= */
 
-const HABITS = {
-  breakfast: {
-    label: "Petit-déjeuner équilibré",
-    max: 5
-  },
+const VISUALS = {
 
-  lunch: {
-    label: "Déjeuner équilibré",
-    max: 5
-  },
+  home:
+    "images/Visuel-1.PNG",
 
-  dinner: {
-    label: "Dîner équilibré",
-    max: 5
-  },
+  portal:
+    "images/Visuel-2.PNG",
 
-  quantity: {
-    label: "Quantité raisonnable",
-    max: 10
-  },
+  pathMist:
+    "images/Visuel-3.PNG",
 
-  slow: {
-    label: "Manger doucement",
-    max: 10
-  },
+  pathCrystal:
+    "images/Visuel-4.PNG",
 
-  water: {
-    label: "Boire suffisamment d'eau",
-    max: 10
-  },
+  pathForbidden:
+    "images/Visuel-5.PNG",
 
-  snacking: {
-    label: "Pas de grignotage",
-    max: 10
-  },
+  crystalRoom:
+    "images/Visuel-6.PNG",
 
-  healthy: {
-    label: "Privilégier les aliments sains",
-    max: 10
-  },
+  chestRoom:
+    "images/Visuel-7.PNG",
 
-  fullness: {
-    label: "S'arrêter avant d'être trop plein",
-    max: 10
-  },
+  mistRoom:
+    "images/Visuel-8.PNG",
 
-  activity: {
-    label: "Activité physique",
-    max: 10
-  },
+  sanctuaryRoom:
+    "images/Visuel-9.PNG",
 
-  craving: {
-    label: "Pas de craquage impulsif",
-    max: 10
-  },
+  forbiddenRoom:
+    "images/Visuel-10.PNG",
 
-  duplicate: {
-    label: "Pas de doublon",
-    max: 5
-  }
+  secretRoom:
+    "images/Visuel-11.PNG",
+
+  guardianRoom:
+    "images/Visuel-12.PNG",
+
+  sanctuary:
+    "images/Visuel-13.PNG",
+
+  reward:
+    "images/Visuel-14.PNG",
+
+  challenge:
+    "images/Visuel-15.PNG"
+
 };
 
 
@@ -97,45 +99,87 @@ const WORLDS = [
 
   {
     id: 1,
-    name: "Les Jardins engloutis",
-    image: "images/Monde-1.PNG",
-    guardian: "Gardien des Marées",
-    guardianImage: "images/Gardien-1.PNG"
+
+    name:
+      "Les Jardins engloutis",
+
+    image:
+      "images/Monde-1.PNG",
+
+    guardian:
+      "Gardien des Marées",
+
+    guardianImage:
+      "images/Gardien-1.PNG"
   },
 
   {
     id: 2,
-    name: "La Grotte de Cristal",
-    image: "images/Monde-2.PNG",
-    guardian: "Gardien Prismatique",
-    guardianImage: "images/Gardien-2.PNG"
+
+    name:
+      "La Grotte de Cristal",
+
+    image:
+      "images/Monde-2.PNG",
+
+    guardian:
+      "Gardien Prismatique",
+
+    guardianImage:
+      "images/Gardien-2.PNG"
   },
 
   {
     id: 3,
-    name: "Les Ruines oubliées",
-    image: "images/Monde-3.PNG",
-    guardian: "Gardien des Glyphes",
-    guardianImage: "images/Gardien-3.PNG"
+
+    name:
+      "Les Ruines oubliées",
+
+    image:
+      "images/Monde-3.PNG",
+
+    guardian:
+      "Gardien des Glyphes",
+
+    guardianImage:
+      "images/Gardien-3.PNG"
   },
 
   {
     id: 4,
-    name: "La Forêt luminescente",
-    image: "images/Monde-4.PNG",
-    guardian: "Gardien Sylvestre",
-    guardianImage: "images/Gardien-4.PNG"
+
+    name:
+      "La Forêt luminescente",
+
+    image:
+      "images/Monde-4.PNG",
+
+    guardian:
+      "Gardien Sylvestre",
+
+    guardianImage:
+      "images/Gardien-4.PNG"
   },
 
   {
     id: 5,
-    name: "Le Temple du NEXUS",
-    image: "images/Monde-5.PNG",
-    guardian: "Gardien Originel",
-    guardianImage: "images/Gardien-5.PNG"
+
+    name:
+      "Le Temple du NEXUS",
+
+    image:
+      "images/Monde-5.PNG",
+
+    guardian:
+      "Gardien Originel",
+
+    guardianImage:
+      "images/Gardien-5.PNG"
   }
 
 ];
+
+
 /* =========================================================
    OBJETS DE COLLECTION
 ========================================================= */
@@ -143,388 +187,630 @@ const WORLDS = [
 const REWARD_ITEMS = {
 
   common: [
+
     {
-      name: "Éclat d'azur",
-      type: "Décoration",
-      icon: "◇"
+      name:
+        "Éclat d'azur",
+
+      type:
+        "Décoration",
+
+      icon:
+        "◇"
     },
 
     {
-      name: "Mousse lumineuse",
-      type: "Plante",
-      icon: "❋"
+      name:
+        "Mousse lumineuse",
+
+      type:
+        "Plante",
+
+      icon:
+        "❋"
     },
 
     {
-      name: "Fragment marin",
-      type: "Fragment",
-      icon: "◈"
+      name:
+        "Fragment marin",
+
+      type:
+        "Fragment",
+
+      icon:
+        "◈"
     }
+
   ],
+
 
   uncommon: [
+
     {
-      name: "Corail spectral",
-      type: "Décoration",
-      icon: "✦"
+      name:
+        "Corail spectral",
+
+      type:
+        "Décoration",
+
+      icon:
+        "✦"
     },
 
     {
-      name: "Fleur de brume",
-      type: "Plante",
-      icon: "❉"
+      name:
+        "Fleur de brume",
+
+      type:
+        "Plante",
+
+      icon:
+        "❉"
     },
 
     {
-      name: "Perle runique",
-      type: "Artefact",
-      icon: "●"
+      name:
+        "Perle runique",
+
+      type:
+        "Artefact",
+
+      icon:
+        "●"
     }
+
   ],
+
 
   rare: [
+
     {
-      name: "Cristal des profondeurs",
-      type: "Artefact",
-      icon: "◆"
+      name:
+        "Cristal des profondeurs",
+
+      type:
+        "Artefact",
+
+      icon:
+        "◆"
     },
 
     {
-      name: "Méduse astrale",
-      type: "Créature",
-      icon: "✺"
+      name:
+        "Méduse astrale",
+
+      type:
+        "Créature",
+
+      icon:
+        "✺"
     },
 
     {
-      name: "Relique des Marées",
-      type: "Artefact",
-      icon: "◎"
+      name:
+        "Relique des Marées",
+
+      type:
+        "Artefact",
+
+      icon:
+        "◎"
     }
+
   ],
+
 
   epic: [
+
     {
-      name: "Orbe du Passage",
-      type: "Artefact",
-      icon: "◉"
+      name:
+        "Orbe du Passage",
+
+      type:
+        "Artefact",
+
+      icon:
+        "◉"
     },
 
     {
-      name: "Gardien miniature",
-      type: "Créature",
-      icon: "✹"
+      name:
+        "Gardien miniature",
+
+      type:
+        "Créature",
+
+      icon:
+        "✹"
     },
 
     {
-      name: "Arbre de lumière",
-      type: "Décoration",
-      icon: "✧"
+      name:
+        "Arbre de lumière",
+
+      type:
+        "Décoration",
+
+      icon:
+        "✧"
     }
+
   ],
 
+
   legendary: [
+
     {
-      name: "Cœur du NEXUS",
-      type: "Artefact",
-      icon: "✶"
+      name:
+        "Cœur du NEXUS",
+
+      type:
+        "Artefact",
+
+      icon:
+        "✶"
     },
 
     {
-      name: "Dragon des Abysses",
-      type: "Créature",
-      icon: "♢"
+      name:
+        "Dragon des Abysses",
+
+      type:
+        "Créature",
+
+      icon:
+        "♢"
     },
 
     {
-      name: "Fragment Originel",
-      type: "Artefact",
-      icon: "✷"
+      name:
+        "Fragment Originel",
+
+      type:
+        "Artefact",
+
+      icon:
+        "✷"
     }
+
   ]
+
 };
 
 
 /* =========================================================
-   ÉLÉMENTS — ÉCRANS
+   ÉCRANS
 ========================================================= */
 
 const homeScreen =
-  document.getElementById("homeScreen");
+  document.getElementById(
+    "homeScreen"
+  );
 
 const ascensionScreen =
-  document.getElementById("ascensionScreen");
+  document.getElementById(
+    "ascensionScreen"
+  );
 
 const sanctuaryScreen =
-  document.getElementById("sanctuaryScreen");
+  document.getElementById(
+    "sanctuaryScreen"
+  );
 
 
 /* =========================================================
-   ÉLÉMENTS — ACCUEIL
+   ACCUEIL
 ========================================================= */
 
 const todayLabel =
-  document.getElementById("todayLabel");
+  document.getElementById(
+    "todayLabel"
+  );
 
 const dayStatusText =
-  document.getElementById("dayStatusText");
+  document.getElementById(
+    "dayStatusText"
+  );
 
 const xpValue =
-  document.getElementById("xpValue");
+  document.getElementById(
+    "xpValue"
+  );
 
 const xpCurrentText =
-  document.getElementById("xpCurrentText");
+  document.getElementById(
+    "xpCurrentText"
+  );
 
 const xpBarFill =
-  document.getElementById("xpBarFill");
+  document.getElementById(
+    "xpBarFill"
+  );
 
 const resonanceLevel =
-  document.getElementById("resonanceLevel");
+  document.getElementById(
+    "resonanceLevel"
+  );
 
 const dailyCount =
-  document.getElementById("dailyCount");
-
-const dailyGrid =
-  document.getElementById("dailyGrid");
+  document.getElementById(
+    "dailyCount"
+  );
 
 const rewardTrack =
-  document.getElementById("rewardTrack");
+  document.getElementById(
+    "rewardTrack"
+  );
 
 const portalPreview =
-  document.getElementById("portalPreview");
+  document.getElementById(
+    "portalPreview"
+  );
 
 const portalAccessTitle =
-  document.getElementById("portalAccessTitle");
+  document.getElementById(
+    "portalAccessTitle"
+  );
 
 const portalAccessText =
-  document.getElementById("portalAccessText");
+  document.getElementById(
+    "portalAccessText"
+  );
 
 const enterAscensionBtn =
-  document.getElementById("enterAscensionBtn");
+  document.getElementById(
+    "enterAscensionBtn"
+  );
 
 
 /* =========================================================
-   ÉLÉMENTS — MENU
+   MENU
 ========================================================= */
 
 const openMenuBtn =
-  document.getElementById("openMenuBtn");
+  document.getElementById(
+    "openMenuBtn"
+  );
 
 const menuOverlay =
-  document.getElementById("menuOverlay");
+  document.getElementById(
+    "menuOverlay"
+  );
 
 const closeMenuBtn =
-  document.getElementById("closeMenuBtn");
+  document.getElementById(
+    "closeMenuBtn"
+  );
 
 const menuHomeBtn =
-  document.getElementById("menuHomeBtn");
+  document.getElementById(
+    "menuHomeBtn"
+  );
 
 const menuSanctuaryBtn =
-  document.getElementById("menuSanctuaryBtn");
+  document.getElementById(
+    "menuSanctuaryBtn"
+  );
 
 const menuStatsBtn =
-  document.getElementById("menuStatsBtn");
+  document.getElementById(
+    "menuStatsBtn"
+  );
 
 const resetTodayBtn =
-  document.getElementById("resetTodayBtn");
+  document.getElementById(
+    "resetTodayBtn"
+  );
 
 const resetAllBtn =
-  document.getElementById("resetAllBtn");
+  document.getElementById(
+    "resetAllBtn"
+  );
 
 
 /* =========================================================
-   ÉLÉMENTS — ASCENSION
+   ASCENSION
 ========================================================= */
 
 const leaveAscensionBtn =
-  document.getElementById("leaveAscensionBtn");
+  document.getElementById(
+    "leaveAscensionBtn"
+  );
 
 const pauseBtn =
-  document.getElementById("pauseBtn");
+  document.getElementById(
+    "pauseBtn"
+  );
 
 const worldName =
-  document.getElementById("worldName");
+  document.getElementById(
+    "worldName"
+  );
 
 const ascensionName =
-  document.getElementById("ascensionName");
+  document.getElementById(
+    "ascensionName"
+  );
 
 const runicStability =
-  document.getElementById("runicStability");
+  document.getElementById(
+    "runicStability"
+  );
 
 const stabilityNumber =
-  document.getElementById("stabilityNumber");
+  document.getElementById(
+    "stabilityNumber"
+  );
 
 const stabilityMessage =
-  document.getElementById("stabilityMessage");
+  document.getElementById(
+    "stabilityMessage"
+  );
 
 const currentStepText =
-  document.getElementById("currentStepText");
+  document.getElementById(
+    "currentStepText"
+  );
 
 const runCrystals =
-  document.getElementById("runCrystals");
+  document.getElementById(
+    "runCrystals"
+  );
 
 const activePowerText =
-  document.getElementById("activePowerText");
+  document.getElementById(
+    "activePowerText"
+  );
+
+const currentRoom =
+  document.getElementById(
+    "currentRoom"
+  );
 
 const roomTitle =
-  document.getElementById("roomTitle");
+  document.getElementById(
+    "roomTitle"
+  );
 
 const roomDescription =
-  document.getElementById("roomDescription");
+  document.getElementById(
+    "roomDescription"
+  );
 
 const roomVisual =
-  document.getElementById("roomVisual");
+  document.getElementById(
+    "roomVisual"
+  );
 
 const pathChoices =
-  document.getElementById("pathChoices");
+  document.getElementById(
+    "pathChoices"
+  );
 
 const roomActionZone =
-  document.getElementById("roomActionZone");
+  document.getElementById(
+    "roomActionZone"
+  );
 
 const roomActionBtn =
-  document.getElementById("roomActionBtn");
+  document.getElementById(
+    "roomActionBtn"
+  );
 
 
 /* =========================================================
-   ÉLÉMENTS — POUVOIRS
+   POUVOIRS
 ========================================================= */
 
 const powerOverlay =
-  document.getElementById("powerOverlay");
+  document.getElementById(
+    "powerOverlay"
+  );
 
 
 /* =========================================================
-   ÉLÉMENTS — ÉPREUVES
+   ÉPREUVES
 ========================================================= */
 
 const challengeOverlay =
-  document.getElementById("challengeOverlay");
+  document.getElementById(
+    "challengeOverlay"
+  );
 
 const challengeType =
-  document.getElementById("challengeType");
+  document.getElementById(
+    "challengeType"
+  );
 
 const challengeTitle =
-  document.getElementById("challengeTitle");
+  document.getElementById(
+    "challengeTitle"
+  );
 
 const challengeInstructions =
-  document.getElementById("challengeInstructions");
+  document.getElementById(
+    "challengeInstructions"
+  );
 
 const challengeArea =
-  document.getElementById("challengeArea");
+  document.getElementById(
+    "challengeArea"
+  );
 
 const challengeContinueBtn =
-  document.getElementById("challengeContinueBtn");
+  document.getElementById(
+    "challengeContinueBtn"
+  );
 
 
 /* =========================================================
-   ÉLÉMENTS — GARDIEN
+   GARDIEN
 ========================================================= */
 
 const guardianOverlay =
-  document.getElementById("guardianOverlay");
+  document.getElementById(
+    "guardianOverlay"
+  );
 
 const guardianMessage =
-  document.getElementById("guardianMessage");
+  document.getElementById(
+    "guardianMessage"
+  );
 
 const guardianWins =
-  document.getElementById("guardianWins");
+  document.getElementById(
+    "guardianWins"
+  );
 
 const guardianRounds =
-  document.getElementById("guardianRounds");
+  document.getElementById(
+    "guardianRounds"
+  );
 
 const startGuardianBtn =
-  document.getElementById("startGuardianBtn");
+  document.getElementById(
+    "startGuardianBtn"
+  );
 
 
 /* =========================================================
-   ÉLÉMENTS — RÉCOMPENSE
+   RÉCOMPENSE
 ========================================================= */
 
 const rewardOverlay =
-  document.getElementById("rewardOverlay");
+  document.getElementById(
+    "rewardOverlay"
+  );
 
 const rewardBigIcon =
-  document.getElementById("rewardBigIcon");
+  document.getElementById(
+    "rewardBigIcon"
+  );
 
 const rewardRarity =
-  document.getElementById("rewardRarity");
+  document.getElementById(
+    "rewardRarity"
+  );
 
 const rewardTitle =
-  document.getElementById("rewardTitle");
+  document.getElementById(
+    "rewardTitle"
+  );
 
 const rewardDescription =
-  document.getElementById("rewardDescription");
+  document.getElementById(
+    "rewardDescription"
+  );
 
 const rewardContinueBtn =
-  document.getElementById("rewardContinueBtn");
+  document.getElementById(
+    "rewardContinueBtn"
+  );
 
 
 /* =========================================================
-   ÉLÉMENTS — FIN ASCENSION
+   FIN ASCENSION
 ========================================================= */
 
 const endAscensionOverlay =
-  document.getElementById("endAscensionOverlay");
+  document.getElementById(
+    "endAscensionOverlay"
+  );
 
 const endAscensionLabel =
-  document.getElementById("endAscensionLabel");
+  document.getElementById(
+    "endAscensionLabel"
+  );
 
 const endAscensionTitle =
-  document.getElementById("endAscensionTitle");
+  document.getElementById(
+    "endAscensionTitle"
+  );
 
 const endAscensionText =
-  document.getElementById("endAscensionText");
+  document.getElementById(
+    "endAscensionText"
+  );
 
 const endCrystals =
-  document.getElementById("endCrystals");
+  document.getElementById(
+    "endCrystals"
+  );
 
 const endSteps =
-  document.getElementById("endSteps");
+  document.getElementById(
+    "endSteps"
+  );
 
 const endHomeBtn =
-  document.getElementById("endHomeBtn");
+  document.getElementById(
+    "endHomeBtn"
+  );
 
 const endSanctuaryBtn =
-  document.getElementById("endSanctuaryBtn");
+  document.getElementById(
+    "endSanctuaryBtn"
+  );
 
 
 /* =========================================================
-   ÉLÉMENTS — SANCTUAIRE
+   SANCTUAIRE
 ========================================================= */
 
 const sanctuaryBackBtn =
-  document.getElementById("sanctuaryBackBtn");
+  document.getElementById(
+    "sanctuaryBackBtn"
+  );
 
 const totalCrystals =
-  document.getElementById("totalCrystals");
+  document.getElementById(
+    "totalCrystals"
+  );
 
 const artifactCount =
-  document.getElementById("artifactCount");
+  document.getElementById(
+    "artifactCount"
+  );
 
 const creatureCount =
-  document.getElementById("creatureCount");
+  document.getElementById(
+    "creatureCount"
+  );
 
 const collectionGrid =
-  document.getElementById("collectionGrid");
+  document.getElementById(
+    "collectionGrid"
+  );
 
 
 /* =========================================================
-   ÉLÉMENTS — CONFIRMATION
+   CONFIRMATION
 ========================================================= */
 
 const confirmOverlay =
-  document.getElementById("confirmOverlay");
+  document.getElementById(
+    "confirmOverlay"
+  );
 
 const confirmTitle =
-  document.getElementById("confirmTitle");
+  document.getElementById(
+    "confirmTitle"
+  );
 
 const confirmText =
-  document.getElementById("confirmText");
+  document.getElementById(
+    "confirmText"
+  );
 
 const cancelConfirmBtn =
-  document.getElementById("cancelConfirmBtn");
+  document.getElementById(
+    "cancelConfirmBtn"
+  );
 
 const confirmActionBtn =
-  document.getElementById("confirmActionBtn");
+  document.getElementById(
+    "confirmActionBtn"
+  );
 
 
 /* =========================================================
@@ -532,10 +818,14 @@ const confirmActionBtn =
 ========================================================= */
 
 const toast =
-  document.getElementById("toast");
+  document.getElementById(
+    "toast"
+  );
 
 const toastText =
-  document.getElementById("toastText");
+  document.getElementById(
+    "toastText"
+  );
 
 
 /* =========================================================
@@ -555,29 +845,42 @@ let ascensionLevel = 1;
 let currentWorld = 1;
 
 let stats = {
+
   totalAscensions: 0,
+
   successfulAscensions: 0,
+
   perfectDays: 0
+
 };
 
 
 /* =========================================================
-   ÉTAT PARTIE EN COURS
+   PARTIE EN COURS
 ========================================================= */
 
 let run = {
+
   active: false,
+
   maxSteps: 0,
+
   currentStep: 1,
+
   stability: 3,
+
   crystals: 0,
+
   power: null,
+
   shieldUsed: false,
+
   path: null,
+
   guardianWins: 0,
-  guardianRounds: 0,
-  pendingReward: null,
-  rewardCallback: null
+
+  guardianRounds: 0
+
 };
 
 
@@ -587,18 +890,31 @@ let run = {
 
 function getTodayKey() {
 
-  const date = new Date();
+  const date =
+    new Date();
 
   const year =
     date.getFullYear();
 
   const month =
-    String(date.getMonth() + 1).padStart(2, "0");
+    String(
+      date.getMonth() + 1
+    ).padStart(
+      2,
+      "0"
+    );
 
   const day =
-    String(date.getDate()).padStart(2, "0");
+    String(
+      date.getDate()
+    ).padStart(
+      2,
+      "0"
+    );
 
-  return `${year}-${month}-${day}`;
+  return (
+    `${year}-${month}-${day}`
+  );
 
 }
 
@@ -608,11 +924,20 @@ function formatToday() {
   return new Intl.DateTimeFormat(
     "fr-FR",
     {
-      weekday: "long",
-      day: "numeric",
-      month: "long"
+
+      weekday:
+        "long",
+
+      day:
+        "numeric",
+
+      month:
+        "long"
+
     }
-  ).format(new Date());
+  ).format(
+    new Date()
+  );
 
 }
 
@@ -630,7 +955,9 @@ function init() {
   loadDailyHabits();
 
   todayLabel.textContent =
-    capitalize(formatToday());
+    capitalize(
+      formatToday()
+    );
 
   bindHabitButtons();
 
@@ -640,11 +967,15 @@ function init() {
 
   bindPowerButtons();
 
+  applyPermanentVisuals();
+
   updateDailyUI();
 
   updateSanctuary();
 
-  showScreen(homeScreen);
+  showScreen(
+    homeScreen
+  );
 
 }
 
@@ -653,7 +984,127 @@ init();
 
 
 /* =========================================================
-   CHARGEMENT DONNÉES PERMANENTES
+   VISUELS GÉNÉRAUX
+========================================================= */
+
+function applyPermanentVisuals() {
+
+  /* Accueil */
+
+  homeScreen.style.backgroundImage =
+    `
+      linear-gradient(
+        180deg,
+        rgba(2, 8, 12, 0.50),
+        rgba(2, 8, 12, 0.86)
+      ),
+      url("${VISUALS.home}")
+    `;
+
+  homeScreen.style.backgroundSize =
+    "cover";
+
+  homeScreen.style.backgroundPosition =
+    "center";
+
+  homeScreen.style.backgroundAttachment =
+    "fixed";
+
+
+  /* Portail */
+
+  const portalCard =
+    document.querySelector(
+      ".portal-access-card"
+    );
+
+  if (portalCard) {
+
+    portalCard.style.backgroundImage =
+      `
+        linear-gradient(
+          90deg,
+          rgba(3, 12, 18, 0.76),
+          rgba(3, 12, 18, 0.42)
+        ),
+        url("${VISUALS.portal}")
+      `;
+
+    portalCard.style.backgroundSize =
+      "cover";
+
+    portalCard.style.backgroundPosition =
+      "center";
+
+  }
+
+
+  /* Chemins */
+
+  const mistPath =
+    document.querySelector(
+      ".mist-path"
+    );
+
+  const crystalPath =
+    document.querySelector(
+      ".crystal-path"
+    );
+
+  const forbiddenPath =
+    document.querySelector(
+      ".forbidden-path"
+    );
+
+
+  setPathVisual(
+    mistPath,
+    VISUALS.pathMist
+  );
+
+  setPathVisual(
+    crystalPath,
+    VISUALS.pathCrystal
+  );
+
+  setPathVisual(
+    forbiddenPath,
+    VISUALS.pathForbidden
+  );
+
+}
+
+
+function setPathVisual(
+  element,
+  image
+) {
+
+  if (!element) {
+    return;
+  }
+
+  element.style.backgroundImage =
+    `
+      linear-gradient(
+        180deg,
+        rgba(3,10,16,0.30),
+        rgba(3,10,16,0.88)
+      ),
+      url("${image}")
+    `;
+
+  element.style.backgroundSize =
+    "cover";
+
+  element.style.backgroundPosition =
+    "center";
+
+}
+
+
+/* =========================================================
+   CHARGEMENT PERMANENT
 ========================================================= */
 
 function loadPermanentData() {
@@ -694,14 +1145,17 @@ function loadPermanentData() {
     JSON.parse(
       localStorage.getItem(
         STORAGE.stats
-      ) || JSON.stringify(stats)
+      ) ||
+      JSON.stringify(
+        stats
+      )
     );
 
 }
 
 
 /* =========================================================
-   SAUVEGARDE DONNÉES PERMANENTES
+   SAUVEGARDE PERMANENTE
 ========================================================= */
 
 function savePermanentData() {
@@ -713,7 +1167,9 @@ function savePermanentData() {
 
   localStorage.setItem(
     STORAGE.collection,
-    JSON.stringify(collection)
+    JSON.stringify(
+      collection
+    )
   );
 
   localStorage.setItem(
@@ -728,14 +1184,16 @@ function savePermanentData() {
 
   localStorage.setItem(
     STORAGE.stats,
-    JSON.stringify(stats)
+    JSON.stringify(
+      stats
+    )
   );
 
 }
 
 
 /* =========================================================
-   RESET QUOTIDIEN AUTOMATIQUE
+   RESET QUOTIDIEN
 ========================================================= */
 
 function checkDailyReset() {
@@ -749,7 +1207,9 @@ function checkDailyReset() {
     );
 
 
-  if (savedDate !== today) {
+  if (
+    savedDate !== today
+  ) {
 
     habits = {};
 
@@ -769,7 +1229,7 @@ function checkDailyReset() {
 
 
 /* =========================================================
-   HABITUDES QUOTIDIENNES
+   HABITUDES
 ========================================================= */
 
 function loadDailyHabits() {
@@ -788,7 +1248,9 @@ function saveDailyHabits() {
 
   localStorage.setItem(
     STORAGE.habits,
-    JSON.stringify(habits)
+    JSON.stringify(
+      habits
+    )
   );
 
 }
@@ -800,44 +1262,39 @@ function saveDailyHabits() {
 
 function bindHabitButtons() {
 
-  const habitCards =
-    document.querySelectorAll(
+  document
+    .querySelectorAll(
       ".habit-card"
-    );
+    )
+    .forEach(card => {
+
+      const habitName =
+        card.dataset.habit;
 
 
-  habitCards.forEach(card => {
+      card
+        .querySelectorAll(
+          ".habit-choice"
+        )
+        .forEach(button => {
 
-    const habitName =
-      card.dataset.habit;
+          button.addEventListener(
+            "click",
+            () => {
 
-    const buttons =
-      card.querySelectorAll(
-        ".habit-choice"
-      );
+              selectHabit(
+                habitName,
+                Number(
+                  button.dataset.value
+                )
+              );
 
-
-    buttons.forEach(button => {
-
-      button.addEventListener(
-        "click",
-        () => {
-
-          const value =
-            Number(button.dataset.value);
-
-          selectHabit(
-            habitName,
-            value,
-            button
+            }
           );
 
-        }
-      );
+        });
 
     });
-
-  });
 
 }
 
@@ -848,23 +1305,32 @@ function bindHabitButtons() {
 
 function selectHabit(
   habitName,
-  value,
-  button
+  value
 ) {
 
   const previousValue =
-    habits[habitName];
+    habits[
+      habitName
+    ];
 
-  habits[habitName] = value;
+
+  habits[
+    habitName
+  ] = value;
+
 
   saveDailyHabits();
 
   updateDailyUI();
 
 
-  if (previousValue !== value) {
+  if (
+    previousValue !== value
+  ) {
 
-    if (value > 0) {
+    if (
+      value > 0
+    ) {
 
       showToast(
         `+${value} XP`
@@ -884,19 +1350,28 @@ function selectHabit(
 
 
 /* =========================================================
-   CALCUL XP
+   XP
 ========================================================= */
 
 function calculateXP() {
 
   let xp = 0;
 
-  Object.values(habits)
-    .forEach(value => {
 
-      xp += Number(value) || 0;
+  Object
+    .values(
+      habits
+    )
+    .forEach(
+      value => {
 
-    });
+        xp +=
+          Number(
+            value
+          ) || 0;
+
+      }
+    );
 
 
   return Math.min(
@@ -908,7 +1383,7 @@ function calculateXP() {
 
 
 /* =========================================================
-   MISE À JOUR INTERFACE JOURNÉE
+   UI JOURNÉE
 ========================================================= */
 
 function updateDailyUI() {
@@ -939,74 +1414,79 @@ function updateDailyUI() {
 
 
 /* =========================================================
-   ÉTAT VISUEL HABITUDES
+   HABITUDES VISUELLES
 ========================================================= */
 
 function updateHabitVisuals() {
 
-  const cards =
-    document.querySelectorAll(
-      ".habit-card"
-    );
-
   let completed = 0;
 
 
-  cards.forEach(card => {
+  document
+    .querySelectorAll(
+      ".habit-card"
+    )
+    .forEach(card => {
 
-    const habitName =
-      card.dataset.habit;
+      const habitName =
+        card.dataset.habit;
 
-    const selectedValue =
-      habits[habitName];
-
-
-    card.classList.remove(
-      "selected"
-    );
+      const selectedValue =
+        habits[
+          habitName
+        ];
 
 
-    const buttons =
-      card.querySelectorAll(
-        ".habit-choice"
+      card.classList.remove(
+        "selected"
       );
 
 
-    buttons.forEach(button => {
+      card
+        .querySelectorAll(
+          ".habit-choice"
+        )
+        .forEach(button => {
 
-      button.classList.remove(
-        "active"
-      );
+          button.classList.remove(
+            "active"
+          );
+
+
+          if (
+            selectedValue !==
+              undefined &&
+            Number(
+              button.dataset.value
+            ) ===
+            Number(
+              selectedValue
+            )
+          ) {
+
+            button.classList.add(
+              "active"
+            );
+
+            card.classList.add(
+              "selected"
+            );
+
+          }
+
+        });
 
 
       if (
-        selectedValue !== undefined &&
-        Number(button.dataset.value) ===
-        Number(selectedValue)
+        selectedValue !==
+          undefined
       ) {
 
-        button.classList.add(
-          "active"
-        );
-
-        card.classList.add(
-          "selected"
-        );
+        completed++;
 
       }
 
     });
-
-
-    if (
-      selectedValue !== undefined
-    ) {
-
-      completed++;
-
-    }
-
-  });
 
 
   dailyCount.textContent =
@@ -1016,61 +1496,71 @@ function updateHabitVisuals() {
 
 
 /* =========================================================
-   NIVEAU DE RÉSONANCE
+   RÉSONANCE
 ========================================================= */
 
 function updateResonanceLevel() {
 
-  let text = "";
+  if (
+    currentXP >= 90
+  ) {
 
-  if (currentXP >= 90) {
-
-    text =
+    resonanceLevel.textContent =
       "Résonance maximale";
 
-  } else if (currentXP >= 75) {
+  } else if (
+    currentXP >= 75
+  ) {
 
-    text =
+    resonanceLevel.textContent =
       "Résonance forte";
 
-  } else if (currentXP >= 60) {
+  } else if (
+    currentXP >= 60
+  ) {
 
-    text =
+    resonanceLevel.textContent =
       "Résonance stable";
 
-  } else if (currentXP >= 45) {
+  } else if (
+    currentXP >= 45
+  ) {
 
-    text =
+    resonanceLevel.textContent =
       "Résonance fragile";
 
   } else {
 
-    text =
+    resonanceLevel.textContent =
       "Résonance faible";
 
   }
 
 
-  resonanceLevel.textContent =
-    text;
-
-
-  if (currentXP === 100) {
+  if (
+    currentXP === 100
+  ) {
 
     dayStatusText.textContent =
       "Le NEXUS atteint sa résonance maximale.";
 
-  } else if (currentXP >= 90) {
+  } else if (
+    currentXP >= 90
+  ) {
 
     dayStatusText.textContent =
       "Le Portail est pleinement accessible.";
 
-  } else if (currentXP >= 70) {
+  } else if (
+    currentXP >= 70
+  ) {
 
     dayStatusText.textContent =
       "Le Portail est ouvert.";
 
-  } else if (currentXP >= 50) {
+  } else if (
+    currentXP >= 50
+  ) {
 
     dayStatusText.textContent =
       "Le NEXUS commence à réagir.";
@@ -1091,70 +1581,74 @@ function updateResonanceLevel() {
 
 function updateRewardTrack() {
 
-  const steps =
-    rewardTrack.querySelectorAll(
+  rewardTrack
+    .querySelectorAll(
       ".reward-step"
-    );
+    )
+    .forEach(step => {
+
+      const threshold =
+        Number(
+          step.dataset.threshold
+        );
+
+      const state =
+        step.querySelector(
+          ".reward-state"
+        );
 
 
-  steps.forEach(step => {
+      if (
+        currentXP >= threshold
+      ) {
 
-    const threshold =
-      Number(
-        step.dataset.threshold
-      );
+        step.classList.add(
+          "unlocked"
+        );
 
-    const state =
-      step.querySelector(
-        ".reward-state"
-      );
+        state.textContent =
+          "Débloqué";
 
+      } else {
 
-    if (
-      currentXP >= threshold
-    ) {
+        step.classList.remove(
+          "unlocked"
+        );
 
-      step.classList.add(
-        "unlocked"
-      );
+        state.textContent =
+          "Verrouillé";
 
-      state.textContent =
-        "Débloqué";
+      }
 
-    } else {
-
-      step.classList.remove(
-        "unlocked"
-      );
-
-      state.textContent =
-        "Verrouillé";
-
-    }
-
-  });
+    });
 
 }
 
 
 /* =========================================================
-   ACCÈS ASCENSION
+   PORTAIL
 ========================================================= */
 
 function updatePortalAccess() {
 
-  portalPreview.classList.remove(
-    "locked",
-    "open",
-    "max-resonance"
-  );
-
-
-  if (currentXP < 70) {
-
-    portalPreview.classList.add(
-      "locked"
+  portalPreview
+    .classList
+    .remove(
+      "locked",
+      "open",
+      "max-resonance"
     );
+
+
+  if (
+    currentXP < 70
+  ) {
+
+    portalPreview
+      .classList
+      .add(
+        "locked"
+      );
 
     portalAccessTitle.textContent =
       "Portail verrouillé";
@@ -1173,16 +1667,22 @@ function updatePortalAccess() {
   enterAscensionBtn.disabled =
     false;
 
-  portalPreview.classList.add(
-    "open"
-  );
-
-
-  if (currentXP === 100) {
-
-    portalPreview.classList.add(
-      "max-resonance"
+  portalPreview
+    .classList
+    .add(
+      "open"
     );
+
+
+  if (
+    currentXP === 100
+  ) {
+
+    portalPreview
+      .classList
+      .add(
+        "max-resonance"
+      );
 
     portalAccessTitle.textContent =
       "Résonance maximale";
@@ -1190,7 +1690,9 @@ function updatePortalAccess() {
     portalAccessText.textContent =
       "Ascension complète, pouvoir renforcé et coffre rare garanti.";
 
-  } else if (currentXP >= 90) {
+  } else if (
+    currentXP >= 90
+  ) {
 
     portalAccessTitle.textContent =
       "Ascension complète";
@@ -1198,7 +1700,9 @@ function updatePortalAccess() {
     portalAccessText.textContent =
       "8 étapes, Gardien du Portail et pouvoir renforcé.";
 
-  } else if (currentXP >= 80) {
+  } else if (
+    currentXP >= 80
+  ) {
 
     portalAccessTitle.textContent =
       "Ascension intermédiaire";
@@ -1228,9 +1732,13 @@ function bindNavigation() {
   openMenuBtn.addEventListener(
     "click",
     () => {
-      menuOverlay.classList.remove(
-        "hidden"
-      );
+
+      menuOverlay
+        .classList
+        .remove(
+          "hidden"
+        );
+
     }
   );
 
@@ -1247,7 +1755,9 @@ function bindNavigation() {
 
       closeMenu();
 
-      showScreen(homeScreen);
+      showScreen(
+        homeScreen
+      );
 
     }
   );
@@ -1307,11 +1817,12 @@ function bindNavigation() {
 
       if (
         confirm(
-          "Quitter cette Ascension ? Les gains non validés de la partie seront perdus."
+          "Quitter cette Ascension ?"
         )
       ) {
 
-        run.active = false;
+        run.active =
+          false;
 
         showScreen(
           homeScreen
@@ -1371,9 +1882,11 @@ function bindNavigation() {
     "click",
     () => {
 
-      confirmOverlay.classList.add(
-        "hidden"
-      );
+      confirmOverlay
+        .classList
+        .add(
+          "hidden"
+        );
 
     }
   );
@@ -1383,9 +1896,11 @@ function bindNavigation() {
     "click",
     () => {
 
-      endAscensionOverlay.classList.add(
-        "hidden"
-      );
+      endAscensionOverlay
+        .classList
+        .add(
+          "hidden"
+        );
 
       showScreen(
         homeScreen
@@ -1399,9 +1914,11 @@ function bindNavigation() {
     "click",
     () => {
 
-      endAscensionOverlay.classList.add(
-        "hidden"
-      );
+      endAscensionOverlay
+        .classList
+        .add(
+          "hidden"
+        );
 
       updateSanctuary();
 
@@ -1416,22 +1933,27 @@ function bindNavigation() {
 
 
 /* =========================================================
-   AFFICHER ÉCRAN
+   ÉCRANS
 ========================================================= */
 
-function showScreen(screen) {
+function showScreen(
+  screen
+) {
 
   [
     homeScreen,
     ascensionScreen,
     sanctuaryScreen
-  ].forEach(item => {
+  ]
+    .forEach(
+      item => {
 
-    item.classList.remove(
-      "active"
+        item.classList.remove(
+          "active"
+        );
+
+      }
     );
-
-  });
 
 
   screen.classList.add(
@@ -1440,8 +1962,7 @@ function showScreen(screen) {
 
 
   window.scrollTo({
-    top: 0,
-    behavior: "smooth"
+    top: 0
   });
 
 }
@@ -1453,9 +1974,11 @@ function showScreen(screen) {
 
 function closeMenu() {
 
-  menuOverlay.classList.add(
-    "hidden"
-  );
+  menuOverlay
+    .classList
+    .add(
+      "hidden"
+    );
 
 }
 
@@ -1466,24 +1989,47 @@ function closeMenu() {
 
 function prepareAscension() {
 
-  if (currentXP < 70) {
+  if (
+    currentXP < 70
+  ) {
+
     return;
+
   }
 
 
   run = {
-    active: true,
-    maxSteps: getAscensionSteps(),
-    currentStep: 1,
-    stability: 3,
-    crystals: 0,
-    power: null,
-    shieldUsed: false,
-    path: null,
-    guardianWins: 0,
-    guardianRounds: 0,
-    pendingReward: null,
-    rewardCallback: null
+
+    active:
+      true,
+
+    maxSteps:
+      getAscensionSteps(),
+
+    currentStep:
+      1,
+
+    stability:
+      3,
+
+    crystals:
+      0,
+
+    power:
+      null,
+
+    shieldUsed:
+      false,
+
+    path:
+      null,
+
+    guardianWins:
+      0,
+
+    guardianRounds:
+      0
+
   };
 
 
@@ -1492,9 +2038,15 @@ function prepareAscension() {
   savePermanentData();
 
 
-  if (currentXP >= 90) {
+  if (
+    currentXP >= 90
+  ) {
 
-    openPowerSelection();
+    powerOverlay
+      .classList
+      .remove(
+        "hidden"
+      );
 
   } else {
 
@@ -1506,18 +2058,28 @@ function prepareAscension() {
 
 
 /* =========================================================
-   NOMBRE D'ÉTAPES
+   NOMBRE ÉTAPES
 ========================================================= */
 
 function getAscensionSteps() {
 
-  if (currentXP >= 90) {
+  if (
+    currentXP >= 90
+  ) {
+
     return 8;
+
   }
 
-  if (currentXP >= 80) {
+
+  if (
+    currentXP >= 80
+  ) {
+
     return 5;
+
   }
+
 
   return 3;
 
@@ -1528,88 +2090,35 @@ function getAscensionSteps() {
    POUVOIRS
 ========================================================= */
 
-function openPowerSelection() {
-
-  powerOverlay.classList.remove(
-    "hidden"
-  );
-
-}
-
-
 function bindPowerButtons() {
 
-  const buttons =
-    document.querySelectorAll(
+  document
+    .querySelectorAll(
       ".power-card"
-    );
+    )
+    .forEach(
+      button => {
 
+        button.addEventListener(
+          "click",
+          () => {
 
-  buttons.forEach(button => {
+            run.power =
+              button.dataset.power;
 
-    button.addEventListener(
-      "click",
-      () => {
+            powerOverlay
+              .classList
+              .add(
+                "hidden"
+              );
 
-        run.power =
-          button.dataset.power;
+            startAscension();
 
-        powerOverlay.classList.add(
-          "hidden"
+          }
         );
-
-        startAscension();
 
       }
     );
-
-  });
-
-}
-
-
-/* =========================================================
-   DÉMARRER ASCENSION
-========================================================= */
-
-function startAscension() {
-
-  const world =
-    getCurrentWorld();
-   ascensionScreen.style.backgroundImage =
-  `
-    linear-gradient(
-      rgba(2, 10, 14, 0.32),
-      rgba(2, 10, 14, 0.72)
-    ),
-    url("${world.image}")
-  `;
-
-ascensionScreen.style.backgroundSize =
-  "cover";
-
-ascensionScreen.style.backgroundPosition =
-  "center";
-
-ascensionScreen.style.backgroundAttachment =
-  "fixed";
-
-  worldName.textContent =
-    `Monde ${world.id}`;
-
-  ascensionName.textContent =
-    world.name;
-
-
-  updateRunUI();
-
-
-  showScreen(
-    ascensionScreen
-  );
-
-
-  showEntrance();
 
 }
 
@@ -1622,8 +2131,9 @@ function getCurrentWorld() {
 
   return (
     WORLDS.find(
-      item =>
-        item.id === currentWorld
+      world =>
+        world.id ===
+        currentWorld
     ) ||
     WORLDS[0]
   );
@@ -1632,7 +2142,55 @@ function getCurrentWorld() {
 
 
 /* =========================================================
-   ÉCRAN ENTRÉE
+   DÉMARRER ASCENSION
+========================================================= */
+
+function startAscension() {
+
+  const world =
+    getCurrentWorld();
+
+
+  worldName.textContent =
+    `Monde ${world.id}`;
+
+  ascensionName.textContent =
+    world.name;
+
+
+  ascensionScreen.style.backgroundImage =
+    `
+      linear-gradient(
+        180deg,
+        rgba(2,8,12,0.24),
+        rgba(2,8,12,0.72)
+      ),
+      url("${world.image}")
+    `;
+
+  ascensionScreen.style.backgroundSize =
+    "cover";
+
+  ascensionScreen.style.backgroundPosition =
+    "center";
+
+  ascensionScreen.style.backgroundAttachment =
+    "fixed";
+
+
+  updateRunUI();
+
+  showScreen(
+    ascensionScreen
+  );
+
+  showEntrance();
+
+}
+
+
+/* =========================================================
+   ENTRÉE / CHOIX CHEMINS
 ========================================================= */
 
 function showEntrance() {
@@ -1643,17 +2201,24 @@ function showEntrance() {
   roomDescription.textContent =
     "Trois chemins se dessinent devant toi.";
 
-  roomVisual.innerHTML =
-    `<div class="temporary-symbol">◎</div>`;
 
-
-  pathChoices.classList.remove(
-    "hidden"
+  setRoomImage(
+    VISUALS.portal,
+    "◎"
   );
 
-  roomActionZone.classList.add(
-    "hidden"
-  );
+
+  pathChoices
+    .classList
+    .remove(
+      "hidden"
+    );
+
+  roomActionZone
+    .classList
+    .add(
+      "hidden"
+    );
 
 }
 
@@ -1664,49 +2229,53 @@ function showEntrance() {
 
 function bindPathButtons() {
 
-  const buttons =
-    document.querySelectorAll(
+  document
+    .querySelectorAll(
       ".path-card"
-    );
+    )
+    .forEach(
+      button => {
 
+        button.addEventListener(
+          "click",
+          () => {
 
-  buttons.forEach(button => {
+            run.path =
+              button.dataset.path;
 
-    button.addEventListener(
-      "click",
-      () => {
+            resolvePathChoice(
+              run.path
+            );
 
-        run.path =
-          button.dataset.path;
-
-        resolvePathChoice(
-          run.path
+          }
         );
 
       }
     );
 
-  });
-
 }
 
 
-/* =========================================================
-   RÉSOLUTION CHEMIN
-========================================================= */
+function resolvePathChoice(
+  path
+) {
 
-function resolvePathChoice(path) {
-
-  pathChoices.classList.add(
-    "hidden"
-  );
+  pathChoices
+    .classList
+    .add(
+      "hidden"
+    );
 
 
   const room =
-    generateRoom(path);
+    generateRoom(
+      path
+    );
 
 
-  showRoom(room);
+  showRoom(
+    room
+  );
 
 }
 
@@ -1715,24 +2284,40 @@ function resolvePathChoice(path) {
    GÉNÉRATION SALLE
 ========================================================= */
 
-function generateRoom(path) {
+function generateRoom(
+  path
+) {
 
   const roll =
     Math.random();
 
 
-  if (path === "mist") {
+  if (
+    path === "mist"
+  ) {
 
-    if (roll < 0.32) {
+    if (
+      roll < 0.30
+    ) {
+
       return "sanctuary";
+
     }
 
-    if (roll < 0.62) {
+    if (
+      roll < 0.58
+    ) {
+
       return "crystal";
+
     }
 
-    if (roll < 0.82) {
+    if (
+      roll < 0.80
+    ) {
+
       return "mist";
+
     }
 
     return "challenge";
@@ -1740,18 +2325,32 @@ function generateRoom(path) {
   }
 
 
-  if (path === "crystal") {
+  if (
+    path === "crystal"
+  ) {
 
-    if (roll < 0.3) {
+    if (
+      roll < 0.28
+    ) {
+
       return "crystal";
+
     }
 
-    if (roll < 0.55) {
+    if (
+      roll < 0.52
+    ) {
+
       return "chest";
+
     }
 
-    if (roll < 0.78) {
+    if (
+      roll < 0.76
+    ) {
+
       return "challenge";
+
     }
 
     return "obstacle";
@@ -1759,22 +2358,41 @@ function generateRoom(path) {
   }
 
 
-  if (path === "forbidden") {
+  if (
+    path ===
+      "forbidden"
+  ) {
 
-    if (roll < 0.3) {
+    if (
+      roll < 0.28
+    ) {
+
       return "forbidden";
+
     }
 
-    if (roll < 0.52) {
+    if (
+      roll < 0.50
+    ) {
+
       return "obstacle";
+
     }
 
-    if (roll < 0.74) {
+    if (
+      roll < 0.72
+    ) {
+
       return "challenge";
+
     }
 
-    if (roll < 0.92) {
+    if (
+      roll < 0.92
+    ) {
+
       return "chest";
+
     }
 
     return "secret";
@@ -1788,29 +2406,99 @@ function generateRoom(path) {
 
 
 /* =========================================================
-   AFFICHER SALLE
+   IMAGE DE SALLE
 ========================================================= */
 
-function showRoom(type) {
+function setRoomImage(
+  image,
+  symbol = ""
+) {
 
-  roomActionZone.classList.remove(
-    "hidden"
-  );
+  roomVisual.innerHTML =
+    `
+      <img
+        src="${image}"
+        alt=""
+        style="
+          position:absolute;
+          inset:0;
+          width:100%;
+          height:100%;
+          object-fit:cover;
+          object-position:center;
+          z-index:0;
+        "
+      >
+
+      <div
+        style="
+          position:absolute;
+          inset:0;
+          z-index:1;
+          background:
+            linear-gradient(
+              180deg,
+              rgba(0,0,0,0.02),
+              rgba(0,0,0,0.25)
+            );
+        "
+      ></div>
+
+      ${
+        symbol
+          ? `
+            <div
+              class="temporary-symbol"
+              style="
+                position:relative;
+                z-index:2;
+              "
+            >
+              ${symbol}
+            </div>
+          `
+          : ""
+      }
+    `;
+
+}
 
 
-  if (type === "crystal") {
+/* =========================================================
+   SALLES
+========================================================= */
+
+function showRoom(
+  type
+) {
+
+  roomActionZone
+    .classList
+    .remove(
+      "hidden"
+    );
+
+
+  /* CRISTAUX */
+
+  if (
+    type === "crystal"
+  ) {
 
     roomTitle.textContent =
       "Salle des Cristaux";
 
     roomDescription.textContent =
-      "Des fragments d'énergie flottent autour de toi.";
+      "Des fragments d'énergie résonnent autour de toi.";
 
-    roomVisual.innerHTML =
-      `<div class="temporary-symbol">◆</div>`;
+    setRoomImage(
+      VISUALS.crystalRoom,
+      "◆"
+    );
 
     roomActionBtn.textContent =
       "Collecter";
+
 
     roomActionBtn.onclick =
       () => {
@@ -1833,24 +2521,32 @@ function showRoom(type) {
 
       };
 
+
     return;
 
   }
 
 
-  if (type === "chest") {
+  /* COFFRE */
+
+  if (
+    type === "chest"
+  ) {
 
     roomTitle.textContent =
       "Salle du Coffre";
 
     roomDescription.textContent =
-      "Un coffre ancien attend d'être ouvert.";
+      "Un coffre ancien pulse au centre de la salle.";
 
-    roomVisual.innerHTML =
-      `<div class="temporary-symbol">▣</div>`;
+    setRoomImage(
+      VISUALS.chestRoom,
+      ""
+    );
 
     roomActionBtn.textContent =
       "Ouvrir le coffre";
+
 
     roomActionBtn.onclick =
       () => {
@@ -1864,24 +2560,32 @@ function showRoom(type) {
 
       };
 
+
     return;
 
   }
 
 
-  if (type === "mist") {
+  /* BRUMES */
+
+  if (
+    type === "mist"
+  ) {
 
     roomTitle.textContent =
       "Salle des Brumes";
 
     roomDescription.textContent =
-      "La brume dissimule quelque chose.";
+      "Quelque chose bouge derrière le voile.";
 
-    roomVisual.innerHTML =
-      `<div class="temporary-symbol">☁</div>`;
+    setRoomImage(
+      VISUALS.mistRoom,
+      ""
+    );
 
     roomActionBtn.textContent =
       "Traverser";
+
 
     roomActionBtn.onclick =
       () => {
@@ -1889,7 +2593,10 @@ function showRoom(type) {
         const roll =
           Math.random();
 
-        if (roll < 0.55) {
+
+        if (
+          roll < 0.55
+        ) {
 
           const gain =
             randomInt(
@@ -1902,10 +2609,12 @@ function showRoom(type) {
           );
 
           showToast(
-            `La brume révèle ${gain} cristaux`
+            `+${gain} cristaux`
           );
 
-        } else if (roll < 0.8) {
+        } else if (
+          roll < 0.80
+        ) {
 
           restoreStability();
 
@@ -1915,30 +2624,43 @@ function showRoom(type) {
 
         }
 
-        if (run.stability > 0) {
+
+        if (
+          run.stability > 0
+        ) {
+
           nextStep();
+
         }
 
       };
+
 
     return;
 
   }
 
 
-  if (type === "sanctuary") {
+  /* SANCTUAIRE */
+
+  if (
+    type === "sanctuary"
+  ) {
 
     roomTitle.textContent =
       "Salle du Sanctuaire";
 
     roomDescription.textContent =
-      "Une énergie calme stabilise le Portail.";
+      "Une énergie ancienne stabilise ton passage.";
 
-    roomVisual.innerHTML =
-      `<div class="temporary-symbol">❋</div>`;
+    setRoomImage(
+      VISUALS.sanctuaryRoom,
+      ""
+    );
 
     roomActionBtn.textContent =
       "Recevoir l'énergie";
+
 
     roomActionBtn.onclick =
       () => {
@@ -1949,53 +2671,32 @@ function showRoom(type) {
 
       };
 
+
     return;
 
   }
 
 
-  if (type === "challenge") {
+  /* ÉPREUVE */
+
+  if (
+    type === "challenge"
+  ) {
 
     roomTitle.textContent =
       "Salle d'Épreuve";
 
     roomDescription.textContent =
-      "Le NEXUS teste ta concentration.";
+      "Le NEXUS te soumet à une épreuve.";
 
-    roomVisual.innerHTML =
-      `<div class="temporary-symbol">◈</div>`;
+    setRoomImage(
+      VISUALS.challenge,
+      "◈"
+    );
 
     roomActionBtn.textContent =
       "Commencer l'épreuve";
 
-    roomActionBtn.onclick =
-      () => {
-
-        startRandomChallenge(
-          false,
-          nextStep
-        );
-
-      };
-
-    return;
-
-  }
-
-
-  if (type === "obstacle") {
-
-    roomTitle.textContent =
-      "Salle de l'Obstacle";
-
-    roomDescription.textContent =
-      "Le passage devient instable.";
-
-    roomVisual.innerHTML =
-      `<div class="temporary-symbol">⚠</div>`;
-
-    roomActionBtn.textContent =
-      "Affronter l'obstacle";
 
     roomActionBtn.onclick =
       () => {
@@ -2003,16 +2704,6 @@ function showRoom(type) {
         startRandomChallenge(
           false,
           () => {
-
-            const bonus =
-              randomInt(
-                5,
-                12
-              );
-
-            addRunCrystals(
-              bonus
-            );
 
             nextStep();
 
@@ -2021,76 +2712,174 @@ function showRoom(type) {
 
       };
 
+
     return;
 
   }
 
 
-  if (type === "forbidden") {
+  /* OBSTACLE */
+
+  if (
+    type === "obstacle"
+  ) {
 
     roomTitle.textContent =
-      "Salle Interdite";
+      "Salle de l'Obstacle";
 
     roomDescription.textContent =
-      "Une énergie puissante protège un trésor ancien.";
+      "Le passage est instable. Traverse-le.";
 
-    roomVisual.innerHTML =
-      `<div class="temporary-symbol">✦</div>`;
+    setRoomImage(
+      VISUALS.forbiddenRoom,
+      "⚠"
+    );
 
     roomActionBtn.textContent =
-      "Entrer";
+      "Affronter l'obstacle";
+
 
     roomActionBtn.onclick =
       () => {
 
         startRandomChallenge(
-          true,
-          () => {
+          false,
+          success => {
 
-            const gain =
-              randomInt(
-                12,
-                24
+            if (
+              success
+            ) {
+
+              const bonus =
+                randomInt(
+                  5,
+                  12
+                );
+
+              addRunCrystals(
+                bonus
               );
 
-            addRunCrystals(
-              gain
-            );
+              showToast(
+                `+${bonus} cristaux`
+              );
 
-            giveRandomReward(
-              randomRareRarity(),
-              nextStep
-            );
+            }
+
+
+            if (
+              run.stability > 0
+            ) {
+
+              nextStep();
+
+            }
 
           }
         );
 
       };
 
+
     return;
 
   }
 
 
-  if (type === "secret") {
+  /* INTERDITE */
+
+  if (
+    type === "forbidden"
+  ) {
+
+    roomTitle.textContent =
+      "Salle Interdite";
+
+    roomDescription.textContent =
+      "Une énergie dangereuse protège un trésor rare.";
+
+    setRoomImage(
+      VISUALS.forbiddenRoom,
+      "✦"
+    );
+
+    roomActionBtn.textContent =
+      "Entrer";
+
+
+    roomActionBtn.onclick =
+      () => {
+
+        startRandomChallenge(
+          true,
+          success => {
+
+            if (
+              success
+            ) {
+
+              const gain =
+                randomInt(
+                  12,
+                  24
+                );
+
+              addRunCrystals(
+                gain
+              );
+
+
+              giveRandomReward(
+                randomRareRarity(),
+                nextStep
+              );
+
+            } else if (
+              run.stability > 0
+            ) {
+
+              nextStep();
+
+            }
+
+          }
+        );
+
+      };
+
+
+    return;
+
+  }
+
+
+  /* SECRÈTE */
+
+  if (
+    type === "secret"
+  ) {
 
     roomTitle.textContent =
       "Salle Secrète";
 
     roomDescription.textContent =
-      "Tu viens de découvrir un passage extrêmement rare.";
+      "Un passage oublié vient de s'ouvrir.";
 
-    roomVisual.innerHTML =
-      `<div class="temporary-symbol">✶</div>`;
+    setRoomImage(
+      VISUALS.secretRoom,
+      "✶"
+    );
 
     roomActionBtn.textContent =
       "Découvrir le secret";
+
 
     roomActionBtn.onclick =
       () => {
 
         giveRandomReward(
-          Math.random() < 0.3
+          Math.random() <
+            0.30
             ? "legendary"
             : "epic",
           nextStep
@@ -2109,14 +2898,25 @@ function showRoom(type) {
 
 function nextStep() {
 
-  if (!run.active) {
+  if (
+    !run.active
+  ) {
+
     return;
+
   }
 
 
-  if (run.stability <= 0) {
-    endAscension(false);
+  if (
+    run.stability <= 0
+  ) {
+
+    endAscension(
+      false
+    );
+
     return;
+
   }
 
 
@@ -2140,7 +2940,7 @@ function nextStep() {
 
   if (
     run.currentStep >=
-    run.maxSteps
+      run.maxSteps
   ) {
 
     finalTreasure();
@@ -2165,18 +2965,25 @@ function finalTreasure() {
     "Trésor final";
 
   roomDescription.textContent =
-    "Le Portail reconnaît ton passage.";
+    "Le NEXUS reconnaît ton passage.";
 
-  roomVisual.innerHTML =
-    `<div class="temporary-symbol">◆</div>`;
-
-  pathChoices.classList.add(
-    "hidden"
+  setRoomImage(
+    VISUALS.reward,
+    ""
   );
 
-  roomActionZone.classList.remove(
-    "hidden"
-  );
+
+  pathChoices
+    .classList
+    .add(
+      "hidden"
+    );
+
+  roomActionZone
+    .classList
+    .remove(
+      "hidden"
+    );
 
   roomActionBtn.textContent =
     "Ouvrir le trésor";
@@ -2193,11 +3000,7 @@ function finalTreasure() {
 
       giveRandomReward(
         rarity,
-        () => {
-
-          completeAscension();
-
-        }
+        completeAscension
       );
 
     };
@@ -2215,14 +3018,24 @@ function getFinalRarity() {
     Math.random();
 
 
-  if (run.stability === 3) {
+  if (
+    run.stability === 3
+  ) {
 
-    if (roll < 0.08) {
+    if (
+      roll < 0.08
+    ) {
+
       return "epic";
+
     }
 
-    if (roll < 0.35) {
+    if (
+      roll < 0.35
+    ) {
+
       return "rare";
+
     }
 
     return "uncommon";
@@ -2230,10 +3043,16 @@ function getFinalRarity() {
   }
 
 
-  if (run.stability === 2) {
+  if (
+    run.stability === 2
+  ) {
 
-    if (roll < 0.2) {
+    if (
+      roll < 0.20
+    ) {
+
       return "rare";
+
     }
 
     return "uncommon";
@@ -2247,12 +3066,15 @@ function getFinalRarity() {
 
 
 /* =========================================================
-   CRISTAUX PARTIE
+   CRISTAUX
 ========================================================= */
 
-function addRunCrystals(amount) {
+function addRunCrystals(
+  amount
+) {
 
-  run.crystals += amount;
+  run.crystals +=
+    amount;
 
   runCrystals.textContent =
     run.crystals;
@@ -2266,7 +3088,9 @@ function addRunCrystals(amount) {
 
 function restoreStability() {
 
-  if (run.stability >= 3) {
+  if (
+    run.stability >= 3
+  ) {
 
     showToast(
       "Stabilité déjà maximale"
@@ -2291,26 +3115,33 @@ function restoreStability() {
 function loseStability() {
 
   if (
-    run.power === "shield" &&
-    run.shieldUsed === false
+    run.power ===
+      "shield" &&
+    run.shieldUsed ===
+      false
   ) {
 
-    run.shieldUsed = true;
+    run.shieldUsed =
+      true;
 
     showToast(
       "Bouclier runique activé"
     );
 
     return;
+
   }
 
 
   run.stability--;
 
+
   updateStabilityUI();
 
 
-  if (run.stability <= 0) {
+  if (
+    run.stability <= 0
+  ) {
 
     showToast(
       "Le Portail s'effondre"
@@ -2318,7 +3149,11 @@ function loseStability() {
 
     setTimeout(
       () => {
-        endAscension(false);
+
+        endAscension(
+          false
+        );
+
       },
       650
     );
@@ -2344,80 +3179,75 @@ function updateStabilityUI() {
     run.stability;
 
 
-  const crystals =
-    document.querySelectorAll(
+  document
+    .querySelectorAll(
       ".stability-crystal"
-    );
+    )
+    .forEach(
+      (
+        crystal,
+        index
+      ) => {
 
-
-  crystals.forEach(
-    (crystal, index) => {
-
-      if (
-        index <
-        run.stability
-      ) {
-
-        crystal.classList.add(
-          "active"
-        );
-
-      } else {
-
-        crystal.classList.remove(
-          "active"
+        crystal.classList.toggle(
+          "active",
+          index <
+            run.stability
         );
 
       }
-
-    }
-  );
+    );
 
 
-  runicStability.classList.remove(
-    "fragile",
-    "critical",
-    "collapsed"
-  );
+  runicStability
+    .classList
+    .remove(
+      "fragile",
+      "critical",
+      "collapsed"
+    );
 
 
-  if (run.stability === 3) {
+  if (
+    run.stability === 3
+  ) {
 
     stabilityMessage.textContent =
       "Le portail est parfaitement stable.";
 
-  }
+  } else if (
+    run.stability === 2
+  ) {
 
-
-  if (run.stability === 2) {
-
-    runicStability.classList.add(
-      "fragile"
-    );
+    runicStability
+      .classList
+      .add(
+        "fragile"
+      );
 
     stabilityMessage.textContent =
       "Le portail commence à vaciller.";
 
-  }
+  } else if (
+    run.stability === 1
+  ) {
 
-
-  if (run.stability === 1) {
-
-    runicStability.classList.add(
-      "critical"
-    );
+    runicStability
+      .classList
+      .add(
+        "critical"
+      );
 
     stabilityMessage.textContent =
       "La résonance est critique.";
 
-  }
+  } else {
 
-
-  if (run.stability <= 0) {
-
-    runicStability.classList.add(
-      "collapsed"
-    );
+    runicStability
+      .classList
+      .add(
+        "collapsed"
+      );
 
     stabilityMessage.textContent =
       "Le portail s'est effondré.";
@@ -2444,13 +3274,17 @@ function updateRunUI() {
     run.crystals;
 
 
-  if (run.power === "shield") {
+  if (
+    run.power ===
+      "shield"
+  ) {
 
     activePowerText.textContent =
       "Bouclier";
 
   } else if (
-    run.power === "vision"
+    run.power ===
+      "vision"
   ) {
 
     activePowerText.textContent =
@@ -2475,93 +3309,121 @@ function updateRunUI() {
 
 function startRandomChallenge(
   hardMode = false,
-  successCallback = null
+  callback = null
 ) {
 
-  const challengeTypes = [
+  challengeOverlay
+    .classList
+    .remove(
+      "hidden"
+    );
+
+
+  const challengeCard =
+    challengeOverlay
+      .querySelector(
+        ".challenge-card"
+      );
+
+
+  challengeCard.style.backgroundImage =
+    `
+      linear-gradient(
+        180deg,
+        rgba(3,10,15,0.18),
+        rgba(3,10,15,0.86)
+      ),
+      url("${VISUALS.challenge}")
+    `;
+
+  challengeCard.style.backgroundSize =
+    "cover";
+
+  challengeCard.style.backgroundPosition =
+    "center";
+
+
+  challengeContinueBtn
+    .classList
+    .add(
+      "hidden"
+    );
+
+
+  const challenges = [
     "memory",
     "different",
-    "choice"
+    "seal"
   ];
 
 
   const selected =
-    challengeTypes[
+    challenges[
       Math.floor(
         Math.random() *
-        challengeTypes.length
+        challenges.length
       )
     ];
 
 
-  challengeOverlay.classList.remove(
-    "hidden"
-  );
-
-
-  challengeContinueBtn.classList.add(
-    "hidden"
-  );
-
-
-  if (selected === "memory") {
+  if (
+    selected === "memory"
+  ) {
 
     challengeMemory(
       hardMode,
-      successCallback
+      callback
     );
 
-    return;
-  }
-
-
-  if (selected === "different") {
+  } else if (
+    selected ===
+      "different"
+  ) {
 
     challengeDifferent(
       hardMode,
-      successCallback
+      callback
     );
 
-    return;
+  } else {
+
+    challengeSeal(
+      hardMode,
+      callback
+    );
+
   }
-
-
-  challengeChoice(
-    hardMode,
-    successCallback
-  );
 
 }
 
 
 /* =========================================================
-   ÉPREUVE MÉMOIRE
+   MÉMOIRE
 ========================================================= */
 
 function challengeMemory(
   hardMode,
-  successCallback
+  callback
 ) {
 
   challengeType.textContent =
-    "Mémoire";
+    "Mémoire runique";
 
   challengeTitle.textContent =
-    "Mémorise le symbole";
+    "Mémorise le cristal";
 
   challengeInstructions.textContent =
-    "Observe puis retrouve le bon symbole.";
+    "Observe son symbole avant qu'il ne disparaisse.";
 
 
-  const symbols =
-    [
-      "◆",
-      "◈",
-      "✦",
-      "◎",
-      "◇",
-      "❋"
-    ];
+  const symbols = [
+    "◆",
+    "◈",
+    "✦",
+    "◎",
+    "◇",
+    "❋"
+  ];
 
 
   const correct =
@@ -2575,141 +3437,162 @@ function challengeMemory(
 
   challengeArea.innerHTML =
     `
-    <div
-      id="memorySymbol"
-      style="
-        font-size:4rem;
-        color:#67f8ea;
-      "
-    >
-      ${correct}
-    </div>
+      <div
+        style="
+          width:120px;
+          height:160px;
+          display:grid;
+          place-items:center;
+          font-size:5rem;
+          color:#7cfff1;
+          text-shadow:
+            0 0 20px #6af9ea,
+            0 0 50px #68b8ff;
+        "
+      >
+        ${correct}
+      </div>
     `;
-
-
-  const delay =
-    hardMode
-      ? 1200
-      : 1800;
 
 
   setTimeout(
     () => {
 
       const options =
-        shuffleArray(
-          [
+        shuffleArray([
+          correct,
+
+          ...pickOtherSymbols(
+            symbols,
             correct,
-            ...pickOtherSymbols(
-              symbols,
-              correct,
-              3
-            )
-          ]
-        );
+            hardMode
+              ? 4
+              : 3
+          )
+        ]);
 
 
       challengeArea.innerHTML =
-        options
-          .map(
-            symbol => `
-              <button
-                class="challenge-choice"
-                data-answer="${symbol}"
-                style="
-                  margin:6px;
-                  min-width:60px;
-                  min-height:60px;
-                  border-radius:14px;
-                  border:1px solid rgba(255,255,255,.12);
-                  background:rgba(255,255,255,.05);
-                  color:white;
-                  font-size:1.8rem;
-                "
-              >
-                ${symbol}
-              </button>
-            `
-          )
-          .join("");
+        `
+          <div
+            style="
+              display:grid;
+              grid-template-columns:
+                repeat(2,90px);
+              gap:16px;
+              justify-content:center;
+            "
+          >
+
+            ${
+              options.map(
+                symbol => `
+                  <button
+                    class="challenge-memory-button"
+                    data-answer="${symbol}"
+                    style="
+                      width:90px;
+                      height:90px;
+                      border-radius:24px;
+                      border:
+                        1px solid rgba(106,249,234,.30);
+                      background:
+                        radial-gradient(
+                          circle,
+                          rgba(106,249,234,.15),
+                          rgba(7,25,34,.88)
+                        );
+                      color:#7cfff1;
+                      font-size:2.5rem;
+                      box-shadow:
+                        0 0 20px rgba(106,249,234,.08);
+                    "
+                  >
+                    ${symbol}
+                  </button>
+                `
+              ).join("")
+            }
+
+          </div>
+        `;
 
 
       challengeArea
         .querySelectorAll(
-          ".challenge-choice"
+          ".challenge-memory-button"
         )
-        .forEach(button => {
+        .forEach(
+          button => {
 
-          button.addEventListener(
-            "click",
-            () => {
+            button.addEventListener(
+              "click",
+              () => {
 
-              const success =
-                button.dataset.answer ===
-                correct;
+                resolveChallenge(
+                  button.dataset.answer ===
+                    correct,
+                  callback
+                );
 
+              }
+            );
 
-              resolveChallenge(
-                success,
-                successCallback
-              );
-
-            }
-          );
-
-        });
+          }
+        );
 
     },
-    delay
+    hardMode
+      ? 1200
+      : 1800
   );
 
 }
 
 
 /* =========================================================
-   ÉPREUVE SYMBOLE DIFFÉRENT
+   INTRUS
 ========================================================= */
 
 function challengeDifferent(
   hardMode,
-  successCallback
+  callback
 ) {
 
   challengeType.textContent =
-    "Observation";
+    "Observation runique";
 
   challengeTitle.textContent =
-    "Trouve l'intrus";
+    "Trouve la rune instable";
 
   challengeInstructions.textContent =
-    "Un symbole est différent des autres.";
+    "Une seule rune ne résonne pas comme les autres.";
 
-
-  const normal =
-    "◆";
-
-  const different =
-    "◇";
 
   const count =
     hardMode
-      ? 12
-      : 9;
+      ? 15
+      : 12;
 
   const target =
-    Math.floor(
-      Math.random() *
-      count
+    randomInt(
+      0,
+      count - 1
     );
 
 
   let html =
-    `<div style="
-      display:grid;
-      grid-template-columns:repeat(3,60px);
-      gap:10px;
-      justify-content:center;
-    ">`;
+    `
+      <div
+        style="
+          display:grid;
+          grid-template-columns:
+            repeat(3,72px);
+          gap:12px;
+          justify-content:center;
+        "
+      >
+    `;
 
 
   for (
@@ -2718,31 +3601,42 @@ function challengeDifferent(
     i++
   ) {
 
-    html += `
-      <button
-        class="challenge-different"
-        data-correct="${
-          i === target
-            ? "yes"
-            : "no"
-        }"
-        style="
-          width:60px;
-          height:60px;
-          border-radius:14px;
-          border:1px solid rgba(255,255,255,.12);
-          background:rgba(255,255,255,.05);
-          color:#67f8ea;
-          font-size:1.8rem;
-        "
-      >
-        ${
-          i === target
-            ? different
-            : normal
-        }
-      </button>
-    `;
+    html +=
+      `
+        <button
+          class="challenge-rune"
+          data-correct="${
+            i === target
+              ? "yes"
+              : "no"
+          }"
+          style="
+            width:72px;
+            height:72px;
+            border-radius:18px;
+            border:
+              1px solid rgba(106,249,234,.25);
+            background:
+              radial-gradient(
+                circle,
+                rgba(106,249,234,.12),
+                rgba(5,23,32,.90)
+              );
+            color:#6af9ea;
+            font-size:2rem;
+            box-shadow:
+              inset 0 0 20px rgba(106,249,234,.04);
+          "
+        >
+
+          ${
+            i === target
+              ? "◇"
+              : "◆"
+          }
+
+        </button>
+      `;
 
   }
 
@@ -2756,126 +3650,153 @@ function challengeDifferent(
 
   challengeArea
     .querySelectorAll(
-      ".challenge-different"
+      ".challenge-rune"
     )
-    .forEach(button => {
+    .forEach(
+      button => {
 
-      button.addEventListener(
-        "click",
-        () => {
+        button.addEventListener(
+          "click",
+          () => {
 
-          resolveChallenge(
-            button.dataset.correct ===
-            "yes",
-            successCallback
-          );
+            resolveChallenge(
+              button.dataset.correct ===
+                "yes",
+              callback
+            );
 
-        }
-      );
+          }
+        );
 
-    });
+      }
+    );
 
 }
 
 
 /* =========================================================
-   ÉPREUVE CHOIX
+   SCEAUX
 ========================================================= */
 
-function challengeChoice(
+function challengeSeal(
   hardMode,
-  successCallback
+  callback
 ) {
 
   challengeType.textContent =
-    "Intuition";
+    "Résonance";
 
   challengeTitle.textContent =
-    "Choisis le bon sceau";
+    "Choisis le sceau vivant";
 
   challengeInstructions.textContent =
-    "Un seul sceau est accordé à la fréquence du Portail.";
+    "Un seul sceau contient l'énergie du NEXUS.";
 
 
-  const buttonsCount =
+  const seals = [
+    "✦",
+    "◆",
+    "◎",
+    "◈"
+  ];
+
+
+  const count =
     hardMode
       ? 4
       : 3;
 
+
   const correct =
-    Math.floor(
-      Math.random() *
-      buttonsCount
+    randomInt(
+      0,
+      count - 1
     );
 
 
-  let html =
-    `<div style="
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-      justify-content:center;
-    ">`;
-
-
-  for (
-    let i = 0;
-    i < buttonsCount;
-    i++
-  ) {
-
-    html += `
-      <button
-        class="challenge-seal"
-        data-correct="${
-          i === correct
-            ? "yes"
-            : "no"
-        }"
+  challengeArea.innerHTML =
+    `
+      <div
         style="
-          width:72px;
-          height:72px;
-          border-radius:50%;
-          border:1px solid rgba(103,248,234,.25);
-          background:rgba(255,255,255,.04);
-          color:#67f8ea;
-          font-size:2rem;
+          display:flex;
+          flex-wrap:wrap;
+          gap:18px;
+          justify-content:center;
         "
       >
-        ${["✦","◆","◎","◈"][i]}
-      </button>
+
+        ${
+          seals
+            .slice(
+              0,
+              count
+            )
+            .map(
+              (
+                seal,
+                index
+              ) => `
+
+                <button
+                  class="challenge-seal"
+                  data-correct="${
+                    index ===
+                      correct
+                      ? "yes"
+                      : "no"
+                  }"
+                  style="
+                    width:100px;
+                    height:100px;
+                    border-radius:50%;
+                    border:
+                      1px solid rgba(169,134,255,.36);
+                    background:
+                      radial-gradient(
+                        circle,
+                        rgba(169,134,255,.15),
+                        rgba(5,18,31,.92)
+                      );
+                    color:#a986ff;
+                    font-size:2.6rem;
+                    box-shadow:
+                      0 0 24px rgba(169,134,255,.12);
+                  "
+                >
+                  ${seal}
+                </button>
+
+              `
+            )
+            .join("")
+        }
+
+      </div>
     `;
-
-  }
-
-
-  html += "</div>";
-
-
-  challengeArea.innerHTML =
-    html;
 
 
   challengeArea
     .querySelectorAll(
       ".challenge-seal"
     )
-    .forEach(button => {
+    .forEach(
+      button => {
 
-      button.addEventListener(
-        "click",
-        () => {
+        button.addEventListener(
+          "click",
+          () => {
 
-          resolveChallenge(
-            button.dataset.correct ===
-            "yes",
-            successCallback
-          );
+            resolveChallenge(
+              button.dataset.correct ===
+                "yes",
+              callback
+            );
 
-        }
-      );
+          }
+        );
 
-    });
+      }
+    );
 
 }
 
@@ -2886,64 +3807,66 @@ function challengeChoice(
 
 function resolveChallenge(
   success,
-  successCallback
+  callback
 ) {
 
-  challengeArea.innerHTML =
-    success
-      ? `
-        <div style="
-          text-align:center;
-          font-size:1.2rem;
-          color:#82f2ba;
-        ">
-          ✦ Résonance réussie
-        </div>
-      `
-      : `
-        <div style="
-          text-align:center;
-          font-size:1.2rem;
-          color:#ffba78;
-        ">
-          Le Portail vacille
-        </div>
-      `;
-
-
-  if (!success) {
+  if (
+    !success
+  ) {
 
     loseStability();
 
   }
 
 
-  challengeContinueBtn.classList.remove(
-    "hidden"
-  );
+  challengeArea.innerHTML =
+    success
+      ? `
+        <div
+          style="
+            font-size:1.3rem;
+            font-weight:800;
+            color:#82f2ba;
+            text-shadow:
+              0 0 20px rgba(130,242,186,.35);
+          "
+        >
+          ✦ Résonance réussie
+        </div>
+      `
+      : `
+        <div
+          style="
+            font-size:1.3rem;
+            font-weight:800;
+            color:#ffba78;
+          "
+        >
+          Le Portail vacille
+        </div>
+      `;
+
+
+  challengeContinueBtn
+    .classList
+    .remove(
+      "hidden"
+    );
 
 
   challengeContinueBtn.onclick =
     () => {
 
-      challengeOverlay.classList.add(
-        "hidden"
-      );
+      challengeOverlay
+        .classList
+        .add(
+          "hidden"
+        );
 
 
       if (
         run.stability <= 0
       ) {
-        return;
-      }
-
-
-      if (
-        success &&
-        successCallback
-      ) {
-
-        successCallback();
 
         return;
 
@@ -2951,18 +3874,14 @@ function resolveChallenge(
 
 
       if (
-        !success &&
-        successCallback
+        callback
       ) {
 
-        successCallback();
-
-        return;
+        callback(
+          success
+        );
 
       }
-
-
-      nextStep();
 
     };
 
@@ -2975,52 +3894,57 @@ function resolveChallenge(
 
 function openGuardian() {
 
-  guardianOverlay.classList.remove(
-    "hidden"
-  );
-const world =
-  getCurrentWorld();
+  const world =
+    getCurrentWorld();
 
-guardianMessage.textContent =
-  `${world.guardian} exige deux victoires sur trois.`;
 
-const guardianCard =
-  guardianOverlay.querySelector(
-    ".guardian-card"
-  );
+  guardianOverlay
+    .classList
+    .remove(
+      "hidden"
+    );
 
-guardianCard.style.backgroundImage =
-  `
-    linear-gradient(
-      rgba(3, 10, 15, 0.28),
-      rgba(3, 10, 15, 0.86)
-    ),
-    url("${world.guardianImage}")
-  `;
 
-guardianCard.style.backgroundSize =
-  "cover";
+  const guardianCard =
+    guardianOverlay
+      .querySelector(
+        ".guardian-card"
+      );
 
-guardianCard.style.backgroundPosition =
-  "center";
 
-  run.guardianWins = 0;
-  run.guardianRounds = 0;
+  guardianCard.style.backgroundImage =
+    `
+      linear-gradient(
+        180deg,
+        rgba(2,7,12,0.10),
+        rgba(2,7,12,0.84)
+      ),
+      url("${world.guardianImage}")
+    `;
+
+  guardianCard.style.backgroundSize =
+    "cover";
+
+  guardianCard.style.backgroundPosition =
+    "center";
+
+
+  run.guardianWins =
+    0;
+
+  run.guardianRounds =
+    0;
+
+
+  guardianMessage.textContent =
+    `${world.guardian} exige deux victoires sur trois.`;
 
 
   updateGuardianUI();
 
 
-  guardianMessage.textContent =
-    "Le Gardien exige deux victoires sur trois.";
-
-
-  startGuardianBtn.disabled =
-    false;
-
   startGuardianBtn.textContent =
     "Affronter le Gardien";
-
 
   startGuardianBtn.onclick =
     guardianRound;
@@ -3028,72 +3952,36 @@ guardianCard.style.backgroundPosition =
 }
 
 
-/* =========================================================
-   MANCHE GARDIEN
-========================================================= */
-
 function guardianRound() {
 
-  if (
-    run.guardianWins >= 2
-  ) {
-    guardianVictory();
-    return;
-  }
-
-
-  if (
-    run.guardianRounds >= 3
-  ) {
-
-    guardianDefeat();
-
-    return;
-  }
-
-
-  guardianOverlay.classList.add(
-    "hidden"
-  );
-
-
-  startGuardianChallenge();
-
-}
-
-
-/* =========================================================
-   ÉPREUVE GARDIEN
-========================================================= */
-
-function startGuardianChallenge() {
-
-  const beforeStability =
-    run.stability;
+  guardianOverlay
+    .classList
+    .add(
+      "hidden"
+    );
 
 
   startRandomChallenge(
     true,
-    () => {
-
-      const success =
-        run.stability ===
-        beforeStability;
-
+    success => {
 
       run.guardianRounds++;
 
 
-      if (success) {
+      if (
+        success
+      ) {
 
         run.guardianWins++;
 
       }
 
 
-      guardianOverlay.classList.remove(
-        "hidden"
-      );
+      guardianOverlay
+        .classList
+        .remove(
+          "hidden"
+        );
 
 
       updateGuardianUI();
@@ -3151,10 +4039,6 @@ function startGuardianChallenge() {
 }
 
 
-/* =========================================================
-   UI GARDIEN
-========================================================= */
-
 function updateGuardianUI() {
 
   guardianWins.textContent =
@@ -3166,18 +4050,16 @@ function updateGuardianUI() {
 }
 
 
-/* =========================================================
-   VICTOIRE GARDIEN
-========================================================= */
-
 function guardianVictory() {
 
-  guardianOverlay.classList.add(
-    "hidden"
-  );
+  guardianOverlay
+    .classList
+    .add(
+      "hidden"
+    );
 
-
-  run.currentStep = 8;
+  run.currentStep =
+    8;
 
   updateRunUI();
 
@@ -3186,23 +4068,23 @@ function guardianVictory() {
 }
 
 
-/* =========================================================
-   DÉFAITE GARDIEN
-========================================================= */
-
 function guardianDefeat() {
 
-  guardianOverlay.classList.add(
-    "hidden"
-  );
+  guardianOverlay
+    .classList
+    .add(
+      "hidden"
+    );
 
-  endAscension(false);
+  endAscension(
+    false
+  );
 
 }
 
 
 /* =========================================================
-   RÉCOMPENSE ALÉATOIRE
+   RÉCOMPENSE
 ========================================================= */
 
 function giveRandomReward(
@@ -3211,21 +4093,28 @@ function giveRandomReward(
 ) {
 
   const pool =
-    REWARD_ITEMS[rarity];
+    REWARD_ITEMS[
+      rarity
+    ];
 
 
-  const reward =
-    {
-      ...pool[
-        Math.floor(
-          Math.random() *
-          pool.length
-        )
-      ],
-      rarity: rarity,
-      obtainedAt:
-        new Date().toISOString()
-    };
+  const reward = {
+
+    ...pool[
+      Math.floor(
+        Math.random() *
+        pool.length
+      )
+    ],
+
+    rarity:
+      rarity,
+
+    obtainedAt:
+      new Date()
+        .toISOString()
+
+  };
 
 
   collection.push(
@@ -3235,17 +4124,13 @@ function giveRandomReward(
   savePermanentData();
 
 
-  const rarityLabel =
-    getRarityLabel(
-      rarity
-    );
-
-
   rewardBigIcon.textContent =
     reward.icon;
 
   rewardRarity.textContent =
-    rarityLabel;
+    getRarityLabel(
+      rarity
+    );
 
   rewardTitle.textContent =
     reward.name;
@@ -3254,20 +4139,53 @@ function giveRandomReward(
     `${reward.type} ajouté au Sanctuaire.`;
 
 
-  rewardOverlay.classList.remove(
-    "hidden"
-  );
+  const rewardCard =
+    rewardOverlay
+      .querySelector(
+        ".reward-modal"
+      );
+
+
+  rewardCard.style.backgroundImage =
+    `
+      linear-gradient(
+        180deg,
+        rgba(3,8,14,0.10),
+        rgba(3,8,14,0.86)
+      ),
+      url("${VISUALS.reward}")
+    `;
+
+  rewardCard.style.backgroundSize =
+    "cover";
+
+  rewardCard.style.backgroundPosition =
+    "center";
+
+
+  rewardOverlay
+    .classList
+    .remove(
+      "hidden"
+    );
 
 
   rewardContinueBtn.onclick =
     () => {
 
-      rewardOverlay.classList.add(
-        "hidden"
-      );
+      rewardOverlay
+        .classList
+        .add(
+          "hidden"
+        );
 
-      if (callback) {
+
+      if (
+        callback
+      ) {
+
         callback();
+
       }
 
     };
@@ -3276,30 +4194,43 @@ function giveRandomReward(
 
 
 /* =========================================================
-   RARETÉ SELON CHEMIN
+   RARETÉ
 ========================================================= */
 
-function getRewardRarity(path) {
+function getRewardRarity(
+  path
+) {
 
   const roll =
     Math.random();
 
 
-  if (path === "forbidden") {
+  if (
+    path ===
+      "forbidden"
+  ) {
 
-    if (roll < 0.05) {
+    if (
+      roll < 0.05
+    ) {
       return "legendary";
     }
 
-    if (roll < 0.18) {
+    if (
+      roll < 0.18
+    ) {
       return "epic";
     }
 
-    if (roll < 0.48) {
+    if (
+      roll < 0.48
+    ) {
       return "rare";
     }
 
-    if (roll < 0.8) {
+    if (
+      roll < 0.80
+    ) {
       return "uncommon";
     }
 
@@ -3308,17 +4239,26 @@ function getRewardRarity(path) {
   }
 
 
-  if (path === "crystal") {
+  if (
+    path ===
+      "crystal"
+  ) {
 
-    if (roll < 0.04) {
+    if (
+      roll < 0.04
+    ) {
       return "epic";
     }
 
-    if (roll < 0.22) {
+    if (
+      roll < 0.22
+    ) {
       return "rare";
     }
 
-    if (roll < 0.62) {
+    if (
+      roll < 0.62
+    ) {
       return "uncommon";
     }
 
@@ -3327,11 +4267,15 @@ function getRewardRarity(path) {
   }
 
 
-  if (roll < 0.12) {
+  if (
+    roll < 0.12
+  ) {
     return "rare";
   }
 
-  if (roll < 0.42) {
+  if (
+    roll < 0.42
+  ) {
     return "uncommon";
   }
 
@@ -3340,22 +4284,26 @@ function getRewardRarity(path) {
 }
 
 
-/* =========================================================
-   RARETÉ FORTE
-========================================================= */
-
 function randomRareRarity() {
 
   const roll =
     Math.random();
 
 
-  if (roll < 0.08) {
+  if (
+    roll < 0.08
+  ) {
+
     return "legendary";
+
   }
 
-  if (roll < 0.28) {
+  if (
+    roll < 0.28
+  ) {
+
     return "epic";
+
   }
 
   return "rare";
@@ -3363,23 +4311,34 @@ function randomRareRarity() {
 }
 
 
-/* =========================================================
-   LIBELLÉS RARETÉ
-========================================================= */
-
-function getRarityLabel(rarity) {
+function getRarityLabel(
+  rarity
+) {
 
   const labels = {
-    common: "Commun",
-    uncommon: "Peu commun",
-    rare: "Rare",
-    epic: "Épique",
-    legendary: "Légendaire"
+
+    common:
+      "Commun",
+
+    uncommon:
+      "Peu commun",
+
+    rare:
+      "Rare",
+
+    epic:
+      "Épique",
+
+    legendary:
+      "Légendaire"
+
   };
 
 
   return (
-    labels[rarity] ||
+    labels[
+      rarity
+    ] ||
     rarity
   );
 
@@ -3399,7 +4358,9 @@ function completeAscension() {
   stats.successfulAscensions++;
 
 
-  if (currentXP === 100) {
+  if (
+    currentXP === 100
+  ) {
 
     stats.perfectDays++;
 
@@ -3413,7 +4374,8 @@ function completeAscension() {
     ascensionLevel > 10
   ) {
 
-    ascensionLevel = 1;
+    ascensionLevel =
+      1;
 
     currentWorld++;
 
@@ -3423,7 +4385,8 @@ function completeAscension() {
       WORLDS.length
     ) {
 
-      currentWorld = 1;
+      currentWorld =
+        1;
 
     }
 
@@ -3432,22 +4395,28 @@ function completeAscension() {
 
   savePermanentData();
 
-
-  endAscension(true);
+  endAscension(
+    true
+  );
 
 }
 
 
 /* =========================================================
-   FIN ASCENSION
+   FIN
 ========================================================= */
 
-function endAscension(success) {
+function endAscension(
+  success
+) {
 
-  run.active = false;
+  run.active =
+    false;
 
 
-  if (!success) {
+  if (
+    !success
+  ) {
 
     totalPermanentCrystals +=
       run.crystals;
@@ -3457,7 +4426,9 @@ function endAscension(success) {
   }
 
 
-  if (success) {
+  if (
+    success
+  ) {
 
     endAscensionLabel.textContent =
       "Ascension réussie";
@@ -3492,9 +4463,11 @@ function endAscension(success) {
     )} / ${run.maxSteps}`;
 
 
-  endAscensionOverlay.classList.remove(
-    "hidden"
-  );
+  endAscensionOverlay
+    .classList
+    .remove(
+      "hidden"
+    );
 
 
   updateSanctuary();
@@ -3508,29 +4481,44 @@ function endAscension(success) {
 
 function updateSanctuary() {
 
+  sanctuaryScreen.style.backgroundImage =
+    `
+      linear-gradient(
+        180deg,
+        rgba(2,8,12,0.30),
+        rgba(2,8,12,0.82)
+      ),
+      url("${VISUALS.sanctuary}")
+    `;
+
+  sanctuaryScreen.style.backgroundSize =
+    "cover";
+
+  sanctuaryScreen.style.backgroundPosition =
+    "center";
+
+  sanctuaryScreen.style.backgroundAttachment =
+    "fixed";
+
+
   totalCrystals.textContent =
     totalPermanentCrystals;
 
 
-  const artifacts =
-    collection.filter(
-      item =>
-        item.type === "Artefact"
-    );
-
-
-  const creatures =
-    collection.filter(
-      item =>
-        item.type === "Créature"
-    );
-
-
   artifactCount.textContent =
-    artifacts.length;
+    collection.filter(
+      item =>
+        item.type ===
+          "Artefact"
+    ).length;
+
 
   creatureCount.textContent =
-    creatures.length;
+    collection.filter(
+      item =>
+        item.type ===
+          "Créature"
+    ).length;
 
 
   renderCollection();
@@ -3539,7 +4527,7 @@ function updateSanctuary() {
 
 
 /* =========================================================
-   AFFICHAGE COLLECTION
+   COLLECTION
 ========================================================= */
 
 function renderCollection() {
@@ -3550,9 +4538,13 @@ function renderCollection() {
 
     collectionGrid.innerHTML =
       `
-        <div class="empty-collection">
+        <div
+          class="empty-collection"
+        >
 
-          <div class="empty-symbol">
+          <div
+            class="empty-symbol"
+          >
             ◇
           </div>
 
@@ -3573,47 +4565,53 @@ function renderCollection() {
       .slice()
       .reverse()
       .map(
-        item => {
+        item => `
 
-          return `
-            <article
-              class="collection-item"
+          <article
+            class="collection-item"
+          >
+
+            <div
+              class="
+                collection-item-icon
+                rarity-${item.rarity}
+              "
             >
+              ${item.icon}
+            </div>
 
-              <div
-                class="collection-item-icon rarity-${item.rarity}"
-              >
-                ${item.icon}
-              </div>
+            <div
+              class="collection-item-name"
+            >
+              ${item.name}
+            </div>
 
-              <div
-                class="collection-item-name"
-              >
-                ${item.name}
-              </div>
-
-              <div
-                class="collection-item-rarity rarity-${item.rarity}"
-              >
-                ${getRarityLabel(
+            <div
+              class="
+                collection-item-rarity
+                rarity-${item.rarity}
+              "
+            >
+              ${
+                getRarityLabel(
                   item.rarity
-                )}
-              </div>
+                )
+              }
+            </div>
 
-              <div
-                style="
-                  margin-top:4px;
-                  font-size:.72rem;
-                  color:#718893;
-                "
-              >
-                ${item.type}
-              </div>
+            <div
+              style="
+                margin-top:4px;
+                font-size:.72rem;
+                color:#718893;
+              "
+            >
+              ${item.type}
+            </div>
 
-            </article>
-          `;
+          </article>
 
-        }
+        `
       )
       .join("");
 
@@ -3636,17 +4634,22 @@ function openConfirmation(
   confirmText.textContent =
     text;
 
-  confirmOverlay.classList.remove(
-    "hidden"
-  );
+
+  confirmOverlay
+    .classList
+    .remove(
+      "hidden"
+    );
 
 
   confirmActionBtn.onclick =
     () => {
 
-      confirmOverlay.classList.add(
-        "hidden"
-      );
+      confirmOverlay
+        .classList
+        .add(
+          "hidden"
+        );
 
       callback();
 
@@ -3663,6 +4666,7 @@ function resetToday() {
 
   habits = {};
 
+
   localStorage.setItem(
     STORAGE.habits,
     JSON.stringify({})
@@ -3675,6 +4679,7 @@ function resetToday() {
 
 
   updateDailyUI();
+
 
   showToast(
     "Journée réinitialisée"
@@ -3689,14 +4694,19 @@ function resetToday() {
 
 function resetAll() {
 
-  Object.values(STORAGE)
-    .forEach(key => {
+  Object
+    .values(
+      STORAGE
+    )
+    .forEach(
+      key => {
 
-      localStorage.removeItem(
-        key
-      );
+        localStorage.removeItem(
+          key
+        );
 
-    });
+      }
+    );
 
 
   habits = {};
@@ -3712,9 +4722,13 @@ function resetAll() {
   currentWorld = 1;
 
   stats = {
+
     totalAscensions: 0,
+
     successfulAscensions: 0,
+
     perfectDays: 0
+
   };
 
 
@@ -3727,7 +4741,6 @@ function resetAll() {
   updateDailyUI();
 
   updateSanctuary();
-
 
   showScreen(
     homeScreen
@@ -3745,17 +4758,23 @@ function resetAll() {
    TOAST
 ========================================================= */
 
-let toastTimeout = null;
+let toastTimeout =
+  null;
 
 
-function showToast(text) {
+function showToast(
+  text
+) {
 
   toastText.textContent =
     text;
 
-  toast.classList.add(
-    "show"
-  );
+
+  toast
+    .classList
+    .add(
+      "show"
+    );
 
 
   clearTimeout(
@@ -3767,9 +4786,11 @@ function showToast(text) {
     setTimeout(
       () => {
 
-        toast.classList.remove(
-          "show"
-        );
+        toast
+          .classList
+          .remove(
+            "show"
+          );
 
       },
       1800
@@ -3789,13 +4810,19 @@ function randomInt(
 
   return Math.floor(
     Math.random() *
-    (max - min + 1)
+    (
+      max -
+      min +
+      1
+    )
   ) + min;
 
 }
 
 
-function shuffleArray(array) {
+function shuffleArray(
+  array
+) {
 
   const copy =
     [...array];
@@ -3841,7 +4868,8 @@ function pickOtherSymbols(
   return shuffleArray(
     symbols.filter(
       symbol =>
-        symbol !== excluded
+        symbol !==
+          excluded
     )
   ).slice(
     0,
@@ -3851,10 +4879,16 @@ function pickOtherSymbols(
 }
 
 
-function capitalize(text) {
+function capitalize(
+  text
+) {
 
-  if (!text) {
+  if (
+    !text
+  ) {
+
     return "";
+
   }
 
 
