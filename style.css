@@ -3038,5 +3038,26 @@ p {
     );
 }
 
+.summary-object-image {
+  width: 46px;
+  height: 46px;
 
+  object-fit: contain;
+
+  margin: 0 auto 4px;
+
+  filter:
+    drop-shadow(
+      0 0 10px rgba(106,249,234,.25)
+    );
+}
+
+.crystal-summary {
+  background:
+    radial-gradient(
+      circle at 50% 20%,
+      rgba(106,249,234,.08),
+      rgba(3,15,22,.58)
+    );
+}
 
