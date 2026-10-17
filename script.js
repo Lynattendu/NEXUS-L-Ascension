@@ -2409,60 +2409,27 @@ function generateRoom(
    IMAGE DE SALLE
 ========================================================= */
 
-function setRoomImage(
-  image,
-  symbol = ""
-) {
+function setRoomImage(image, symbol = "") {
 
-  roomVisual.innerHTML =
-    `
-      <img
-        src="${image}"
-        alt=""
-        style="
-          position:absolute;
-          inset:0;
-          width:100%;
-          height:100%;
-          object-fit:cover;
-          object-position:center;
-          z-index:0;
-        "
-      >
+  roomVisual.innerHTML = `
+    <img
+      src="${image}"
+      alt=""
+      class="room-scene-image"
+    >
 
-      <div
-        style="
-          position:absolute;
-          inset:0;
-          z-index:1;
-          background:
-            linear-gradient(
-              180deg,
-              rgba(0,0,0,0.02),
-              rgba(0,0,0,0.25)
-            );
-        "
-      ></div>
-
-      ${
-        symbol
-          ? `
-            <div
-              class="temporary-symbol"
-              style="
-                position:relative;
-                z-index:2;
-              "
-            >
-              ${symbol}
-            </div>
-          `
-          : ""
-      }
-    `;
+    ${
+      symbol
+        ? `
+          <div class="temporary-symbol">
+            ${symbol}
+          </div>
+        `
+        : ""
+    }
+  `;
 
 }
-
 
 /* =========================================================
    SALLES
