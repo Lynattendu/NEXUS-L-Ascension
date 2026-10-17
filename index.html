@@ -1,1 +1,2260 @@
+<!DOCTYPE html>
+<html lang="fr">
 
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  >
+
+  <meta
+    name="theme-color"
+    content="#07151f"
+  >
+
+  <title>NEXUS VITAL — L'Ascension</title>
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     APPLICATION
+========================================================= -->
+
+<div
+  class="app"
+  id="app"
+>
+
+
+  <!-- =======================================================
+       ÉCRAN ACCUEIL / JOURNÉE
+  ======================================================== -->
+
+  <main
+    class="screen active"
+    id="homeScreen"
+  >
+
+
+    <!-- =====================================================
+         EN-TÊTE
+    ====================================================== -->
+
+    <header class="main-header">
+
+      <div class="brand-block">
+
+        <p class="eyebrow">
+          Programme quotidien
+        </p>
+
+        <h1>
+          NEXUS VITAL
+        </h1>
+
+        <p class="subtitle">
+          Nourris ton énergie. Ouvre le portail.
+        </p>
+
+      </div>
+
+
+      <button
+        class="icon-button"
+        id="openMenuBtn"
+        type="button"
+        aria-label="Ouvrir le menu"
+      >
+        ☰
+      </button>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         DATE DU JOUR
+    ====================================================== -->
+
+    <section class="day-card">
+
+      <p class="small-label">
+        Cycle actuel
+      </p>
+
+      <h2 id="todayLabel">
+        Aujourd'hui
+      </h2>
+
+      <p id="dayStatusText">
+        Une nouvelle résonance commence.
+      </p>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         NOYAU NEXUS / XP
+    ====================================================== -->
+
+    <section
+      class="nexus-core-section"
+      aria-labelledby="xpTitle"
+    >
+
+      <div class="nexus-core-wrapper">
+
+        <div
+          class="nexus-core"
+          id="nexusCore"
+        >
+
+          <div class="core-ring ring-one"></div>
+          <div class="core-ring ring-two"></div>
+          <div class="core-ring ring-three"></div>
+
+          <div class="core-center">
+
+            <span
+              class="xp-value"
+              id="xpValue"
+            >
+              0
+            </span>
+
+            <span class="xp-unit">
+              XP
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="xp-info">
+
+        <h2 id="xpTitle">
+          Résonance du jour
+        </h2>
+
+        <p
+          class="resonance-level"
+          id="resonanceLevel"
+        >
+          Résonance faible
+        </p>
+
+        <div
+          class="xp-bar"
+          aria-label="Progression quotidienne"
+        >
+
+          <div
+            class="xp-bar-fill"
+            id="xpBarFill"
+          ></div>
+
+        </div>
+
+        <p class="xp-progress-text">
+          <span id="xpCurrentText">0</span>
+          /
+          <span>100 XP</span>
+        </p>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         PALIERS DE RÉCOMPENSE
+    ====================================================== -->
+
+    <section class="rewards-section">
+
+      <div class="section-heading">
+
+        <div>
+
+          <p class="small-label">
+            Récompenses
+          </p>
+
+          <h2>
+            Paliers NEXUS
+          </h2>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="reward-track"
+        id="rewardTrack"
+      >
+
+
+        <!-- 30 XP -->
+
+        <article
+          class="reward-step"
+          data-threshold="30"
+        >
+
+          <div class="reward-icon">
+            ✦
+          </div>
+
+          <div class="reward-content">
+
+            <strong>
+              30 XP
+            </strong>
+
+            <span>
+              Fragment d'énergie
+            </span>
+
+          </div>
+
+          <div
+            class="reward-state"
+            data-reward-state="30"
+          >
+            Verrouillé
+          </div>
+
+        </article>
+
+
+
+        <!-- 50 XP -->
+
+        <article
+          class="reward-step"
+          data-threshold="50"
+        >
+
+          <div class="reward-icon">
+            ◈
+          </div>
+
+          <div class="reward-content">
+
+            <strong>
+              50 XP
+            </strong>
+
+            <span>
+              Épreuve bonus
+            </span>
+
+          </div>
+
+          <div
+            class="reward-state"
+            data-reward-state="50"
+          >
+            Verrouillé
+          </div>
+
+        </article>
+
+
+
+        <!-- 70 XP -->
+
+        <article
+          class="reward-step"
+          data-threshold="70"
+        >
+
+          <div class="reward-icon">
+            ◎
+          </div>
+
+          <div class="reward-content">
+
+            <strong>
+              70 XP
+            </strong>
+
+            <span>
+              Mini-Ascension
+            </span>
+
+          </div>
+
+          <div
+            class="reward-state"
+            data-reward-state="70"
+          >
+            Verrouillé
+          </div>
+
+        </article>
+
+
+
+        <!-- 90 XP -->
+
+        <article
+          class="reward-step"
+          data-threshold="90"
+        >
+
+          <div class="reward-icon">
+            ⚡
+          </div>
+
+          <div class="reward-content">
+
+            <strong>
+              90 XP
+            </strong>
+
+            <span>
+              Ascension complète + pouvoir
+            </span>
+
+          </div>
+
+          <div
+            class="reward-state"
+            data-reward-state="90"
+          >
+            Verrouillé
+          </div>
+
+        </article>
+
+
+
+        <!-- 100 XP -->
+
+        <article
+          class="reward-step rare-step"
+          data-threshold="100"
+        >
+
+          <div class="reward-icon">
+            ◆
+          </div>
+
+          <div class="reward-content">
+
+            <strong>
+              100 XP
+            </strong>
+
+            <span>
+              Coffre rare garanti
+            </span>
+
+          </div>
+
+          <div
+            class="reward-state"
+            data-reward-state="100"
+          >
+            Verrouillé
+          </div>
+
+        </article>
+
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         GRILLE QUOTIDIENNE
+    ====================================================== -->
+
+    <section class="daily-section">
+
+      <div class="section-heading">
+
+        <div>
+
+          <p class="small-label">
+            Objectifs du jour
+          </p>
+
+          <h2>
+            Alimente ton NEXUS
+          </h2>
+
+        </div>
+
+        <span
+          class="daily-count"
+          id="dailyCount"
+        >
+          0 / 12
+        </span>
+
+      </div>
+
+
+
+      <div
+        class="daily-grid"
+        id="dailyGrid"
+      >
+
+
+        <!-- =================================================
+             PETIT-DÉJEUNER
+        ================================================== -->
+
+        <article
+          class="habit-card"
+          data-habit="breakfast"
+          data-max="5"
+        >
+
+          <div class="habit-top">
+
+            <div class="habit-icon">
+              ☀
+            </div>
+
+            <div>
+
+              <h3>
+                Petit-déjeuner équilibré
+              </h3>
+
+              <p>
+                Maximum 5 XP
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="habit-actions">
+
+            <button
+              class="habit-choice success"
+              type="button"
+              data-value="5"
+            >
+              Réussi
+              <span>+5</span>
+            </button>
+
+            <button
+              class="habit-choice medium"
+              type="button"
+              data-value="3"
+            >
+              Moyen
+              <span>+3</span>
+            </button>
+
+            <button
+              class="habit-choice fail"
+              type="button"
+              data-value="0"
+            >
+              Non
+              <span>0</span>
+            </button>
+
+          </div>
+
+        </article>
+
+
+
+        <!-- =================================================
+             DÉJEUNER
+        ================================================== -->
+
+        <article
+          class="habit-card"
+          data-habit="lunch"
+          data-max="5"
+        >
+
+          <div class="habit-top">
+
+            <div class="habit-icon">
+              ◉
+            </div>
+
+            <div>
+
+              <h3>
+                Déjeuner équilibré
+              </h3>
+
+              <p>
+                Maximum 5 XP
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="habit-actions">
+
+            <button
+              class="habit-choice success"
+              type="button"
+              data-value="5"
+            >
+              Réussi
+              <span>+5</span>
+            </button>
+
+            <button
+              class="habit-choice medium"
+              type="button"
+              data-value="3"
+            >
+              Moyen
+              <span>+3</span>
+            </button>
+
+            <button
+              class="habit-choice fail"
+              type="button"
+              data-value="0"
+            >
+              Non
+              <span>0</span>
+            </button>
+
+          </div>
+
+        </article>
+
+
+
+        <!-- =================================================
+             DÎNER
+        ================================================== -->
+
+        <article
+          class="habit-card"
+          data-habit="dinner"
+          data-max="5"
+        >
+
+          <div class="habit-top">
+
+            <div class="habit-icon">
+              ☾
+            </div>
+
+            <div>
+
+              <h3>
+                Dîner équilibré
+              </h3>
+
+              <p>
+                Maximum 5 XP
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="habit-actions">
+
+            <button
+              class="habit-choice success"
+              type="button"
+              data-value="5"
+            >
+              Réussi
+              <span>+5</span>
+            </button>
+
+            <button
+              class="habit-choice medium"
+              type="button"
+              data-value="3"
+            >
+              Moyen
+              <span>+3</span>
+            </button>
+
+            <button
+              class="habit-choice fail"
+              type="button"
+              data-value="0"
+            >
+              Non
+              <span>0</span>
+            </button>
+
+          </div>
+
+        </article>
+
+
+
+        <!-- =================================================
+             QUANTITÉ
+        ================================================== -->
+
+        <article
+          class="habit-card"
+          data-habit="quantity"
+          data-max="10"
+        >
+
+          <div class="habit-top">
+
+            <div class="habit-icon">
+              ◌
+            </div>
+
+            <div>
+
+              <h3>
+                Quantité raisonnable
+              </h3>
+
+              <p>
+                Maximum 10 XP
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="habit-actions">
+
+            <button
+              class="habit-choice success"
+              type="button"
+              data-value="10"
+            >
+              Réussi
+              <span>+10</span>
+            </button>
+
+            <button
+              class="habit-choice medium"
+              type="button"
+              data-value="5"
+            >
+              Moyen
+              <span>+5</span>
+            </button>
+
+            <button
+              class="habit-choice fail"
+              type="button"
+              data-value="0"
+            >
+              Non
+              <span>0</span>
+            </button>
+
+          </div>
+
+        </article>
+
+
+
+        <!-- =================================================
+             MANGER DOUCEMENT
+        ================================================== -->
+
+        <article
+          class="habit-card"
+          data-habit="slow"
+          data-max="10"
+        >
+
+          <div class="habit-top">
+
+            <div class="habit-icon">
+              ◐
+            </div>
+
+            <div>
+
+              <h3>
+                Manger doucement
+              </h3>
+
+              <p>
+                Maximum 10 XP
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="habit-actions">
+
+            <button
+              class="habit-choice success"
+              type="button"
+              data-value="10"
+            >
+              Réussi
+              <span>+10</span>
+            </button>
+
+            <button
+              class="habit-choice medium"
+              type="button"
+              data-value="5"
+            >
+              Moyen
+              <span>+5</span>
+            </button>
+
+            <button
+              class="habit-choice fail"
+              type="button"
+              data-value="0"
+            >
+              Non
+              <span>0</span>
+            </button>
+
+          </div>
+
+        </article>
+
+
+
+        <!-- =================================================
+             EAU
+        ================================================== -->
+
+        <article
+          class="habit-card"
+          data-habit="water"
+          data-max="10"
+        >
+
+          <div class="habit-top">
+
+            <div class="habit-icon">
+              ♢
+            </div>
+
+            <div>
+
+              <h3>
+                Boire suffisamment d'eau
+              </h3>
+
+              <p>
+                Maximum 10 XP
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="habit-actions">
+
+            <button
+              class="habit-choice success"
+              type="button"
+              data-value="10"
+            >
+              Réussi
+              <span>+10</span>
+            </button>
+
+            <button
+              class="habit-choice medium"
+              type="button"
+              data-value="5"
+            >
+              Moyen
+              <span>+5</span>
+            </button>
+
+            <button
+              class="habit-choice fail"
+              type="button"
+              data-value="0"
+            >
+              Non
+              <span>0</span>
+            </button>
+
+          </div>
+
+        </article>
+
+
+
+        <!-- =================================================
+             PAS DE GRIGNOTAGE
+        ================================================== -->
+
+        <article
+          class="habit-card"
+          data-habit="snacking"
+          data-max="10"
+        >
+
+          <div class="habit-top">
+
+            <div class="habit-icon">
+              ✕
+            </div>
+
+            <div>
+
+              <h3>
+                Pas de grignotage
+              </h3>
+
+              <p>
+                Entre les repas
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="habit-actions">
+
+            <button
+              class="habit-choice success"
+              type="button"
+              data-value="10"
+            >
+              Réussi
+              <span>+10</span>
+            </button>
+
+            <button
+              class="habit-choice medium"
+              type="button"
+              data-value="5"
+            >
+              Moyen
+              <span>+5</span>
+            </button>
+
+            <button
+              class="habit-choice fail"
+              type="button"
+              data-value="0"
+            >
+              Non
+              <span>0</span>
+            </button>
+
+          </div>
+
+        </article>
+
+
+
+        <!-- =================================================
+             ALIMENTS SAINS
+        ================================================== -->
+
+        <article
+          class="habit-card"
+          data-habit="healthy"
+          data-max="10"
+        >
+
+          <div class="habit-top">
+
+            <div class="habit-icon">
+              ❋
+            </div>
+
+            <div>
+
+              <h3>
+                Privilégier les aliments sains
+              </h3>
+
+              <p>
+                Maximum 10 XP
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="habit-actions">
+
+            <button
+              class="habit-choice success"
+              type="button"
+              data-value="10"
+            >
+              Réussi
+              <span>+10</span>
+            </button>
+
+            <button
+              class="habit-choice medium"
+              type="button"
+              data-value="5"
+            >
+              Moyen
+              <span>+5</span>
+            </button>
+
+            <button
+              class="habit-choice fail"
+              type="button"
+              data-value="0"
+            >
+              Non
+              <span>0</span>
+            </button>
+
+          </div>
+
+        </article>
+
+
+
+        <!-- =================================================
+             SATIÉTÉ / ARRÊT
+        ================================================== -->
+
+        <article
+          class="habit-card"
+          data-habit="fullness"
+          data-max="10"
+        >
+
+          <div class="habit-top">
+
+            <div class="habit-icon">
+              ◇
+            </div>
+
+            <div>
+
+              <h3>
+                S'arrêter avant d'être trop plein
+              </h3>
+
+              <p>
+                Écouter les sensations
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="habit-actions">
+
+            <button
+              class="habit-choice success"
+              type="button"
+              data-value="10"
+            >
+              Réussi
+              <span>+10</span>
+            </button>
+
+            <button
+              class="habit-choice medium"
+              type="button"
+              data-value="5"
+            >
+              Moyen
+              <span>+5</span>
+            </button>
+
+            <button
+              class="habit-choice fail"
+              type="button"
+              data-value="0"
+            >
+              Non
+              <span>0</span>
+            </button>
+
+          </div>
+
+        </article>
+
+
+
+        <!-- =================================================
+             ACTIVITÉ
+        ================================================== -->
+
+        <article
+          class="habit-card"
+          data-habit="activity"
+          data-max="10"
+        >
+
+          <div class="habit-top">
+
+            <div class="habit-icon">
+              ⚡
+            </div>
+
+            <div>
+
+              <h3>
+                Activité physique
+              </h3>
+
+              <p>
+                Bouger, marcher ou s'entraîner
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="habit-actions">
+
+            <button
+              class="habit-choice success"
+              type="button"
+              data-value="10"
+            >
+              Réussi
+              <span>+10</span>
+            </button>
+
+            <button
+              class="habit-choice medium"
+              type="button"
+              data-value="5"
+            >
+              Moyen
+              <span>+5</span>
+            </button>
+
+            <button
+              class="habit-choice fail"
+              type="button"
+              data-value="0"
+            >
+              Non
+              <span>0</span>
+            </button>
+
+          </div>
+
+        </article>
+
+
+
+        <!-- =================================================
+             PAS DE CRAQUAGE
+        ================================================== -->
+
+        <article
+          class="habit-card"
+          data-habit="craving"
+          data-max="10"
+        >
+
+          <div class="habit-top">
+
+            <div class="habit-icon">
+              ✦
+            </div>
+
+            <div>
+
+              <h3>
+                Pas de craquage impulsif
+              </h3>
+
+              <p>
+                Maximum 10 XP
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="habit-actions">
+
+            <button
+              class="habit-choice success"
+              type="button"
+              data-value="10"
+            >
+              Réussi
+              <span>+10</span>
+            </button>
+
+            <button
+              class="habit-choice medium"
+              type="button"
+              data-value="5"
+            >
+              Moyen
+              <span>+5</span>
+            </button>
+
+            <button
+              class="habit-choice fail"
+              type="button"
+              data-value="0"
+            >
+              Non
+              <span>0</span>
+            </button>
+
+          </div>
+
+        </article>
+
+
+
+        <!-- =================================================
+             PAS DE DOUBLON
+        ================================================== -->
+
+        <article
+          class="habit-card"
+          data-habit="duplicate"
+          data-max="5"
+        >
+
+          <div class="habit-top">
+
+            <div class="habit-icon">
+              ↺
+            </div>
+
+            <div>
+
+              <h3>
+                Pas de doublon
+              </h3>
+
+              <p>
+                Pas de deuxième portion inutile
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="habit-actions">
+
+            <button
+              class="habit-choice success"
+              type="button"
+              data-value="5"
+            >
+              Réussi
+              <span>+5</span>
+            </button>
+
+            <button
+              class="habit-choice medium"
+              type="button"
+              data-value="3"
+            >
+              Moyen
+              <span>+3</span>
+            </button>
+
+            <button
+              class="habit-choice fail"
+              type="button"
+              data-value="0"
+            >
+              Non
+              <span>0</span>
+            </button>
+
+          </div>
+
+        </article>
+
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         ACCÈS AU JEU
+    ====================================================== -->
+
+    <section class="portal-access-card">
+
+      <div
+        class="portal-preview"
+        id="portalPreview"
+      >
+
+        <div class="portal-ring"></div>
+        <div class="portal-inner"></div>
+
+      </div>
+
+
+      <div class="portal-access-content">
+
+        <p class="small-label">
+          L'Ascension
+        </p>
+
+        <h2 id="portalAccessTitle">
+          Portail verrouillé
+        </h2>
+
+        <p id="portalAccessText">
+          Atteins 70 XP pour commencer à ouvrir le Portail.
+        </p>
+
+
+        <button
+          class="primary-button"
+          id="enterAscensionBtn"
+          type="button"
+          disabled
+        >
+          Entrer dans le NEXUS
+        </button>
+
+      </div>
+
+    </section>
+
+
+  </main>
+
+
+
+  <!-- =======================================================
+       ÉCRAN ASCENSION
+  ======================================================== -->
+
+  <main
+    class="screen"
+    id="ascensionScreen"
+  >
+
+
+    <!-- =====================================================
+         HEADER ASCENSION
+    ====================================================== -->
+
+    <header class="game-header">
+
+      <button
+        class="icon-button"
+        id="leaveAscensionBtn"
+        type="button"
+        aria-label="Quitter l'Ascension"
+      >
+        ←
+      </button>
+
+
+      <div class="game-title">
+
+        <p
+          class="small-label"
+          id="worldName"
+        >
+          Monde 1
+        </p>
+
+        <h1 id="ascensionName">
+          Les Jardins engloutis
+        </h1>
+
+      </div>
+
+
+      <button
+        class="icon-button"
+        id="pauseBtn"
+        type="button"
+        aria-label="Pause"
+      >
+        Ⅱ
+      </button>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         STABILITÉ DU PORTAIL
+    ====================================================== -->
+
+    <section
+      class="stability-section"
+      aria-labelledby="stabilityTitle"
+    >
+
+      <div
+        class="runic-stability"
+        id="runicStability"
+      >
+
+        <div class="runic-ring outer"></div>
+        <div class="runic-ring middle"></div>
+        <div class="runic-ring inner"></div>
+
+
+        <div
+          class="stability-crystal crystal-one active"
+          data-stability="1"
+        ></div>
+
+        <div
+          class="stability-crystal crystal-two active"
+          data-stability="2"
+        ></div>
+
+        <div
+          class="stability-crystal crystal-three active"
+          data-stability="3"
+        ></div>
+
+
+        <div class="stability-core">
+
+          <span id="stabilityNumber">
+            3
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="stability-info">
+
+        <p class="small-label">
+          Énergie
+        </p>
+
+        <h2 id="stabilityTitle">
+          Stabilité du Portail
+        </h2>
+
+        <p id="stabilityMessage">
+          Le portail est parfaitement stable.
+        </p>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         INFORMATIONS PARTIE
+    ====================================================== -->
+
+    <section class="game-stats">
+
+      <div class="game-stat">
+
+        <span class="stat-label">
+          Étape
+        </span>
+
+        <strong id="currentStepText">
+          1 / 8
+        </strong>
+
+      </div>
+
+
+      <div class="game-stat">
+
+        <span class="stat-label">
+          Cristaux
+        </span>
+
+        <strong id="runCrystals">
+          0
+        </strong>
+
+      </div>
+
+
+      <div class="game-stat">
+
+        <span class="stat-label">
+          Bonus
+        </span>
+
+        <strong id="activePowerText">
+          Aucun
+        </strong>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         ZONE DE JEU
+    ====================================================== -->
+
+    <section
+      class="ascension-zone"
+      id="ascensionZone"
+    >
+
+
+      <!-- Décor temporaire -->
+
+      <div class="ascension-background">
+
+        <div class="floating-particle particle-1"></div>
+        <div class="floating-particle particle-2"></div>
+        <div class="floating-particle particle-3"></div>
+        <div class="floating-particle particle-4"></div>
+
+      </div>
+
+
+
+      <!-- Étape actuelle -->
+
+      <div
+        class="current-room"
+        id="currentRoom"
+      >
+
+        <p class="room-kicker">
+          Portail d'entrée
+        </p>
+
+        <h2 id="roomTitle">
+          Le passage s'éveille
+        </h2>
+
+        <p id="roomDescription">
+          Trois chemins se dessinent devant toi.
+        </p>
+
+
+        <div
+          class="room-visual"
+          id="roomVisual"
+        >
+
+          <div class="temporary-symbol">
+            ◎
+          </div>
+
+        </div>
+
+
+
+        <!-- ===============================================
+             CHOIX DES CHEMINS
+        ================================================ -->
+
+        <div
+          class="path-choices"
+          id="pathChoices"
+        >
+
+
+          <button
+            class="path-card mist-path"
+            type="button"
+            data-path="mist"
+          >
+
+            <span class="path-symbol">
+              ☁
+            </span>
+
+            <strong>
+              Chemin des Brumes
+            </strong>
+
+            <span>
+              Risque ★
+            </span>
+
+            <span>
+              Récompense ★★
+            </span>
+
+          </button>
+
+
+
+          <button
+            class="path-card crystal-path"
+            type="button"
+            data-path="crystal"
+          >
+
+            <span class="path-symbol">
+              ◆
+            </span>
+
+            <strong>
+              Chemin des Cristaux
+            </strong>
+
+            <span>
+              Risque ★★
+            </span>
+
+            <span>
+              Récompense ★★★
+            </span>
+
+          </button>
+
+
+
+          <button
+            class="path-card forbidden-path"
+            type="button"
+            data-path="forbidden"
+          >
+
+            <span class="path-symbol">
+              ✦
+            </span>
+
+            <strong>
+              Chemin Interdit
+            </strong>
+
+            <span>
+              Risque ★★★
+            </span>
+
+            <span>
+              Récompense ★★★★★
+            </span>
+
+          </button>
+
+
+        </div>
+
+
+
+        <!-- ===============================================
+             ACTION DE SALLE
+        ================================================ -->
+
+        <div
+          class="room-action-zone hidden"
+          id="roomActionZone"
+        >
+
+          <button
+            class="primary-button"
+            id="roomActionBtn"
+            type="button"
+          >
+            Continuer
+          </button>
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+
+  </main>
+
+
+
+  <!-- =======================================================
+       ÉCRAN SANCTUAIRE
+  ======================================================== -->
+
+  <main
+    class="screen"
+    id="sanctuaryScreen"
+  >
+
+
+    <header class="main-header">
+
+      <button
+        class="icon-button"
+        id="sanctuaryBackBtn"
+        type="button"
+        aria-label="Retour"
+      >
+        ←
+      </button>
+
+
+      <div>
+
+        <p class="small-label">
+          Collection permanente
+        </p>
+
+        <h1>
+          Sanctuaire NEXUS
+        </h1>
+
+      </div>
+
+    </header>
+
+
+
+    <section class="sanctuary-summary">
+
+      <div class="summary-card">
+
+        <span>
+          Cristaux
+        </span>
+
+        <strong id="totalCrystals">
+          0
+        </strong>
+
+      </div>
+
+
+      <div class="summary-card">
+
+        <span>
+          Artefacts
+        </span>
+
+        <strong id="artifactCount">
+          0
+        </strong>
+
+      </div>
+
+
+      <div class="summary-card">
+
+        <span>
+          Créatures
+        </span>
+
+        <strong id="creatureCount">
+          0
+        </strong>
+
+      </div>
+
+    </section>
+
+
+
+    <section class="collection-section">
+
+      <div class="section-heading">
+
+        <div>
+
+          <p class="small-label">
+            Trésors
+          </p>
+
+          <h2>
+            Collection
+          </h2>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="collection-grid"
+        id="collectionGrid"
+      >
+
+        <div class="empty-collection">
+
+          <div class="empty-symbol">
+            ◇
+          </div>
+
+          <p>
+            Ton Sanctuaire attend ses premiers trésors.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+  </main>
+
+
+
+  <!-- =======================================================
+       MENU
+  ======================================================== -->
+
+  <div
+    class="overlay hidden"
+    id="menuOverlay"
+  >
+
+    <div class="menu-panel">
+
+      <button
+        class="menu-close"
+        id="closeMenuBtn"
+        type="button"
+        aria-label="Fermer le menu"
+      >
+        ×
+      </button>
+
+
+      <p class="small-label">
+        NEXUS VITAL
+      </p>
+
+      <h2>
+        Menu
+      </h2>
+
+
+      <button
+        class="menu-button"
+        id="menuHomeBtn"
+        type="button"
+      >
+        Journée
+      </button>
+
+
+      <button
+        class="menu-button"
+        id="menuSanctuaryBtn"
+        type="button"
+      >
+        Sanctuaire
+      </button>
+
+
+      <button
+        class="menu-button"
+        id="menuStatsBtn"
+        type="button"
+      >
+        Progression
+      </button>
+
+
+      <button
+        class="menu-button danger"
+        id="resetTodayBtn"
+        type="button"
+      >
+        Réinitialiser la journée
+      </button>
+
+
+      <button
+        class="menu-button danger"
+        id="resetAllBtn"
+        type="button"
+      >
+        Réinitialiser toute la progression
+      </button>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- =======================================================
+       MODALE POUVOIR RENFORCÉ
+  ======================================================== -->
+
+  <div
+    class="overlay hidden"
+    id="powerOverlay"
+  >
+
+    <div class="modal-card">
+
+      <p class="small-label">
+        Résonance forte
+      </p>
+
+      <h2>
+        Choisis ton pouvoir
+      </h2>
+
+      <p>
+        Ton énergie du jour te permet d'emporter un pouvoir renforcé.
+      </p>
+
+
+      <div class="power-grid">
+
+
+        <button
+          class="power-card"
+          type="button"
+          data-power="shield"
+        >
+
+          <span class="power-icon">
+            ◈
+          </span>
+
+          <strong>
+            Bouclier runique
+          </strong>
+
+          <span>
+            Le premier échec ne coûte aucune stabilité.
+          </span>
+
+        </button>
+
+
+
+        <button
+          class="power-card"
+          type="button"
+          data-power="vision"
+        >
+
+          <span class="power-icon">
+            ◉
+          </span>
+
+          <strong>
+            Vision du NEXUS
+          </strong>
+
+          <span>
+            Révèle davantage d'informations sur certains choix.
+          </span>
+
+        </button>
+
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- =======================================================
+       MODALE ÉPREUVE
+  ======================================================== -->
+
+  <div
+    class="overlay hidden"
+    id="challengeOverlay"
+  >
+
+    <div class="modal-card challenge-card">
+
+
+      <p
+        class="small-label"
+        id="challengeType"
+      >
+        Épreuve
+      </p>
+
+      <h2 id="challengeTitle">
+        Épreuve NEXUS
+      </h2>
+
+      <p id="challengeInstructions">
+        Observe attentivement.
+      </p>
+
+
+      <div
+        class="challenge-area"
+        id="challengeArea"
+      >
+      </div>
+
+
+      <div
+        class="challenge-footer"
+        id="challengeFooter"
+      >
+
+        <button
+          class="primary-button hidden"
+          id="challengeContinueBtn"
+          type="button"
+        >
+          Continuer
+        </button>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+
+
+  <!-- =======================================================
+       MODALE GARDIEN
+  ======================================================== -->
+
+  <div
+    class="overlay hidden"
+    id="guardianOverlay"
+  >
+
+    <div class="modal-card guardian-card">
+
+
+      <p class="small-label">
+        Étape finale
+      </p>
+
+      <h2>
+        Gardien du Portail
+      </h2>
+
+
+      <div class="guardian-symbol">
+
+        <div class="guardian-ring"></div>
+
+        <div class="guardian-core">
+          ◉
+        </div>
+
+      </div>
+
+
+      <p id="guardianMessage">
+        Le Gardien exige deux victoires sur trois.
+      </p>
+
+
+      <div class="guardian-score">
+
+        <div>
+
+          <span>
+            Victoires
+          </span>
+
+          <strong id="guardianWins">
+            0 / 2
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <span>
+            Manches
+          </span>
+
+          <strong id="guardianRounds">
+            0 / 3
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <button
+        class="primary-button"
+        id="startGuardianBtn"
+        type="button"
+      >
+        Affronter le Gardien
+      </button>
+
+
+    </div>
+
+  </div>
+
+
+
+  <!-- =======================================================
+       MODALE RÉCOMPENSE
+  ======================================================== -->
+
+  <div
+    class="overlay hidden"
+    id="rewardOverlay"
+  >
+
+    <div class="modal-card reward-modal">
+
+
+      <div
+        class="reward-big-icon"
+        id="rewardBigIcon"
+      >
+        ◆
+      </div>
+
+
+      <p
+        class="small-label"
+        id="rewardRarity"
+      >
+        Récompense
+      </p>
+
+
+      <h2 id="rewardTitle">
+        Trésor découvert
+      </h2>
+
+
+      <p id="rewardDescription">
+        Une nouvelle énergie rejoint ton Sanctuaire.
+      </p>
+
+
+      <button
+        class="primary-button"
+        id="rewardContinueBtn"
+        type="button"
+      >
+        Continuer
+      </button>
+
+
+    </div>
+
+  </div>
+
+
+
+  <!-- =======================================================
+       MODALE FIN D'ASCENSION
+  ======================================================== -->
+
+  <div
+    class="overlay hidden"
+    id="endAscensionOverlay"
+  >
+
+    <div class="modal-card end-card">
+
+
+      <p
+        class="small-label"
+        id="endAscensionLabel"
+      >
+        Ascension terminée
+      </p>
+
+
+      <h2 id="endAscensionTitle">
+        Portail franchi
+      </h2>
+
+
+      <p id="endAscensionText">
+        Ta progression a été enregistrée.
+      </p>
+
+
+      <div class="end-stats">
+
+        <div>
+
+          <span>
+            Cristaux gagnés
+          </span>
+
+          <strong id="endCrystals">
+            0
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <span>
+            Étapes franchies
+          </span>
+
+          <strong id="endSteps">
+            0
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <button
+        class="primary-button"
+        id="endHomeBtn"
+        type="button"
+      >
+        Retour à NEXUS VITAL
+      </button>
+
+
+      <button
+        class="secondary-button"
+        id="endSanctuaryBtn"
+        type="button"
+      >
+        Voir le Sanctuaire
+      </button>
+
+
+    </div>
+
+  </div>
+
+
+
+  <!-- =======================================================
+       MODALE CONFIRMATION RESET
+  ======================================================== -->
+
+  <div
+    class="overlay hidden"
+    id="confirmOverlay"
+  >
+
+    <div class="modal-card confirmation-card">
+
+      <p class="small-label">
+        Confirmation
+      </p>
+
+      <h2 id="confirmTitle">
+        Réinitialiser ?
+      </h2>
+
+      <p id="confirmText">
+        Cette action est irréversible.
+      </p>
+
+
+      <div class="confirmation-actions">
+
+        <button
+          class="secondary-button"
+          id="cancelConfirmBtn"
+          type="button"
+        >
+          Annuler
+        </button>
+
+        <button
+          class="danger-button"
+          id="confirmActionBtn"
+          type="button"
+        >
+          Confirmer
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- =======================================================
+       NOTIFICATION
+  ======================================================== -->
+
+  <div
+    class="toast"
+    id="toast"
+    aria-live="polite"
+  >
+
+    <span id="toastText">
+      +10 XP
+    </span>
+
+  </div>
+
+
+</div>
+
+
+
+<!-- =========================================================
+     SCRIPT
+========================================================= -->
+
+<script src="script.js"></script>
+
+
+</body>
+
+</html>
