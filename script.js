@@ -94,38 +94,48 @@ const HABITS = {
 ========================================================= */
 
 const WORLDS = [
+
   {
     id: 1,
     name: "Les Jardins engloutis",
-    guardian: "Gardien des Marées"
+    image: "images/Monde-1.PNG",
+    guardian: "Gardien des Marées",
+    guardianImage: "images/Gardien-1.PNG"
   },
 
   {
     id: 2,
     name: "La Grotte de Cristal",
-    guardian: "Gardien Prismatique"
+    image: "images/Monde-2.PNG",
+    guardian: "Gardien Prismatique",
+    guardianImage: "images/Gardien-2.PNG"
   },
 
   {
     id: 3,
     name: "Les Ruines oubliées",
-    guardian: "Gardien des Glyphes"
+    image: "images/Monde-3.PNG",
+    guardian: "Gardien des Glyphes",
+    guardianImage: "images/Gardien-3.PNG"
   },
 
   {
     id: 4,
     name: "La Forêt luminescente",
-    guardian: "Gardien Sylvestre"
+    image: "images/Monde-4.PNG",
+    guardian: "Gardien Sylvestre",
+    guardianImage: "images/Gardien-4.PNG"
   },
 
   {
     id: 5,
     name: "Le Temple du NEXUS",
-    guardian: "Gardien Originel"
+    image: "images/Monde-5.PNG",
+    guardian: "Gardien Originel",
+    guardianImage: "images/Gardien-5.PNG"
   }
+
 ];
-
-
 /* =========================================================
    OBJETS DE COLLECTION
 ========================================================= */
@@ -1566,6 +1576,23 @@ function startAscension() {
 
   const world =
     getCurrentWorld();
+   ascensionScreen.style.backgroundImage =
+  `
+    linear-gradient(
+      rgba(2, 10, 14, 0.32),
+      rgba(2, 10, 14, 0.72)
+    ),
+    url("${world.image}")
+  `;
+
+ascensionScreen.style.backgroundSize =
+  "cover";
+
+ascensionScreen.style.backgroundPosition =
+  "center";
+
+ascensionScreen.style.backgroundAttachment =
+  "fixed";
 
   worldName.textContent =
     `Monde ${world.id}`;
@@ -2951,7 +2978,31 @@ function openGuardian() {
   guardianOverlay.classList.remove(
     "hidden"
   );
+const world =
+  getCurrentWorld();
 
+guardianMessage.textContent =
+  `${world.guardian} exige deux victoires sur trois.`;
+
+const guardianCard =
+  guardianOverlay.querySelector(
+    ".guardian-card"
+  );
+
+guardianCard.style.backgroundImage =
+  `
+    linear-gradient(
+      rgba(3, 10, 15, 0.28),
+      rgba(3, 10, 15, 0.86)
+    ),
+    url("${world.guardianImage}")
+  `;
+
+guardianCard.style.backgroundSize =
+  "cover";
+
+guardianCard.style.backgroundPosition =
+  "center";
 
   run.guardianWins = 0;
   run.guardianRounds = 0;
