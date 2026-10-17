@@ -2995,3 +2995,48 @@ p {
     inset 0 0 32px rgba(105,184,255,.05);
 }
 
+/* =========================================================
+   OBJETS VISUELS DU SANCTUAIRE
+========================================================= */
+
+.collection-item-visual {
+  width: 100%;
+  height: 145px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 10px;
+
+  overflow: hidden;
+}
+
+.collection-object-image {
+  width: 125px;
+  height: 125px;
+
+  object-fit: contain;
+
+  filter:
+    drop-shadow(
+      0 0 14px rgba(106,249,234,.20)
+    );
+
+  transition:
+    transform .25s ease,
+    filter .25s ease;
+}
+
+.collection-item:hover
+.collection-object-image {
+  transform: scale(1.06);
+
+  filter:
+    drop-shadow(
+      0 0 22px rgba(106,249,234,.35)
+    );
+}
+
+
+
