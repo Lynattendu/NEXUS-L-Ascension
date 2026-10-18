@@ -485,35 +485,1206 @@ const collectionGrid =
 
 
 /* =========================================================
-   MONDE NEXUS
+   MONDE NEXUS — SYSTÈME COMPLET DES 6 HABITATS
 ========================================================= */
-
-const openNexusWorldBtn =
-  document.getElementById("openNexusWorldBtn");
-
-const closeNexusWorldBtn =
-  document.getElementById("closeNexusWorldBtn");
-
-const centralSanctuaryBtn =
-  document.getElementById("centralSanctuaryBtn");
 
 
 /* =========================================================
-   JARDIN DES BULLES
+   CONFIGURATION DES HABITATS
 ========================================================= */
 
-const jardinBullesSlot =
-  document.getElementById("jardinBullesSlot");
+function getHabitatConfigs() {
 
-const buildHabitatOverlay =
-  document.getElementById("buildHabitatOverlay");
+  return [
 
-const cancelBuildHabitatBtn =
-  document.getElementById("cancelBuildHabitatBtn");
+    {
+      key: "jardinBulles",
+      dataHabitat: "jardin-bulles",
+      number: 1,
 
-const confirmBuildHabitatBtn =
-  document.getElementById("confirmBuildHabitatBtn");
+      name:
+        "Jardin des Bulles",
 
+      image:
+        "images/Habitat-Jardin-Bulles.PNG",
+
+      description:
+        "Éveille un premier refuge au cœur des Abysses Astrals.",
+
+      crystalCost:
+        15,
+
+      resources: [
+        {
+          name: "Fragment marin",
+          quantity: 1,
+          icon: "◈"
+        }
+      ]
+    },
+
+
+    {
+      key: "bassinAstral",
+      dataHabitat: "bassin-astral",
+      number: 2,
+
+      name:
+        "Bassin Astral",
+
+      image:
+        "images/Habitat-Bassin-Astral.PNG",
+
+      description:
+        "Un bassin lumineux capable d'accueillir les créatures astrales.",
+
+      crystalCost:
+        25,
+
+      resources: [
+        {
+          name: "Éclat d'azur",
+          quantity: 1,
+          icon: "◇"
+        }
+      ]
+    },
+
+
+    {
+      key: "lagonCourants",
+      dataHabitat: "lagon-courants",
+      number: 3,
+
+      name:
+        "Lagon des Courants",
+
+      image:
+        "images/Habitat-Lagon-Courants.PNG",
+
+      description:
+        "Les courants des Abysses se rassemblent pour former un vaste lagon.",
+
+      crystalCost:
+        35,
+
+      resources: [
+        {
+          name: "Fragment marin",
+          quantity: 2,
+          icon: "◈"
+        }
+      ]
+    },
+
+
+    {
+      key: "jardinCorail",
+      dataHabitat: "jardin-corail",
+      number: 4,
+
+      name:
+        "Jardin de Corail Céleste",
+
+      image:
+        "images/Habitat-Jardin-Corail-Celeste.PNG",
+
+      description:
+        "Un jardin de coraux célestes où la lumière semble prendre vie.",
+
+      crystalCost:
+        45,
+
+      resources: [
+        {
+          name: "Corail spectral",
+          quantity: 1,
+          icon: "✦"
+        },
+
+        {
+          name: "Perle runique",
+          quantity: 1,
+          icon: "●"
+        }
+      ]
+    },
+
+
+    {
+      key: "templeMarees",
+      dataHabitat: "temple-marees",
+      number: 5,
+
+      name:
+        "Temple des Marées",
+
+      image:
+        "images/Habitat-Temple-Marees.PNG",
+
+      description:
+        "Un temple ancien réagit au rythme des marées du NEXUS.",
+
+      crystalCost:
+        60,
+
+      resources: [
+        {
+          name: "Relique des Marées",
+          quantity: 1,
+          icon: "◎"
+        },
+
+        {
+          name: "Perle runique",
+          quantity: 2,
+          icon: "●"
+        }
+      ]
+    },
+
+
+    {
+      key: "sanctuaireProfondeurs",
+      dataHabitat: "sanctuaire-profondeurs",
+      number: 6,
+
+      name:
+        "Sanctuaire des Profondeurs",
+
+      image:
+        "images/Habitat-Sanctuaire-Profondeurs.PNG",
+
+      description:
+        "Le refuge ultime des Abysses Astrals. Une construction réservée aux explorateurs les plus avancés.",
+
+      crystalCost:
+        90,
+
+      resources: [
+        {
+          name: "Relique des Marées",
+          quantity: 2,
+          icon: "◎"
+        },
+
+        {
+          name: "Perle runique",
+          quantity: 3,
+          icon: "●"
+        },
+
+        {
+          name: "Cristal des profondeurs",
+          quantity: 1,
+          icon: "◆"
+        }
+      ]
+    }
+
+  ];
+
+}
+
+
+/* =========================================================
+   MONDE NEXUS — ÉVÉNEMENTS
+========================================================= */
+
+function bindNexusWorld() {
+
+  if (
+    openNexusWorldBtn
+  ) {
+
+    openNexusWorldBtn
+      .addEventListener(
+        "click",
+        openNexusScreen
+      );
+
+  }
+
+
+  if (
+    closeNexusWorldBtn
+  ) {
+
+    closeNexusWorldBtn
+      .addEventListener(
+        "click",
+        closeNexusScreen
+      );
+
+  }
+
+
+  if (
+    centralSanctuaryBtn
+  ) {
+
+    centralSanctuaryBtn
+      .addEventListener(
+        "click",
+        closeNexusScreen
+      );
+
+  }
+
+
+
+  /* =====================================================
+     CLIC SUR LES 6 HABITATS
+  ====================================================== */
+
+  document
+    .querySelectorAll(
+      ".habitat-slot"
+    )
+    .forEach(
+      slot => {
+
+        slot.addEventListener(
+          "click",
+          () => {
+
+            const habitatName =
+              slot.dataset.habitat;
+
+
+            openHabitatBuild(
+              habitatName
+            );
+
+          }
+        );
+
+      }
+    );
+
+
+
+  /* =====================================================
+     FERMER LA FENÊTRE
+  ====================================================== */
+
+  if (
+    cancelBuildHabitatBtn
+  ) {
+
+    cancelBuildHabitatBtn
+      .addEventListener(
+        "click",
+        closeHabitatBuild
+      );
+
+  }
+
+
+
+  /* =====================================================
+     CONSTRUIRE
+  ====================================================== */
+
+  if (
+    confirmBuildHabitatBtn
+  ) {
+
+    confirmBuildHabitatBtn
+      .addEventListener(
+        "click",
+        buildSelectedHabitat
+      );
+
+  }
+
+
+
+  /* =====================================================
+     CLIC SUR LE FOND DE LA MODALE
+  ====================================================== */
+
+  if (
+    buildHabitatOverlay
+  ) {
+
+    buildHabitatOverlay
+      .addEventListener(
+        "click",
+        event => {
+
+          if (
+            event.target ===
+            buildHabitatOverlay
+          ) {
+
+            closeHabitatBuild();
+
+          }
+
+        }
+      );
+
+  }
+
+}
+
+
+/* =========================================================
+   OUVRIR MONDE NEXUS
+========================================================= */
+
+function openNexusScreen() {
+
+  renderAllHabitats();
+
+
+  showScreen(
+    nexusWorldScreen
+  );
+
+}
+
+
+/* =========================================================
+   RETOUR AU SANCTUAIRE
+========================================================= */
+
+function closeNexusScreen() {
+
+  closeHabitatBuild();
+
+
+  updateSanctuary();
+
+
+  showScreen(
+    sanctuaryScreen
+  );
+
+}
+
+
+/* =========================================================
+   INVENTAIRE — COMPTER UN OBJET
+========================================================= */
+
+function countCollectionItem(
+  itemName
+) {
+
+  return collection.filter(
+    item =>
+      item.name ===
+      itemName
+  ).length;
+
+}
+
+
+/* =========================================================
+   INVENTAIRE — RETIRER UN OBJET
+========================================================= */
+
+function removeCollectionItem(
+  itemName,
+  quantity = 1
+) {
+
+  let remaining =
+    quantity;
+
+
+  for (
+    let i =
+      collection.length - 1;
+
+    i >= 0 &&
+    remaining > 0;
+
+    i--
+  ) {
+
+    if (
+      collection[i].name ===
+      itemName
+    ) {
+
+      collection.splice(
+        i,
+        1
+      );
+
+
+      remaining--;
+
+    }
+
+  }
+
+
+  return (
+    remaining === 0
+  );
+
+}
+
+
+/* =========================================================
+   HABITAT DÉJÀ CONSTRUIT ?
+========================================================= */
+
+function isHabitatBuilt(
+  habitat
+) {
+
+  return Boolean(
+    nexusWorldData
+      .habitats[
+        habitat.key
+      ]
+  );
+
+}
+
+
+/* =========================================================
+   HABITAT DISPONIBLE ?
+========================================================= */
+
+function isHabitatAvailable(
+  habitat
+) {
+
+  const habitats =
+    getHabitatConfigs();
+
+
+  const index =
+    habitats.findIndex(
+      item =>
+        item.key ===
+        habitat.key
+    );
+
+
+  /*
+    Le Jardin des Bulles
+    est toujours le premier constructible.
+  */
+
+  if (
+    index <= 0
+  ) {
+
+    return true;
+
+  }
+
+
+  /*
+    Pour construire l'habitat suivant,
+    le précédent doit être construit.
+  */
+
+  const previousHabitat =
+    habitats[
+      index - 1
+    ];
+
+
+  return isHabitatBuilt(
+    previousHabitat
+  );
+
+}
+
+
+/* =========================================================
+   AFFICHER LES 6 HABITATS
+========================================================= */
+
+function renderAllHabitats() {
+
+  const habitats =
+    getHabitatConfigs();
+
+
+  habitats.forEach(
+    habitat => {
+
+      const slot =
+        document.querySelector(
+          `[data-habitat="${habitat.dataHabitat}"]`
+        );
+
+
+      if (
+        !slot
+      ) {
+
+        return;
+
+      }
+
+
+      const built =
+        isHabitatBuilt(
+          habitat
+        );
+
+
+      const available =
+        isHabitatAvailable(
+          habitat
+        );
+
+
+      /* =================================================
+         CONSTRUIT
+      ================================================== */
+
+      if (
+        built
+      ) {
+
+        slot.className =
+          `habitat-slot habitat-${habitat.number} built`;
+
+
+        slot.innerHTML =
+          `
+            <img
+              src="${habitat.image}"
+              alt="${habitat.name}"
+              class="built-habitat-image"
+            >
+
+            <span class="built-habitat-label">
+              ${habitat.name}
+            </span>
+          `;
+
+
+        return;
+
+      }
+
+
+      /* =================================================
+         DISPONIBLE À LA CONSTRUCTION
+      ================================================== */
+
+      if (
+        available
+      ) {
+
+        slot.className =
+          `habitat-slot habitat-${habitat.number} locked available`;
+
+
+        slot.innerHTML =
+          `
+            <span class="habitat-lock">
+              ◆
+            </span>
+
+            <span class="habitat-number">
+              ${habitat.number}
+            </span>
+
+            <strong>
+              ${habitat.name}
+            </strong>
+
+            <small>
+              À construire
+            </small>
+          `;
+
+
+        return;
+
+      }
+
+
+      /* =================================================
+         VERROUILLÉ
+      ================================================== */
+
+      slot.className =
+        `habitat-slot habitat-${habitat.number} locked`;
+
+
+      slot.innerHTML =
+        `
+          <span class="habitat-lock">
+            ◆
+          </span>
+
+          <span class="habitat-number">
+            ${habitat.number}
+          </span>
+
+          <strong>
+            ${habitat.name}
+          </strong>
+
+          <small>
+            Verrouillé
+          </small>
+        `;
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   COMPATIBILITÉ AVEC TON INIT ACTUEL
+========================================================= */
+
+function renderJardinBulles() {
+
+  /*
+    Ton init() appelle encore cette fonction.
+    On la conserve pour ne rien casser,
+    mais elle actualise maintenant les 6 habitats.
+  */
+
+  renderAllHabitats();
+
+}
+
+
+/* =========================================================
+   OUVRIR LA CONSTRUCTION D'UN HABITAT
+========================================================= */
+
+function openHabitatBuild(
+  dataHabitat
+) {
+
+  const habitats =
+    getHabitatConfigs();
+
+
+  const habitat =
+    habitats.find(
+      item =>
+        item.dataHabitat ===
+        dataHabitat
+    );
+
+
+  if (
+    !habitat
+  ) {
+
+    return;
+
+  }
+
+
+
+  /* =====================================================
+     DÉJÀ CONSTRUIT
+  ====================================================== */
+
+  if (
+    isHabitatBuilt(
+      habitat
+    )
+  ) {
+
+    showToast(
+      `${habitat.name} est déjà construit.`
+    );
+
+
+    return;
+
+  }
+
+
+
+  /* =====================================================
+     ENCORE VERROUILLÉ
+  ====================================================== */
+
+  if (
+    !isHabitatAvailable(
+      habitat
+    )
+  ) {
+
+    const index =
+      habitats.findIndex(
+        item =>
+          item.key ===
+          habitat.key
+      );
+
+
+    const previousHabitat =
+      habitats[
+        index - 1
+      ];
+
+
+    showToast(
+      `Construis d'abord ${previousHabitat.name}.`
+    );
+
+
+    return;
+
+  }
+
+
+
+  if (
+    !buildHabitatOverlay
+  ) {
+
+    showToast(
+      "Fenêtre de construction introuvable."
+    );
+
+
+    return;
+
+  }
+
+
+
+  /* =====================================================
+     MÉMORISER L'HABITAT SÉLECTIONNÉ
+  ====================================================== */
+
+  buildHabitatOverlay.dataset.habitat =
+    habitat.key;
+
+
+
+  /* =====================================================
+     TITRE
+  ====================================================== */
+
+  const title =
+    buildHabitatOverlay
+      .querySelector(
+        ".habitat-build-modal h2"
+      );
+
+
+  if (
+    title
+  ) {
+
+    title.textContent =
+      habitat.name;
+
+  }
+
+
+
+  /* =====================================================
+     IMAGE
+  ====================================================== */
+
+  const image =
+    buildHabitatOverlay
+      .querySelector(
+        ".build-habitat-preview"
+      );
+
+
+  if (
+    image
+  ) {
+
+    image.src =
+      habitat.image;
+
+
+    image.alt =
+      habitat.name;
+
+  }
+
+
+
+  /* =====================================================
+     DESCRIPTION
+  ====================================================== */
+
+  const description =
+    buildHabitatOverlay
+      .querySelector(
+        ".build-description"
+      );
+
+
+  if (
+    description
+  ) {
+
+    description.textContent =
+      habitat.description;
+
+  }
+
+
+
+  /* =====================================================
+     COÛTS
+  ====================================================== */
+
+  const costsContainer =
+    buildHabitatOverlay
+      .querySelector(
+        ".build-costs"
+      );
+
+
+  if (
+    costsContainer
+  ) {
+
+    let costsHTML =
+      `
+        <div class="build-cost">
+
+          <span>
+            ◆
+          </span>
+
+          <div>
+
+            <small>
+              Cristaux
+            </small>
+
+            <strong>
+              ${habitat.crystalCost}
+            </strong>
+
+          </div>
+
+        </div>
+      `;
+
+
+    habitat.resources.forEach(
+      resource => {
+
+        costsHTML +=
+          `
+            <div class="build-cost">
+
+              <span>
+                ${resource.icon}
+              </span>
+
+              <div>
+
+                <small>
+                  ${resource.name}
+                </small>
+
+                <strong>
+                  ${resource.quantity}
+                </strong>
+
+              </div>
+
+            </div>
+          `;
+
+      }
+    );
+
+
+    costsContainer.innerHTML =
+      costsHTML;
+
+  }
+
+
+
+  /* =====================================================
+     OUVRIR MODALE
+  ====================================================== */
+
+  buildHabitatOverlay
+    .classList
+    .remove(
+      "hidden"
+    );
+
+}
+
+
+/* =========================================================
+   FERMER LA CONSTRUCTION
+========================================================= */
+
+function closeHabitatBuild() {
+
+  if (
+    !buildHabitatOverlay
+  ) {
+
+    return;
+
+  }
+
+
+  buildHabitatOverlay
+    .classList
+    .add(
+      "hidden"
+    );
+
+
+  delete buildHabitatOverlay
+    .dataset
+    .habitat;
+
+}
+
+
+/* =========================================================
+   CONSTRUIRE L'HABITAT SÉLECTIONNÉ
+========================================================= */
+
+function buildSelectedHabitat() {
+
+  if (
+    !buildHabitatOverlay
+  ) {
+
+    return;
+
+  }
+
+
+  const selectedKey =
+    buildHabitatOverlay
+      .dataset
+      .habitat;
+
+
+  if (
+    !selectedKey
+  ) {
+
+    return;
+
+  }
+
+
+  const habitats =
+    getHabitatConfigs();
+
+
+  const habitat =
+    habitats.find(
+      item =>
+        item.key ===
+        selectedKey
+    );
+
+
+  if (
+    !habitat
+  ) {
+
+    return;
+
+  }
+
+
+
+  /* =====================================================
+     SÉCURITÉ : DÉJÀ CONSTRUIT
+  ====================================================== */
+
+  if (
+    isHabitatBuilt(
+      habitat
+    )
+  ) {
+
+    closeHabitatBuild();
+
+
+    showToast(
+      `${habitat.name} est déjà construit.`
+    );
+
+
+    return;
+
+  }
+
+
+
+  /* =====================================================
+     SÉCURITÉ : HABITAT PRÉCÉDENT
+  ====================================================== */
+
+  if (
+    !isHabitatAvailable(
+      habitat
+    )
+  ) {
+
+    showToast(
+      "Cet habitat est encore verrouillé."
+    );
+
+
+    return;
+
+  }
+
+
+
+  /* =====================================================
+     VÉRIFIER LES CRISTAUX
+  ====================================================== */
+
+  if (
+    totalPermanentCrystals <
+    habitat.crystalCost
+  ) {
+
+    const missing =
+      habitat.crystalCost -
+      totalPermanentCrystals;
+
+
+    showToast(
+      `Il te manque ${missing} cristaux.`
+    );
+
+
+    return;
+
+  }
+
+
+
+  /* =====================================================
+     VÉRIFIER TOUTES LES RESSOURCES
+  ====================================================== */
+
+  for (
+    const resource
+    of habitat.resources
+  ) {
+
+    const owned =
+      countCollectionItem(
+        resource.name
+      );
+
+
+    if (
+      owned <
+      resource.quantity
+    ) {
+
+      const missing =
+        resource.quantity -
+        owned;
+
+
+      showToast(
+        `Il te manque ${missing} × ${resource.name}.`
+      );
+
+
+      return;
+
+    }
+
+  }
+
+
+
+  /* =====================================================
+     RETIRER LES CRISTAUX
+  ====================================================== */
+
+  totalPermanentCrystals -=
+    habitat.crystalCost;
+
+
+
+  /* =====================================================
+     RETIRER LES RESSOURCES
+  ====================================================== */
+
+  habitat.resources.forEach(
+    resource => {
+
+      removeCollectionItem(
+        resource.name,
+        resource.quantity
+      );
+
+    }
+  );
+
+
+
+  /* =====================================================
+     ENREGISTRER LA CONSTRUCTION
+  ====================================================== */
+
+  nexusWorldData
+    .habitats[
+      habitat.key
+    ] =
+      true;
+
+
+
+  /* =====================================================
+     SAUVEGARDER
+  ====================================================== */
+
+  savePermanentData();
+
+  saveNexusWorldData();
+
+
+
+  /* =====================================================
+     ACTUALISER
+  ====================================================== */
+
+  renderAllHabitats();
+
+  updateSanctuary();
+
+  closeHabitatBuild();
+
+
+
+  /* =====================================================
+     MESSAGE
+  ====================================================== */
+
+  showToast(
+    `${habitat.name} s'éveille.`
+  );
+
+}
 
 /* =========================================================
    CONFIRMATION
