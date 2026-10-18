@@ -1857,11 +1857,34 @@
            HABITAT 1
       ================================================== -->
 
-      <button
-        type="button"
-        class="habitat-slot habitat-1 locked"
-        data-habitat="jardin-bulles"
-      >
+     <!-- =================================================
+     HABITAT 1 — JARDIN DES BULLES
+================================================== -->
+
+<button
+  type="button"
+  class="habitat-slot habitat-1 locked"
+  id="jardinBullesSlot"
+  data-habitat="jardin-bulles"
+>
+
+  <span class="habitat-lock">
+    ◆
+  </span>
+
+  <span class="habitat-number">
+    1
+  </span>
+
+  <strong>
+    Jardin des Bulles
+  </strong>
+
+  <small>
+    À construire
+  </small>
+
+</button>
 
         <span class="habitat-lock">
           ◆
@@ -2064,7 +2087,104 @@
 
 </section>
 
+<!-- =====================================================
+     CONSTRUCTION — JARDIN DES BULLES
+===================================================== -->
 
+<div
+  class="overlay hidden"
+  id="buildHabitatOverlay"
+>
+
+  <div class="modal-card habitat-build-modal">
+
+    <p class="small-label">
+      CONSTRUCTION
+    </p>
+
+    <h2>
+      Jardin des Bulles
+    </h2>
+
+
+    <img
+      src="images/Habitat-Jardin-Bulles.PNG"
+      alt=""
+      class="build-habitat-preview"
+    >
+
+
+    <p class="build-description">
+      Éveille un premier refuge au cœur des Abysses Astrals.
+    </p>
+
+
+    <div class="build-costs">
+
+      <div class="build-cost">
+
+        <span>
+          ◆
+        </span>
+
+        <div>
+          <small>
+            Cristaux
+          </small>
+
+          <strong>
+            15
+          </strong>
+        </div>
+
+      </div>
+
+
+      <div class="build-cost">
+
+        <span>
+          ◈
+        </span>
+
+        <div>
+          <small>
+            Fragment marin
+          </small>
+
+          <strong>
+            1
+          </strong>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="build-actions">
+
+      <button
+        type="button"
+        class="secondary-button"
+        id="cancelBuildHabitatBtn"
+      >
+        Plus tard
+      </button>
+
+
+      <button
+        type="button"
+        class="primary-button"
+        id="confirmBuildHabitatBtn"
+      >
+        Construire
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
   <!-- =======================================================
        MENU
   ======================================================== -->
