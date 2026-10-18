@@ -1,7 +1,7 @@
 /* =========================================================
    NEXUS VITAL — L'ASCENSION
    SCRIPT.JS
-   V2 — MONDES + VISUELS + SALLES
+   V3 — ASCENSION + MONDE NEXUS
 ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -12,28 +12,17 @@ document.addEventListener("DOMContentLoaded", () => {
 ========================================================= */
 
 const STORAGE = {
+  dayDate: "nexusVital_dayDate",
+  habits: "nexusVital_habits",
+  totalCrystals: "nexusVital_totalCrystals",
+  collection: "nexusVital_collection",
+  ascensionLevel: "nexusVital_ascensionLevel",
+  world: "nexusVital_world",
+  stats: "nexusVital_stats",
 
-  dayDate:
-    "nexusVital_dayDate",
-
-  habits:
-    "nexusVital_habits",
-
-  totalCrystals:
-    "nexusVital_totalCrystals",
-
-  collection:
-    "nexusVital_collection",
-
-  ascensionLevel:
-    "nexusVital_ascensionLevel",
-
-  world:
-    "nexusVital_world",
-
-  stats:
-    "nexusVital_stats"
-
+  /* IMPORTANT :
+     clé séparée du monde de l'Ascension */
+  nexusWorld: "nexusVital_nexusWorld"
 };
 
 
@@ -42,141 +31,71 @@ const STORAGE = {
 ========================================================= */
 
 const VISUALS = {
+  home: "images/Visuel-1.PNG",
+  portal: "images/Visuel-2.PNG",
 
-  home:
-    "images/Visuel-1.PNG",
+  pathMist: "images/Visuel-3.PNG",
+  pathCrystal: "images/Visuel-4.PNG",
+  pathForbidden: "images/Visuel-5.PNG",
 
-  portal:
-    "images/Visuel-2.PNG",
+  crystalRoom: "images/Visuel-6.PNG",
+  chestRoom: "images/Visuel-7.PNG",
+  mistRoom: "images/Visuel-8.PNG",
+  sanctuaryRoom: "images/Visuel-9.PNG",
+  forbiddenRoom: "images/Visuel-10.PNG",
+  secretRoom: "images/Visuel-11.PNG",
+  guardianRoom: "images/Visuel-12.PNG",
 
-  pathMist:
-    "images/Visuel-3.PNG",
-
-  pathCrystal:
-    "images/Visuel-4.PNG",
-
-  pathForbidden:
-    "images/Visuel-5.PNG",
-
-  crystalRoom:
-    "images/Visuel-6.PNG",
-
-  chestRoom:
-    "images/Visuel-7.PNG",
-
-  mistRoom:
-    "images/Visuel-8.PNG",
-
-  sanctuaryRoom:
-    "images/Visuel-9.PNG",
-
-  forbiddenRoom:
-    "images/Visuel-10.PNG",
-
-  secretRoom:
-    "images/Visuel-11.PNG",
-
-  guardianRoom:
-    "images/Visuel-12.PNG",
-
-  sanctuary:
-    "images/Visuel-13.PNG",
-
-  reward:
-    "images/Visuel-14.PNG",
-
-  challenge:
-    "images/Visuel-15.PNG"
-
+  sanctuary: "images/Visuel-13.PNG",
+  reward: "images/Visuel-14.PNG",
+  challenge: "images/Visuel-15.PNG"
 };
 
 
 /* =========================================================
-   MONDES
+   MONDES ASCENSION
 ========================================================= */
 
 const WORLDS = [
-
   {
     id: 1,
-
-    name:
-      "Les Jardins engloutis",
-
-    image:
-      "images/Monde-1.PNG",
-
-    guardian:
-      "Gardien des Marées",
-
-    guardianImage:
-      "images/Gardien-1.PNG"
+    name: "Les Jardins engloutis",
+    image: "images/Monde-1.PNG",
+    guardian: "Gardien des Marées",
+    guardianImage: "images/Gardien-1.PNG"
   },
 
   {
     id: 2,
-
-    name:
-      "La Grotte de Cristal",
-
-    image:
-      "images/Monde-2.PNG",
-
-    guardian:
-      "Gardien Prismatique",
-
-    guardianImage:
-      "images/Gardien-2.PNG"
+    name: "La Grotte de Cristal",
+    image: "images/Monde-2.PNG",
+    guardian: "Gardien Prismatique",
+    guardianImage: "images/Gardien-2.PNG"
   },
 
   {
     id: 3,
-
-    name:
-      "Les Ruines oubliées",
-
-    image:
-      "images/Monde-3.PNG",
-
-    guardian:
-      "Gardien des Glyphes",
-
-    guardianImage:
-      "images/Gardien-3.PNG"
+    name: "Les Ruines oubliées",
+    image: "images/Monde-3.PNG",
+    guardian: "Gardien des Glyphes",
+    guardianImage: "images/Gardien-3.PNG"
   },
 
   {
     id: 4,
-
-    name:
-      "La Forêt luminescente",
-
-    image:
-      "images/Monde-4.PNG",
-
-    guardian:
-      "Gardien Sylvestre",
-
-    guardianImage:
-      "images/Gardien-4.PNG"
+    name: "La Forêt luminescente",
+    image: "images/Monde-4.PNG",
+    guardian: "Gardien Sylvestre",
+    guardianImage: "images/Gardien-4.PNG"
   },
 
   {
     id: 5,
-
-    name:
-      "Le Temple du NEXUS",
-
-    image:
-      "images/Monde-5.PNG",
-
-    guardian:
-      "Gardien Originel",
-
-    guardianImage:
-      "images/Gardien-5.PNG"
+    name: "Le Temple du NEXUS",
+    image: "images/Monde-5.PNG",
+    guardian: "Gardien Originel",
+    guardianImage: "images/Gardien-5.PNG"
   }
-
 ];
 
 
@@ -187,194 +106,104 @@ const WORLDS = [
 const REWARD_ITEMS = {
 
   common: [
-
     {
-      name:
-        "Éclat d'azur",
-
-      type:
-        "Décoration",
-
-      icon:
-        "◇"
+      name: "Éclat d'azur",
+      type: "Décoration",
+      icon: "◇"
     },
 
     {
-      name:
-        "Mousse lumineuse",
-
-      type:
-        "Plante",
-
-      icon:
-        "❋"
+      name: "Mousse lumineuse",
+      type: "Plante",
+      icon: "❋"
     },
 
     {
-      name:
-        "Fragment marin",
-
-      type:
-        "Fragment",
-
-      icon:
-        "◈"
+      name: "Fragment marin",
+      type: "Fragment",
+      icon: "◈"
     }
-
   ],
-
 
   uncommon: [
-
     {
-      name:
-        "Corail spectral",
-
-      type:
-        "Décoration",
-
-      icon:
-        "✦"
+      name: "Corail spectral",
+      type: "Décoration",
+      icon: "✦"
     },
 
     {
-      name:
-        "Fleur de brume",
-
-      type:
-        "Plante",
-
-      icon:
-        "❉"
+      name: "Fleur de brume",
+      type: "Plante",
+      icon: "❉"
     },
 
     {
-      name:
-        "Perle runique",
-
-      type:
-        "Artefact",
-
-      icon:
-        "●"
+      name: "Perle runique",
+      type: "Artefact",
+      icon: "●"
     }
-
   ],
-
 
   rare: [
-
     {
-      name:
-        "Cristal des profondeurs",
-
-      type:
-        "Artefact",
-
-      icon:
-        "◆"
+      name: "Cristal des profondeurs",
+      type: "Artefact",
+      icon: "◆"
     },
 
     {
-      name:
-        "Méduse astrale",
-
-      type:
-        "Créature",
-
-      icon:
-        "✺"
+      name: "Méduse astrale",
+      type: "Créature",
+      icon: "✺"
     },
 
     {
-      name:
-        "Relique des Marées",
-
-      type:
-        "Artefact",
-
-      icon:
-        "◎"
+      name: "Relique des Marées",
+      type: "Artefact",
+      icon: "◎"
     }
-
   ],
-
 
   epic: [
-
     {
-      name:
-        "Orbe du Passage",
-
-      type:
-        "Artefact",
-
-      icon:
-        "◉"
+      name: "Orbe du Passage",
+      type: "Artefact",
+      icon: "◉"
     },
 
     {
-      name:
-        "Gardien miniature",
-
-      type:
-        "Créature",
-
-      icon:
-        "✹"
+      name: "Gardien miniature",
+      type: "Créature",
+      icon: "✹"
     },
 
     {
-      name:
-        "Arbre de lumière",
-
-      type:
-        "Décoration",
-
-      icon:
-        "✧"
+      name: "Arbre de lumière",
+      type: "Décoration",
+      icon: "✧"
     }
-
   ],
 
-
   legendary: [
-
     {
-      name:
-        "Cœur du NEXUS",
-
-      type:
-        "Artefact",
-
-      icon:
-        "✶"
+      name: "Cœur du NEXUS",
+      type: "Artefact",
+      icon: "✶"
     },
 
     {
-      name:
-        "Dragon des Abysses",
-
-      type:
-        "Créature",
-
-      icon:
-        "♢"
+      name: "Dragon des Abysses",
+      type: "Créature",
+      icon: "♢"
     },
 
     {
-      name:
-        "Fragment Originel",
-
-      type:
-        "Artefact",
-
-      icon:
-        "✷"
+      name: "Fragment Originel",
+      type: "Artefact",
+      icon: "✷"
     }
-
   ]
-
 };
 
 
@@ -383,19 +212,16 @@ const REWARD_ITEMS = {
 ========================================================= */
 
 const homeScreen =
-  document.getElementById(
-    "homeScreen"
-  );
+  document.getElementById("homeScreen");
 
 const ascensionScreen =
-  document.getElementById(
-    "ascensionScreen"
-  );
+  document.getElementById("ascensionScreen");
 
 const sanctuaryScreen =
-  document.getElementById(
-    "sanctuaryScreen"
-  );
+  document.getElementById("sanctuaryScreen");
+
+const nexusWorldScreen =
+  document.getElementById("nexusWorldScreen");
 
 
 /* =========================================================
@@ -403,64 +229,40 @@ const sanctuaryScreen =
 ========================================================= */
 
 const todayLabel =
-  document.getElementById(
-    "todayLabel"
-  );
+  document.getElementById("todayLabel");
 
 const dayStatusText =
-  document.getElementById(
-    "dayStatusText"
-  );
+  document.getElementById("dayStatusText");
 
 const xpValue =
-  document.getElementById(
-    "xpValue"
-  );
+  document.getElementById("xpValue");
 
 const xpCurrentText =
-  document.getElementById(
-    "xpCurrentText"
-  );
+  document.getElementById("xpCurrentText");
 
 const xpBarFill =
-  document.getElementById(
-    "xpBarFill"
-  );
+  document.getElementById("xpBarFill");
 
 const resonanceLevel =
-  document.getElementById(
-    "resonanceLevel"
-  );
+  document.getElementById("resonanceLevel");
 
 const dailyCount =
-  document.getElementById(
-    "dailyCount"
-  );
+  document.getElementById("dailyCount");
 
 const rewardTrack =
-  document.getElementById(
-    "rewardTrack"
-  );
+  document.getElementById("rewardTrack");
 
 const portalPreview =
-  document.getElementById(
-    "portalPreview"
-  );
+  document.getElementById("portalPreview");
 
 const portalAccessTitle =
-  document.getElementById(
-    "portalAccessTitle"
-  );
+  document.getElementById("portalAccessTitle");
 
 const portalAccessText =
-  document.getElementById(
-    "portalAccessText"
-  );
+  document.getElementById("portalAccessText");
 
 const enterAscensionBtn =
-  document.getElementById(
-    "enterAscensionBtn"
-  );
+  document.getElementById("enterAscensionBtn");
 
 
 /* =========================================================
@@ -468,44 +270,28 @@ const enterAscensionBtn =
 ========================================================= */
 
 const openMenuBtn =
-  document.getElementById(
-    "openMenuBtn"
-  );
+  document.getElementById("openMenuBtn");
 
 const menuOverlay =
-  document.getElementById(
-    "menuOverlay"
-  );
+  document.getElementById("menuOverlay");
 
 const closeMenuBtn =
-  document.getElementById(
-    "closeMenuBtn"
-  );
+  document.getElementById("closeMenuBtn");
 
 const menuHomeBtn =
-  document.getElementById(
-    "menuHomeBtn"
-  );
+  document.getElementById("menuHomeBtn");
 
 const menuSanctuaryBtn =
-  document.getElementById(
-    "menuSanctuaryBtn"
-  );
+  document.getElementById("menuSanctuaryBtn");
 
 const menuStatsBtn =
-  document.getElementById(
-    "menuStatsBtn"
-  );
+  document.getElementById("menuStatsBtn");
 
 const resetTodayBtn =
-  document.getElementById(
-    "resetTodayBtn"
-  );
+  document.getElementById("resetTodayBtn");
 
 const resetAllBtn =
-  document.getElementById(
-    "resetAllBtn"
-  );
+  document.getElementById("resetAllBtn");
 
 
 /* =========================================================
@@ -513,89 +299,52 @@ const resetAllBtn =
 ========================================================= */
 
 const leaveAscensionBtn =
-  document.getElementById(
-    "leaveAscensionBtn"
-  );
+  document.getElementById("leaveAscensionBtn");
 
 const pauseBtn =
-  document.getElementById(
-    "pauseBtn"
-  );
+  document.getElementById("pauseBtn");
 
 const worldName =
-  document.getElementById(
-    "worldName"
-  );
+  document.getElementById("worldName");
 
 const ascensionName =
-  document.getElementById(
-    "ascensionName"
-  );
+  document.getElementById("ascensionName");
 
 const runicStability =
-  document.getElementById(
-    "runicStability"
-  );
+  document.getElementById("runicStability");
 
 const stabilityNumber =
-  document.getElementById(
-    "stabilityNumber"
-  );
+  document.getElementById("stabilityNumber");
 
 const stabilityMessage =
-  document.getElementById(
-    "stabilityMessage"
-  );
+  document.getElementById("stabilityMessage");
 
 const currentStepText =
-  document.getElementById(
-    "currentStepText"
-  );
+  document.getElementById("currentStepText");
 
 const runCrystals =
-  document.getElementById(
-    "runCrystals"
-  );
+  document.getElementById("runCrystals");
 
 const activePowerText =
-  document.getElementById(
-    "activePowerText"
-  );
-
-const currentRoom =
-  document.getElementById(
-    "currentRoom"
-  );
+  document.getElementById("activePowerText");
 
 const roomTitle =
-  document.getElementById(
-    "roomTitle"
-  );
+  document.getElementById("roomTitle");
 
 const roomDescription =
-  document.getElementById(
-    "roomDescription"
-  );
+  document.getElementById("roomDescription");
 
 const roomVisual =
-  document.getElementById(
-    "roomVisual"
-  );
+  document.getElementById("roomVisual");
 
 const pathChoices =
-  document.getElementById(
-    "pathChoices"
-  );
+  document.getElementById("pathChoices");
 
 const roomActionZone =
-  document.getElementById(
-    "roomActionZone"
-  );
+  document.getElementById("roomActionZone");
 
 const roomActionBtn =
-  document.getElementById(
-    "roomActionBtn"
-  );
+  document.getElementById("roomActionBtn");
 
 
 /* =========================================================
@@ -603,9 +352,7 @@ const roomActionBtn =
 ========================================================= */
 
 const powerOverlay =
-  document.getElementById(
-    "powerOverlay"
-  );
+  document.getElementById("powerOverlay");
 
 
 /* =========================================================
@@ -613,34 +360,22 @@ const powerOverlay =
 ========================================================= */
 
 const challengeOverlay =
-  document.getElementById(
-    "challengeOverlay"
-  );
+  document.getElementById("challengeOverlay");
 
 const challengeType =
-  document.getElementById(
-    "challengeType"
-  );
+  document.getElementById("challengeType");
 
 const challengeTitle =
-  document.getElementById(
-    "challengeTitle"
-  );
+  document.getElementById("challengeTitle");
 
 const challengeInstructions =
-  document.getElementById(
-    "challengeInstructions"
-  );
+  document.getElementById("challengeInstructions");
 
 const challengeArea =
-  document.getElementById(
-    "challengeArea"
-  );
+  document.getElementById("challengeArea");
 
 const challengeContinueBtn =
-  document.getElementById(
-    "challengeContinueBtn"
-  );
+  document.getElementById("challengeContinueBtn");
 
 
 /* =========================================================
@@ -648,29 +383,19 @@ const challengeContinueBtn =
 ========================================================= */
 
 const guardianOverlay =
-  document.getElementById(
-    "guardianOverlay"
-  );
+  document.getElementById("guardianOverlay");
 
 const guardianMessage =
-  document.getElementById(
-    "guardianMessage"
-  );
+  document.getElementById("guardianMessage");
 
 const guardianWins =
-  document.getElementById(
-    "guardianWins"
-  );
+  document.getElementById("guardianWins");
 
 const guardianRounds =
-  document.getElementById(
-    "guardianRounds"
-  );
+  document.getElementById("guardianRounds");
 
 const startGuardianBtn =
-  document.getElementById(
-    "startGuardianBtn"
-  );
+  document.getElementById("startGuardianBtn");
 
 
 /* =========================================================
@@ -678,34 +403,22 @@ const startGuardianBtn =
 ========================================================= */
 
 const rewardOverlay =
-  document.getElementById(
-    "rewardOverlay"
-  );
+  document.getElementById("rewardOverlay");
 
 const rewardBigIcon =
-  document.getElementById(
-    "rewardBigIcon"
-  );
+  document.getElementById("rewardBigIcon");
 
 const rewardRarity =
-  document.getElementById(
-    "rewardRarity"
-  );
+  document.getElementById("rewardRarity");
 
 const rewardTitle =
-  document.getElementById(
-    "rewardTitle"
-  );
+  document.getElementById("rewardTitle");
 
 const rewardDescription =
-  document.getElementById(
-    "rewardDescription"
-  );
+  document.getElementById("rewardDescription");
 
 const rewardContinueBtn =
-  document.getElementById(
-    "rewardContinueBtn"
-  );
+  document.getElementById("rewardContinueBtn");
 
 
 /* =========================================================
@@ -713,44 +426,28 @@ const rewardContinueBtn =
 ========================================================= */
 
 const endAscensionOverlay =
-  document.getElementById(
-    "endAscensionOverlay"
-  );
+  document.getElementById("endAscensionOverlay");
 
 const endAscensionLabel =
-  document.getElementById(
-    "endAscensionLabel"
-  );
+  document.getElementById("endAscensionLabel");
 
 const endAscensionTitle =
-  document.getElementById(
-    "endAscensionTitle"
-  );
+  document.getElementById("endAscensionTitle");
 
 const endAscensionText =
-  document.getElementById(
-    "endAscensionText"
-  );
+  document.getElementById("endAscensionText");
 
 const endCrystals =
-  document.getElementById(
-    "endCrystals"
-  );
+  document.getElementById("endCrystals");
 
 const endSteps =
-  document.getElementById(
-    "endSteps"
-  );
+  document.getElementById("endSteps");
 
 const endHomeBtn =
-  document.getElementById(
-    "endHomeBtn"
-  );
+  document.getElementById("endHomeBtn");
 
 const endSanctuaryBtn =
-  document.getElementById(
-    "endSanctuaryBtn"
-  );
+  document.getElementById("endSanctuaryBtn");
 
 
 /* =========================================================
@@ -758,29 +455,50 @@ const endSanctuaryBtn =
 ========================================================= */
 
 const sanctuaryBackBtn =
-  document.getElementById(
-    "sanctuaryBackBtn"
-  );
+  document.getElementById("sanctuaryBackBtn");
 
-const totalCrystals =
-  document.getElementById(
-    "totalCrystals"
-  );
+const totalCrystalsElement =
+  document.getElementById("totalCrystals");
 
 const artifactCount =
-  document.getElementById(
-    "artifactCount"
-  );
+  document.getElementById("artifactCount");
 
 const creatureCount =
-  document.getElementById(
-    "creatureCount"
-  );
+  document.getElementById("creatureCount");
 
 const collectionGrid =
-  document.getElementById(
-    "collectionGrid"
-  );
+  document.getElementById("collectionGrid");
+
+
+/* =========================================================
+   MONDE NEXUS
+========================================================= */
+
+const openNexusWorldBtn =
+  document.getElementById("openNexusWorldBtn");
+
+const closeNexusWorldBtn =
+  document.getElementById("closeNexusWorldBtn");
+
+const centralSanctuaryBtn =
+  document.getElementById("centralSanctuaryBtn");
+
+
+/* =========================================================
+   JARDIN DES BULLES
+========================================================= */
+
+const jardinBullesSlot =
+  document.getElementById("jardinBullesSlot");
+
+const buildHabitatOverlay =
+  document.getElementById("buildHabitatOverlay");
+
+const cancelBuildHabitatBtn =
+  document.getElementById("cancelBuildHabitatBtn");
+
+const confirmBuildHabitatBtn =
+  document.getElementById("confirmBuildHabitatBtn");
 
 
 /* =========================================================
@@ -788,29 +506,19 @@ const collectionGrid =
 ========================================================= */
 
 const confirmOverlay =
-  document.getElementById(
-    "confirmOverlay"
-  );
+  document.getElementById("confirmOverlay");
 
 const confirmTitle =
-  document.getElementById(
-    "confirmTitle"
-  );
+  document.getElementById("confirmTitle");
 
 const confirmText =
-  document.getElementById(
-    "confirmText"
-  );
+  document.getElementById("confirmText");
 
 const cancelConfirmBtn =
-  document.getElementById(
-    "cancelConfirmBtn"
-  );
+  document.getElementById("cancelConfirmBtn");
 
 const confirmActionBtn =
-  document.getElementById(
-    "confirmActionBtn"
-  );
+  document.getElementById("confirmActionBtn");
 
 
 /* =========================================================
@@ -818,14 +526,10 @@ const confirmActionBtn =
 ========================================================= */
 
 const toast =
-  document.getElementById(
-    "toast"
-  );
+  document.getElementById("toast");
 
 const toastText =
-  document.getElementById(
-    "toastText"
-  );
+  document.getElementById("toastText");
 
 
 /* =========================================================
@@ -845,12 +549,23 @@ let ascensionLevel = 1;
 let currentWorld = 1;
 
 let stats = {
-
   totalAscensions: 0,
-
   successfulAscensions: 0,
-
   perfectDays: 0
+};
+
+
+/* =========================================================
+   MONDE NEXUS — ÉTAT
+========================================================= */
+
+let nexusWorldData = {
+
+  abyssesUnlocked: true,
+
+  habitats: {
+    jardinBulles: false
+  }
 
 };
 
@@ -890,8 +605,7 @@ let run = {
 
 function getTodayKey() {
 
-  const date =
-    new Date();
+  const date = new Date();
 
   const year =
     date.getFullYear();
@@ -899,23 +613,14 @@ function getTodayKey() {
   const month =
     String(
       date.getMonth() + 1
-    ).padStart(
-      2,
-      "0"
-    );
+    ).padStart(2, "0");
 
   const day =
     String(
       date.getDate()
-    ).padStart(
-      2,
-      "0"
-    );
+    ).padStart(2, "0");
 
-  return (
-    `${year}-${month}-${day}`
-  );
-
+  return `${year}-${month}-${day}`;
 }
 
 
@@ -924,16 +629,9 @@ function formatToday() {
   return new Intl.DateTimeFormat(
     "fr-FR",
     {
-
-      weekday:
-        "long",
-
-      day:
-        "numeric",
-
-      month:
-        "long"
-
+      weekday: "long",
+      day: "numeric",
+      month: "long"
     }
   ).format(
     new Date()
@@ -950,14 +648,18 @@ function init() {
 
   loadPermanentData();
 
+  loadNexusWorldData();
+
   checkDailyReset();
 
   loadDailyHabits();
+
 
   todayLabel.textContent =
     capitalize(
       formatToday()
     );
+
 
   bindHabitButtons();
 
@@ -967,11 +669,17 @@ function init() {
 
   bindPowerButtons();
 
+  bindNexusWorld();
+
+
   applyPermanentVisuals();
 
   updateDailyUI();
 
   updateSanctuary();
+
+  renderJardinBulles();
+
 
   showScreen(
     homeScreen
@@ -988,8 +696,6 @@ init();
 ========================================================= */
 
 function applyPermanentVisuals() {
-
-  /* Accueil */
 
   homeScreen.style.backgroundImage =
     `
@@ -1011,12 +717,11 @@ function applyPermanentVisuals() {
     "fixed";
 
 
-  /* Portail */
-
   const portalCard =
     document.querySelector(
       ".portal-access-card"
     );
+
 
   if (portalCard) {
 
@@ -1039,36 +744,18 @@ function applyPermanentVisuals() {
   }
 
 
-  /* Chemins */
-
-  const mistPath =
-    document.querySelector(
-      ".mist-path"
-    );
-
-  const crystalPath =
-    document.querySelector(
-      ".crystal-path"
-    );
-
-  const forbiddenPath =
-    document.querySelector(
-      ".forbidden-path"
-    );
-
-
   setPathVisual(
-    mistPath,
+    document.querySelector(".mist-path"),
     VISUALS.pathMist
   );
 
   setPathVisual(
-    crystalPath,
+    document.querySelector(".crystal-path"),
     VISUALS.pathCrystal
   );
 
   setPathVisual(
-    forbiddenPath,
+    document.querySelector(".forbidden-path"),
     VISUALS.pathForbidden
   );
 
@@ -1083,6 +770,7 @@ function setPathVisual(
   if (!element) {
     return;
   }
+
 
   element.style.backgroundImage =
     `
@@ -1117,12 +805,20 @@ function loadPermanentData() {
     ) || 0;
 
 
-  collection =
-    JSON.parse(
-      localStorage.getItem(
-        STORAGE.collection
-      ) || "[]"
-    );
+  try {
+
+    collection =
+      JSON.parse(
+        localStorage.getItem(
+          STORAGE.collection
+        ) || "[]"
+      );
+
+  } catch {
+
+    collection = [];
+
+  }
 
 
   ascensionLevel =
@@ -1141,15 +837,27 @@ function loadPermanentData() {
     ) || 1;
 
 
-  stats =
-    JSON.parse(
-      localStorage.getItem(
-        STORAGE.stats
-      ) ||
-      JSON.stringify(
-        stats
-      )
-    );
+  try {
+
+    stats =
+      JSON.parse(
+        localStorage.getItem(
+          STORAGE.stats
+        ) ||
+        JSON.stringify(
+          stats
+        )
+      );
+
+  } catch {
+
+    stats = {
+      totalAscensions: 0,
+      successfulAscensions: 0,
+      perfectDays: 0
+    };
+
+  }
 
 }
 
@@ -1167,9 +875,7 @@ function savePermanentData() {
 
   localStorage.setItem(
     STORAGE.collection,
-    JSON.stringify(
-      collection
-    )
+    JSON.stringify(collection)
   );
 
   localStorage.setItem(
@@ -1184,8 +890,85 @@ function savePermanentData() {
 
   localStorage.setItem(
     STORAGE.stats,
+    JSON.stringify(stats)
+  );
+
+}
+
+
+/* =========================================================
+   MONDE NEXUS — CHARGEMENT
+========================================================= */
+
+function loadNexusWorldData() {
+
+  const saved =
+    localStorage.getItem(
+      STORAGE.nexusWorld
+    );
+
+
+  if (!saved) {
+
+    saveNexusWorldData();
+
+    return;
+
+  }
+
+
+  try {
+
+    const parsed =
+      JSON.parse(saved);
+
+
+    nexusWorldData = {
+
+      ...nexusWorldData,
+
+      ...parsed,
+
+      habitats: {
+
+        ...nexusWorldData.habitats,
+
+        ...(parsed.habitats || {})
+
+      }
+
+    };
+
+  }
+
+  catch (error) {
+
+    console.warn(
+      "Sauvegarde Monde NEXUS invalide.",
+      error
+    );
+
+    nexusWorldData = {
+      abyssesUnlocked: true,
+
+      habitats: {
+        jardinBulles: false
+      }
+    };
+
+    saveNexusWorldData();
+
+  }
+
+}
+
+
+function saveNexusWorldData() {
+
+  localStorage.setItem(
+    STORAGE.nexusWorld,
     JSON.stringify(
-      stats
+      nexusWorldData
     )
   );
 
@@ -1213,10 +996,12 @@ function checkDailyReset() {
 
     habits = {};
 
+
     localStorage.setItem(
       STORAGE.dayDate,
       today
     );
+
 
     localStorage.setItem(
       STORAGE.habits,
@@ -1234,12 +1019,20 @@ function checkDailyReset() {
 
 function loadDailyHabits() {
 
-  habits =
-    JSON.parse(
-      localStorage.getItem(
-        STORAGE.habits
-      ) || "{}"
-    );
+  try {
+
+    habits =
+      JSON.parse(
+        localStorage.getItem(
+          STORAGE.habits
+        ) || "{}"
+      );
+
+  } catch {
+
+    habits = {};
+
+  }
 
 }
 
@@ -1248,9 +1041,7 @@ function saveDailyHabits() {
 
   localStorage.setItem(
     STORAGE.habits,
-    JSON.stringify(
-      habits
-    )
+    JSON.stringify(habits)
   );
 
 }
@@ -1362,16 +1153,14 @@ function calculateXP() {
     .values(
       habits
     )
-    .forEach(
-      value => {
+    .forEach(value => {
 
-        xp +=
-          Number(
-            value
-          ) || 0;
+      xp +=
+        Number(
+          value
+        ) || 0;
 
-      }
-    );
+    });
 
 
   return Math.min(
@@ -1454,8 +1243,7 @@ function updateHabitVisuals() {
 
 
           if (
-            selectedValue !==
-              undefined &&
+            selectedValue !== undefined &&
             Number(
               button.dataset.value
             ) ===
@@ -1478,8 +1266,7 @@ function updateHabitVisuals() {
 
 
       if (
-        selectedValue !==
-          undefined
+        selectedValue !== undefined
       ) {
 
         completed++;
@@ -1724,7 +1511,7 @@ function updatePortalAccess() {
 
 
 /* =========================================================
-   NAVIGATION
+   NAVIGATION PRINCIPALE
 ========================================================= */
 
 function bindNavigation() {
@@ -1943,22 +1730,28 @@ function showScreen(
   [
     homeScreen,
     ascensionScreen,
-    sanctuaryScreen
+    sanctuaryScreen,
+    nexusWorldScreen
   ]
-    .forEach(
-      item => {
+    .filter(Boolean)
+    .forEach(item => {
 
-        item.classList.remove(
-          "active"
-        );
+      item.classList.remove(
+        "active"
+      );
 
-      }
+    });
+
+
+  if (
+    screen
+  ) {
+
+    screen.classList.add(
+      "active"
     );
 
-
-  screen.classList.add(
-    "active"
-  );
+  }
 
 
   window.scrollTo({
@@ -2000,35 +1793,26 @@ function prepareAscension() {
 
   run = {
 
-    active:
-      true,
+    active: true,
 
     maxSteps:
       getAscensionSteps(),
 
-    currentStep:
-      1,
+    currentStep: 1,
 
-    stability:
-      3,
+    stability: 3,
 
-    crystals:
-      0,
+    crystals: 0,
 
-    power:
-      null,
+    power: null,
 
-    shieldUsed:
-      false,
+    shieldUsed: false,
 
-    path:
-      null,
+    path: null,
 
-    guardianWins:
-      0,
+    guardianWins: 0,
 
-    guardianRounds:
-      0
+    guardianRounds: 0
 
   };
 
@@ -2096,35 +1880,33 @@ function bindPowerButtons() {
     .querySelectorAll(
       ".power-card"
     )
-    .forEach(
-      button => {
+    .forEach(button => {
 
-        button.addEventListener(
-          "click",
-          () => {
+      button.addEventListener(
+        "click",
+        () => {
 
-            run.power =
-              button.dataset.power;
+          run.power =
+            button.dataset.power;
 
-            powerOverlay
-              .classList
-              .add(
-                "hidden"
-              );
+          powerOverlay
+            .classList
+            .add(
+              "hidden"
+            );
 
-            startAscension();
+          startAscension();
 
-          }
-        );
+        }
+      );
 
-      }
-    );
+    });
 
 }
 
 
 /* =========================================================
-   MONDE ACTUEL
+   MONDE ACTUEL ASCENSION
 ========================================================= */
 
 function getCurrentWorld() {
@@ -2190,7 +1972,7 @@ function startAscension() {
 
 
 /* =========================================================
-   ENTRÉE / CHOIX CHEMINS
+   ENTRÉE / CHOIX DU CHEMIN
 ========================================================= */
 
 function showEntrance() {
@@ -2233,25 +2015,35 @@ function bindPathButtons() {
     .querySelectorAll(
       ".path-card"
     )
-    .forEach(
-      button => {
+    .forEach(button => {
 
-        button.addEventListener(
-          "click",
-          () => {
+      button.addEventListener(
+        "click",
+        () => {
 
-            run.path =
-              button.dataset.path;
+          /* Le chemin est choisi UNE SEULE FOIS */
 
-            resolvePathChoice(
-              run.path
-            );
+          if (
+            run.path
+          ) {
+
+            return;
 
           }
-        );
 
-      }
-    );
+
+          run.path =
+            button.dataset.path;
+
+
+          resolvePathChoice(
+            run.path
+          );
+
+        }
+      );
+
+    });
 
 }
 
@@ -2299,25 +2091,19 @@ function generateRoom(
     if (
       roll < 0.30
     ) {
-
       return "sanctuary";
-
     }
 
     if (
       roll < 0.58
     ) {
-
       return "crystal";
-
     }
 
     if (
       roll < 0.80
     ) {
-
       return "mist";
-
     }
 
     return "challenge";
@@ -2332,25 +2118,19 @@ function generateRoom(
     if (
       roll < 0.28
     ) {
-
       return "crystal";
-
     }
 
     if (
       roll < 0.52
     ) {
-
       return "chest";
-
     }
 
     if (
       roll < 0.76
     ) {
-
       return "challenge";
-
     }
 
     return "obstacle";
@@ -2359,40 +2139,31 @@ function generateRoom(
 
 
   if (
-    path ===
-      "forbidden"
+    path === "forbidden"
   ) {
 
     if (
       roll < 0.28
     ) {
-
       return "forbidden";
-
     }
 
     if (
       roll < 0.50
     ) {
-
       return "obstacle";
-
     }
 
     if (
       roll < 0.72
     ) {
-
       return "challenge";
-
     }
 
     if (
       roll < 0.92
     ) {
-
       return "chest";
-
     }
 
     return "secret";
@@ -2409,27 +2180,32 @@ function generateRoom(
    IMAGE DE SALLE
 ========================================================= */
 
-function setRoomImage(image, symbol = "") {
+function setRoomImage(
+  image,
+  symbol = ""
+) {
 
-  roomVisual.innerHTML = `
-    <img
-      src="${image}"
-      alt=""
-      class="room-scene-image"
-    >
+  roomVisual.innerHTML =
+    `
+      <img
+        src="${image}"
+        alt=""
+        class="room-scene-image"
+      >
 
-    ${
-      symbol
-        ? `
-          <div class="temporary-symbol">
-            ${symbol}
-          </div>
-        `
-        : ""
-    }
-  `;
+      ${
+        symbol
+          ? `
+              <div class="temporary-symbol">
+                ${symbol}
+              </div>
+            `
+          : ""
+      }
+    `;
 
 }
+
 
 /* =========================================================
    SALLES
@@ -2438,6 +2214,13 @@ function setRoomImage(image, symbol = "") {
 function showRoom(
   type
 ) {
+
+  pathChoices
+    .classList
+    .add(
+      "hidden"
+    );
+
 
   roomActionZone
     .classList
@@ -2507,8 +2290,7 @@ function showRoom(
       "Un coffre ancien pulse au centre de la salle.";
 
     setRoomImage(
-      VISUALS.chestRoom,
-      ""
+      VISUALS.chestRoom
     );
 
     roomActionBtn.textContent =
@@ -2546,8 +2328,7 @@ function showRoom(
       "Quelque chose bouge derrière le voile.";
 
     setRoomImage(
-      VISUALS.mistRoom,
-      ""
+      VISUALS.mistRoom
     );
 
     roomActionBtn.textContent =
@@ -2621,8 +2402,7 @@ function showRoom(
       "Une énergie ancienne stabilise ton passage.";
 
     setRoomImage(
-      VISUALS.sanctuaryRoom,
-      ""
+      VISUALS.sanctuaryRoom
     );
 
     roomActionBtn.textContent =
@@ -2845,8 +2625,7 @@ function showRoom(
       () => {
 
         giveRandomReward(
-          Math.random() <
-            0.30
+          Math.random() < 0.30
             ? "legendary"
             : "epic",
           nextStep
@@ -2861,6 +2640,8 @@ function showRoom(
 
 /* =========================================================
    ÉTAPE SUIVANTE
+   IMPORTANT :
+   ON RESTE SUR LE CHEMIN CHOISI
 ========================================================= */
 
 function nextStep() {
@@ -2907,7 +2688,7 @@ function nextStep() {
 
   if (
     run.currentStep >=
-      run.maxSteps
+    run.maxSteps
   ) {
 
     finalTreasure();
@@ -2917,7 +2698,21 @@ function nextStep() {
   }
 
 
-  showEntrance();
+  /*
+    ON NE REVIENT PLUS À showEntrance().
+    On génère directement la prochaine salle
+    du même chemin.
+  */
+
+  const nextRoom =
+    generateRoom(
+      run.path
+    );
+
+
+  showRoom(
+    nextRoom
+  );
 
 }
 
@@ -2935,8 +2730,7 @@ function finalTreasure() {
     "Le NEXUS reconnaît ton passage.";
 
   setRoomImage(
-    VISUALS.reward,
-    ""
+    VISUALS.reward
   );
 
 
@@ -2992,17 +2786,13 @@ function getFinalRarity() {
     if (
       roll < 0.08
     ) {
-
       return "epic";
-
     }
 
     if (
       roll < 0.35
     ) {
-
       return "rare";
-
     }
 
     return "uncommon";
@@ -3017,9 +2807,7 @@ function getFinalRarity() {
     if (
       roll < 0.20
     ) {
-
       return "rare";
-
     }
 
     return "uncommon";
@@ -3033,7 +2821,7 @@ function getFinalRarity() {
 
 
 /* =========================================================
-   CRISTAUX
+   CRISTAUX PARTIE
 ========================================================= */
 
 function addRunCrystals(
@@ -3082,10 +2870,8 @@ function restoreStability() {
 function loseStability() {
 
   if (
-    run.power ===
-      "shield" &&
-    run.shieldUsed ===
-      false
+    run.power === "shield" &&
+    run.shieldUsed === false
   ) {
 
     run.shieldUsed =
@@ -3113,6 +2899,7 @@ function loseStability() {
     showToast(
       "Le Portail s'effondre"
     );
+
 
     setTimeout(
       () => {
@@ -3158,8 +2945,7 @@ function updateStabilityUI() {
 
         crystal.classList.toggle(
           "active",
-          index <
-            run.stability
+          index < run.stability
         );
 
       }
@@ -3242,16 +3028,14 @@ function updateRunUI() {
 
 
   if (
-    run.power ===
-      "shield"
+    run.power === "shield"
   ) {
 
     activePowerText.textContent =
       "Bouclier";
 
   } else if (
-    run.power ===
-      "vision"
+    run.power === "vision"
   ) {
 
     activePowerText.textContent =
@@ -3343,8 +3127,7 @@ function startRandomChallenge(
     );
 
   } else if (
-    selected ===
-      "different"
+    selected === "different"
   ) {
 
     challengeDifferent(
@@ -3489,24 +3272,22 @@ function challengeMemory(
         .querySelectorAll(
           ".challenge-memory-button"
         )
-        .forEach(
-          button => {
+        .forEach(button => {
 
-            button.addEventListener(
-              "click",
-              () => {
+          button.addEventListener(
+            "click",
+            () => {
 
-                resolveChallenge(
-                  button.dataset.answer ===
-                    correct,
-                  callback
-                );
+              resolveChallenge(
+                button.dataset.answer ===
+                correct,
+                callback
+              );
 
-              }
-            );
+            }
+          );
 
-          }
-        );
+        });
 
     },
     hardMode
@@ -3608,7 +3389,8 @@ function challengeDifferent(
   }
 
 
-  html += "</div>";
+  html +=
+    "</div>";
 
 
   challengeArea.innerHTML =
@@ -3619,24 +3401,22 @@ function challengeDifferent(
     .querySelectorAll(
       ".challenge-rune"
     )
-    .forEach(
-      button => {
+    .forEach(button => {
 
-        button.addEventListener(
-          "click",
-          () => {
+      button.addEventListener(
+        "click",
+        () => {
 
-            resolveChallenge(
-              button.dataset.correct ===
-                "yes",
-              callback
-            );
+          resolveChallenge(
+            button.dataset.correct ===
+            "yes",
+            callback
+          );
 
-          }
-        );
+        }
+      );
 
-      }
-    );
+    });
 
 }
 
@@ -3707,8 +3487,7 @@ function challengeSeal(
                 <button
                   class="challenge-seal"
                   data-correct="${
-                    index ===
-                      correct
+                    index === correct
                       ? "yes"
                       : "no"
                   }"
@@ -3746,24 +3525,22 @@ function challengeSeal(
     .querySelectorAll(
       ".challenge-seal"
     )
-    .forEach(
-      button => {
+    .forEach(button => {
 
-        button.addEventListener(
-          "click",
-          () => {
+      button.addEventListener(
+        "click",
+        () => {
 
-            resolveChallenge(
-              button.dataset.correct ===
-                "yes",
-              callback
-            );
+          resolveChallenge(
+            button.dataset.correct ===
+            "yes",
+            callback
+          );
 
-          }
-        );
+        }
+      );
 
-      }
-    );
+    });
 
 }
 
@@ -3789,29 +3566,29 @@ function resolveChallenge(
   challengeArea.innerHTML =
     success
       ? `
-        <div
-          style="
-            font-size:1.3rem;
-            font-weight:800;
-            color:#82f2ba;
-            text-shadow:
-              0 0 20px rgba(130,242,186,.35);
-          "
-        >
-          ✦ Résonance réussie
-        </div>
-      `
+          <div
+            style="
+              font-size:1.3rem;
+              font-weight:800;
+              color:#82f2ba;
+              text-shadow:
+                0 0 20px rgba(130,242,186,.35);
+            "
+          >
+            ✦ Résonance réussie
+          </div>
+        `
       : `
-        <div
-          style="
-            font-size:1.3rem;
-            font-weight:800;
-            color:#ffba78;
-          "
-        >
-          Le Portail vacille
-        </div>
-      `;
+          <div
+            style="
+              font-size:1.3rem;
+              font-weight:800;
+              color:#ffba78;
+            "
+          >
+            Le Portail vacille
+          </div>
+        `;
 
 
   challengeContinueBtn
@@ -4074,8 +3851,7 @@ function giveRandomReward(
       )
     ],
 
-    rarity:
-      rarity,
+    rarity: rarity,
 
     obtainedAt:
       new Date()
@@ -4087,6 +3863,7 @@ function giveRandomReward(
   collection.push(
     reward
   );
+
 
   savePermanentData();
 
@@ -4173,31 +3950,22 @@ function getRewardRarity(
 
 
   if (
-    path ===
-      "forbidden"
+    path === "forbidden"
   ) {
 
-    if (
-      roll < 0.05
-    ) {
+    if (roll < 0.05) {
       return "legendary";
     }
 
-    if (
-      roll < 0.18
-    ) {
+    if (roll < 0.18) {
       return "epic";
     }
 
-    if (
-      roll < 0.48
-    ) {
+    if (roll < 0.48) {
       return "rare";
     }
 
-    if (
-      roll < 0.80
-    ) {
+    if (roll < 0.80) {
       return "uncommon";
     }
 
@@ -4207,25 +3975,18 @@ function getRewardRarity(
 
 
   if (
-    path ===
-      "crystal"
+    path === "crystal"
   ) {
 
-    if (
-      roll < 0.04
-    ) {
+    if (roll < 0.04) {
       return "epic";
     }
 
-    if (
-      roll < 0.22
-    ) {
+    if (roll < 0.22) {
       return "rare";
     }
 
-    if (
-      roll < 0.62
-    ) {
+    if (roll < 0.62) {
       return "uncommon";
     }
 
@@ -4283,22 +4044,11 @@ function getRarityLabel(
 ) {
 
   const labels = {
-
-    common:
-      "Commun",
-
-    uncommon:
-      "Peu commun",
-
-    rare:
-      "Rare",
-
-    epic:
-      "Épique",
-
-    legendary:
-      "Légendaire"
-
+    common: "Commun",
+    uncommon: "Peu commun",
+    rare: "Rare",
+    epic: "Épique",
+    legendary: "Légendaire"
   };
 
 
@@ -4468,7 +4218,7 @@ function updateSanctuary() {
     "fixed";
 
 
-  totalCrystals.textContent =
+  totalCrystalsElement.textContent =
     totalPermanentCrystals;
 
 
@@ -4476,7 +4226,7 @@ function updateSanctuary() {
     collection.filter(
       item =>
         item.type ===
-          "Artefact"
+        "Artefact"
     ).length;
 
 
@@ -4484,7 +4234,7 @@ function updateSanctuary() {
     collection.filter(
       item =>
         item.type ===
-          "Créature"
+        "Créature"
     ).length;
 
 
@@ -4499,13 +4249,22 @@ function updateSanctuary() {
 
 function renderCollection() {
 
-  if (collection.length === 0) {
+  if (
+    collection.length === 0
+  ) {
 
     collectionGrid.innerHTML =
       `
         <div class="empty-collection">
-          <div class="empty-symbol">◇</div>
-          <p>Ton Sanctuaire attend ses premiers trésors.</p>
+
+          <div class="empty-symbol">
+            ◇
+          </div>
+
+          <p>
+            Ton Sanctuaire attend ses premiers trésors.
+          </p>
+
         </div>
       `;
 
@@ -4518,63 +4277,100 @@ function renderCollection() {
     collection
       .slice()
       .reverse()
-      .map(item => `
+      .map(
+        item => `
 
-        <article class="collection-item ${getItemClass(item)}">
+          <article class="collection-item ${getItemClass(item)}">
 
-          <div class="collection-item-visual">
-            ${getItemVisual(item)}
-          </div>
+            <div class="collection-item-visual">
+              ${getItemVisual(item)}
+            </div>
 
-          <div class="collection-item-name">
-            ${item.name}
-          </div>
+            <div class="collection-item-name">
+              ${item.name}
+            </div>
 
-          <div class="collection-item-rarity rarity-${item.rarity}">
-            ${getRarityLabel(item.rarity)}
-          </div>
+            <div class="collection-item-rarity rarity-${item.rarity}">
+              ${getRarityLabel(item.rarity)}
+            </div>
 
-          <div class="collection-item-type">
-            ${item.type}
-          </div>
+            <div class="collection-item-type">
+              ${item.type}
+            </div>
 
-        </article>
+          </article>
 
-      `)
+        `
+      )
       .join("");
 
 }
 
-function getItemClass(item) {
 
-  const name =
-    item.name.toLowerCase();
-
-  if (name.includes("méduse astrale")) {
-    return "item-meduse";
-  }
-
-  if (name.includes("éclat d'azur") || name.includes("eclat d'azur")) {
-    return "item-azur";
-  }
-
-  if (name.includes("relique des marées") || name.includes("relique des marees")) {
-    return "item-marees";
-  }
-
-  return "item-generic";
-
-}
-
-
-function getItemVisual(item) {
+function getItemClass(
+  item
+) {
 
   const name =
     item.name.toLowerCase();
 
 
   if (
-    name.includes("méduse astrale")
+    name.includes(
+      "méduse astrale"
+    )
+  ) {
+
+    return "item-meduse";
+
+  }
+
+
+  if (
+    name.includes(
+      "éclat d'azur"
+    ) ||
+    name.includes(
+      "eclat d'azur"
+    )
+  ) {
+
+    return "item-azur";
+
+  }
+
+
+  if (
+    name.includes(
+      "relique des marées"
+    ) ||
+    name.includes(
+      "relique des marees"
+    )
+  ) {
+
+    return "item-marees";
+
+  }
+
+
+  return "item-generic";
+
+}
+
+
+function getItemVisual(
+  item
+) {
+
+  const name =
+    item.name.toLowerCase();
+
+
+  if (
+    name.includes(
+      "méduse astrale"
+    )
   ) {
 
     return `
@@ -4589,8 +4385,12 @@ function getItemVisual(item) {
 
 
   if (
-    name.includes("éclat d'azur") ||
-    name.includes("eclat d'azur")
+    name.includes(
+      "éclat d'azur"
+    ) ||
+    name.includes(
+      "eclat d'azur"
+    )
   ) {
 
     return `
@@ -4605,8 +4405,12 @@ function getItemVisual(item) {
 
 
   if (
-    name.includes("relique des marées") ||
-    name.includes("relique des marees")
+    name.includes(
+      "relique des marées"
+    ) ||
+    name.includes(
+      "relique des marees"
+    )
   ) {
 
     return `
@@ -4622,12 +4426,525 @@ function getItemVisual(item) {
 
   return `
     <div class="visual-generic">
-      <span>${item.icon}</span>
+      <span>
+        ${item.icon}
+      </span>
     </div>
   `;
 
 }
-   
+
+
+/* =========================================================
+   MONDE NEXUS — NAVIGATION
+========================================================= */
+
+function bindNexusWorld() {
+
+  if (
+    openNexusWorldBtn
+  ) {
+
+    openNexusWorldBtn
+      .addEventListener(
+        "click",
+        openNexusScreen
+      );
+
+  }
+
+
+  if (
+    closeNexusWorldBtn
+  ) {
+
+    closeNexusWorldBtn
+      .addEventListener(
+        "click",
+        closeNexusScreen
+      );
+
+  }
+
+
+  if (
+    centralSanctuaryBtn
+  ) {
+
+    centralSanctuaryBtn
+      .addEventListener(
+        "click",
+        closeNexusScreen
+      );
+
+  }
+
+
+  /*
+    UN SEUL gestionnaire pour TOUS les habitats.
+    Plus de double événement.
+  */
+
+  document
+    .querySelectorAll(
+      ".habitat-slot"
+    )
+    .forEach(slot => {
+
+      slot.addEventListener(
+        "click",
+        () => {
+
+          const habitat =
+            slot.dataset.habitat;
+
+
+          /* JARDIN DES BULLES */
+
+          if (
+            habitat ===
+            "jardin-bulles"
+          ) {
+
+            openJardinBullesBuild();
+
+            return;
+
+          }
+
+
+          /* AUTRES HABITATS */
+
+          showToast(
+            "Cet habitat n'est pas encore éveillé."
+          );
+
+        }
+      );
+
+    });
+
+
+  if (
+    cancelBuildHabitatBtn
+  ) {
+
+    cancelBuildHabitatBtn
+      .addEventListener(
+        "click",
+        closeJardinBullesBuild
+      );
+
+  }
+
+
+  if (
+    confirmBuildHabitatBtn
+  ) {
+
+    confirmBuildHabitatBtn
+      .addEventListener(
+        "click",
+        buildJardinBulles
+      );
+
+  }
+
+
+  if (
+    buildHabitatOverlay
+  ) {
+
+    buildHabitatOverlay
+      .addEventListener(
+        "click",
+        event => {
+
+          if (
+            event.target ===
+            buildHabitatOverlay
+          ) {
+
+            closeJardinBullesBuild();
+
+          }
+
+        }
+      );
+
+  }
+
+}
+
+
+/* =========================================================
+   OUVRIR LE MONDE NEXUS
+========================================================= */
+
+function openNexusScreen() {
+
+  renderJardinBulles();
+
+  showScreen(
+    nexusWorldScreen
+  );
+
+}
+
+
+/* =========================================================
+   RETOUR SANCTUAIRE
+========================================================= */
+
+function closeNexusScreen() {
+
+  updateSanctuary();
+
+  showScreen(
+    sanctuaryScreen
+  );
+
+}
+
+
+/* =========================================================
+   INVENTAIRE — QUANTITÉ D'UN OBJET
+========================================================= */
+
+function countCollectionItem(
+  itemName
+) {
+
+  return collection.filter(
+    item =>
+      item.name ===
+      itemName
+  ).length;
+
+}
+
+
+/* =========================================================
+   RETIRER UN OBJET
+========================================================= */
+
+function removeCollectionItem(
+  itemName,
+  quantity = 1
+) {
+
+  let remaining =
+    quantity;
+
+
+  for (
+    let i =
+      collection.length - 1;
+
+    i >= 0 &&
+    remaining > 0;
+
+    i--
+  ) {
+
+    if (
+      collection[i].name ===
+      itemName
+    ) {
+
+      collection.splice(
+        i,
+        1
+      );
+
+      remaining--;
+
+    }
+
+  }
+
+
+  return (
+    remaining === 0
+  );
+
+}
+
+
+/* =========================================================
+   JARDIN DES BULLES — AFFICHAGE
+========================================================= */
+
+function renderJardinBulles() {
+
+  if (
+    !jardinBullesSlot
+  ) {
+
+    return;
+
+  }
+
+
+  const built =
+    Boolean(
+      nexusWorldData
+        .habitats
+        .jardinBulles
+    );
+
+
+  if (
+    !built
+  ) {
+
+    jardinBullesSlot.className =
+      "habitat-slot habitat-1 locked";
+
+
+    jardinBullesSlot.innerHTML =
+      `
+
+        <span class="habitat-lock">
+          ◆
+        </span>
+
+        <span class="habitat-number">
+          1
+        </span>
+
+        <strong>
+          Jardin des Bulles
+        </strong>
+
+        <small>
+          À construire
+        </small>
+
+      `;
+
+
+    return;
+
+  }
+
+
+  jardinBullesSlot.className =
+    "habitat-slot habitat-1 built";
+
+
+  jardinBullesSlot.innerHTML =
+    `
+
+      <img
+        src="images/Habitat-Jardin-Bulles.PNG"
+        alt="Jardin des Bulles"
+        class="built-habitat-image"
+      >
+
+      <span class="built-habitat-label">
+        Jardin des Bulles
+      </span>
+
+    `;
+
+}
+
+
+/* =========================================================
+   JARDIN DES BULLES — OUVRIR CONSTRUCTION
+========================================================= */
+
+function openJardinBullesBuild() {
+
+  if (
+    nexusWorldData
+      .habitats
+      .jardinBulles
+  ) {
+
+    showToast(
+      "Le Jardin des Bulles est déjà construit."
+    );
+
+    return;
+
+  }
+
+
+  if (
+    !buildHabitatOverlay
+  ) {
+
+    showToast(
+      "Fenêtre de construction introuvable."
+    );
+
+    return;
+
+  }
+
+
+  buildHabitatOverlay
+    .classList
+    .remove(
+      "hidden"
+    );
+
+}
+
+
+/* =========================================================
+   JARDIN DES BULLES — FERMER CONSTRUCTION
+========================================================= */
+
+function closeJardinBullesBuild() {
+
+  if (
+    !buildHabitatOverlay
+  ) {
+
+    return;
+
+  }
+
+
+  buildHabitatOverlay
+    .classList
+    .add(
+      "hidden"
+    );
+
+}
+
+
+/* =========================================================
+   JARDIN DES BULLES — CONSTRUIRE
+========================================================= */
+
+function buildJardinBulles() {
+
+  /*
+    COÛT OFFICIEL :
+    15 cristaux
+    + 1 Fragment marin
+  */
+
+  const crystalCost =
+    15;
+
+  const fragmentCost =
+    1;
+
+
+  /*
+    IMPORTANT :
+    on utilise totalPermanentCrystals,
+    PAS l'élément HTML totalCrystals.
+  */
+
+  if (
+    totalPermanentCrystals <
+    crystalCost
+  ) {
+
+    showToast(
+      `Il te manque ${
+        crystalCost -
+        totalPermanentCrystals
+      } cristaux.`
+    );
+
+    return;
+
+  }
+
+
+  const fragmentCount =
+    countCollectionItem(
+      "Fragment marin"
+    );
+
+
+  if (
+    fragmentCount <
+    fragmentCost
+  ) {
+
+    showToast(
+      "Il te manque 1 Fragment marin."
+    );
+
+    return;
+
+  }
+
+
+  /* RETIRER LES RESSOURCES */
+
+  totalPermanentCrystals -=
+    crystalCost;
+
+
+  const removed =
+    removeCollectionItem(
+      "Fragment marin",
+      fragmentCost
+    );
+
+
+  /*
+    Sécurité :
+    en cas de problème inattendu,
+    on rend les cristaux.
+  */
+
+  if (
+    !removed
+  ) {
+
+    totalPermanentCrystals +=
+      crystalCost;
+
+    showToast(
+      "Impossible d'utiliser le Fragment marin."
+    );
+
+    return;
+
+  }
+
+
+  /* CONSTRUCTION */
+
+  nexusWorldData
+    .habitats
+    .jardinBulles =
+      true;
+
+
+  /* SAUVEGARDES */
+
+  savePermanentData();
+
+  saveNexusWorldData();
+
+
+  /* MISE À JOUR */
+
+  renderJardinBulles();
+
+  updateSanctuary();
+
+  closeJardinBullesBuild();
+
+
+  showToast(
+    "Le Jardin des Bulles s'éveille."
+  );
+
+}
+
 
 /* =========================================================
    CONFIRMATION
@@ -4683,6 +5000,7 @@ function resetToday() {
     JSON.stringify({})
   );
 
+
   localStorage.setItem(
     STORAGE.dayDate,
     getTodayKey()
@@ -4709,15 +5027,13 @@ function resetAll() {
     .values(
       STORAGE
     )
-    .forEach(
-      key => {
+    .forEach(key => {
 
-        localStorage.removeItem(
-          key
-        );
+      localStorage.removeItem(
+        key
+      );
 
-      }
-    );
+    });
 
 
   habits = {};
@@ -4732,13 +5048,22 @@ function resetAll() {
 
   currentWorld = 1;
 
+
   stats = {
-
     totalAscensions: 0,
-
     successfulAscensions: 0,
-
     perfectDays: 0
+  };
+
+
+  nexusWorldData = {
+
+    abyssesUnlocked:
+      true,
+
+    habitats: {
+      jardinBulles: false
+    }
 
   };
 
@@ -4749,9 +5074,15 @@ function resetAll() {
   );
 
 
+  saveNexusWorldData();
+
+
   updateDailyUI();
 
   updateSanctuary();
+
+  renderJardinBulles();
+
 
   showScreen(
     homeScreen
@@ -4842,7 +5173,9 @@ function shuffleArray(
   for (
     let i =
       copy.length - 1;
+
     i > 0;
+
     i--
   ) {
 
@@ -4880,7 +5213,7 @@ function pickOtherSymbols(
     symbols.filter(
       symbol =>
         symbol !==
-          excluded
+        excluded
     )
   ).slice(
     0,
@@ -4910,474 +5243,6 @@ function capitalize(
   );
 
 }
-/* =========================================================
-   MONDE NEXUS
-========================================================= */
 
-const nexusWorldScreen =
-  document.getElementById("nexusWorldScreen");
 
-const openNexusWorldBtn =
-  document.getElementById("openNexusWorldBtn");
-   
-
-const closeNexusWorldBtn =
-  document.getElementById("closeNexusWorldBtn");
-
-const centralSanctuaryBtn =
-  document.getElementById("centralSanctuaryBtn");
-
-   /* =========================================================
-   JARDIN DES BULLES
-========================================================= */
-
-const jardinBullesSlot =
-  document.getElementById("jardinBullesSlot");
-
-const buildHabitatOverlay =
-  document.getElementById("buildHabitatOverlay");
-
-const cancelBuildHabitatBtn =
-  document.getElementById("cancelBuildHabitatBtn");
-
-const confirmBuildHabitatBtn =
-  document.getElementById("confirmBuildHabitatBtn");
-
-
-const WORLD_STORAGE_KEY =
-  "nexusVital_world";
-
-
-let nexusWorldData = {
-  abyssesUnlocked: true,
-
-  habitats: {
-    jardinBulles: false
-  }
-};
-
-
-   /* =========================================================
-   CHARGEMENT DU MONDE
-========================================================= */
-
-function loadNexusWorldData() {
-
-  const saved =
-    localStorage.getItem(
-      WORLD_STORAGE_KEY
-    );
-
-  if (!saved) {
-
-    saveNexusWorldData();
-
-    return;
-
-  }
-
-  try {
-
-    const parsed =
-      JSON.parse(saved);
-
-    nexusWorldData = {
-      ...nexusWorldData,
-      ...parsed,
-
-      habitats: {
-        ...nexusWorldData.habitats,
-        ...(parsed.habitats || {})
-      }
-    };
-
-  }
-
-  catch (error) {
-
-    console.warn(
-      "Sauvegarde Monde NEXUS invalide.",
-      error
-    );
-
-  }
-
-}
-
-
-function saveNexusWorldData() {
-
-  localStorage.setItem(
-    WORLD_STORAGE_KEY,
-    JSON.stringify(nexusWorldData)
-  );
-
-}
-
-/* =========================================================
-   INVENTAIRE — RECHERCHE D'OBJETS
-========================================================= */
-
-function countCollectionItem(itemName) {
-
-  return collection.filter(item =>
-    item.name === itemName
-  ).length;
-
-}
-
-
-function removeCollectionItem(
-  itemName,
-  quantity = 1
-) {
-
-  let remaining =
-    quantity;
-
-
-  for (
-    let i = collection.length - 1;
-    i >= 0 && remaining > 0;
-    i--
-  ) {
-
-    if (
-      collection[i].name === itemName
-    ) {
-
-      collection.splice(i, 1);
-
-      remaining--;
-
-    }
-
-  }
-
-
-  return remaining === 0;
-
-}
-/* =========================================================
-   AFFICHAGE DU JARDIN DES BULLES
-========================================================= */
-
-function renderJardinBulles() {
-
-  if (!jardinBullesSlot) {
-    return;
-  }
-
-
-  const built =
-    nexusWorldData
-      .habitats
-      .jardinBulles;
-
-
-  if (!built) {
-
-    jardinBullesSlot.className =
-      "habitat-slot habitat-1 locked";
-
-    jardinBullesSlot.innerHTML = `
-
-      <span class="habitat-lock">
-        ◆
-      </span>
-
-      <span class="habitat-number">
-        1
-      </span>
-
-      <strong>
-        Jardin des Bulles
-      </strong>
-
-      <small>
-        À construire
-      </small>
-
-    `;
-
-    return;
-
-  }
-
-
-  jardinBullesSlot.className =
-    "habitat-slot habitat-1 built";
-
-
-  jardinBullesSlot.innerHTML = `
-
-    <img
-      src="images/Habitat-Jardin-Bulles.PNG"
-      alt=""
-      class="built-habitat-image"
-    >
-
-    <span class="built-habitat-label">
-      Jardin des Bulles
-    </span>
-
-  `;
-
-}
-
-/* =========================================================
-   OUVRIR / FERMER LA CONSTRUCTION
-========================================================= */
-
-function openJardinBullesBuild() {
-
-  if (
-    nexusWorldData
-      .habitats
-      .jardinBulles
-  ) {
-
-    showToast(
-      "Le Jardin des Bulles est déjà construit."
-    );
-
-    return;
-
-  }
-
-
-  buildHabitatOverlay
-    .classList
-    .remove("hidden");
-
-}
-
-
-function closeJardinBullesBuild() {
-
-  buildHabitatOverlay
-    .classList
-    .add("hidden");
-
-}
-   
- /* =========================================================
-   CONSTRUIRE LE JARDIN DES BULLES
-========================================================= */
-
-function buildJardinBulles() {
-
-  const crystalCost = 15;
-
-  const fragmentCost = 1;
-
-
-  const fragmentCount =
-    countCollectionItem(
-      "Fragment marin"
-    );
-
-
-  if (
-    totalCrystals < crystalCost
-  ) {
-
-    showToast(
-      "Il te manque des cristaux."
-    );
-
-    return;
-
-  }
-
-
-  if (
-    fragmentCount < fragmentCost
-  ) {
-
-    showToast(
-      "Il te manque un Fragment marin."
-    );
-
-    return;
-
-  }
-
-
-  /* RETRAIT DES RESSOURCES */
-
-  totalCrystals -=
-    crystalCost;
-
-
-  removeCollectionItem(
-    "Fragment marin",
-    fragmentCost
-  );
-
-
-  /* SAUVEGARDE DES RESSOURCES */
-
-  localStorage.setItem(
-    STORAGE.totalCrystals,
-    JSON.stringify(totalCrystals)
-  );
-
-
-  localStorage.setItem(
-    STORAGE.collection,
-    JSON.stringify(collection)
-  );
-
-
-  /* CONSTRUCTION */
-
-  nexusWorldData
-    .habitats
-    .jardinBulles = true;
-
-
-  saveNexusWorldData();
-
-
-  /* MISE À JOUR */
-
-  renderJardinBulles();
-
-  renderSanctuary();
-
-  closeJardinBullesBuild();
-
-
-  showToast(
-    "Le Jardin des Bulles s'éveille."
-  );
-
-}  
-
-
-
-
-   
-/* =========================================================
-   CHANGEMENT D'ÉCRAN
-========================================================= */
-
-function openNexusScreen() {
-
-  document
-    .querySelectorAll(".screen")
-    .forEach(screen => {
-
-      screen.classList.remove("active");
-
-    });
-
-  nexusWorldScreen
-    .classList
-    .add("active");
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
-
-}
-
-
-function closeNexusScreen() {
-
-  nexusWorldScreen
-    .classList
-    .remove("active");
-
-  sanctuaryScreen
-    .classList
-    .add("active");
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
-
-}
-
-
-/* =========================================================
-   ÉVÉNEMENTS
-========================================================= */
-
-if (openNexusWorldBtn) {
-
-  openNexusWorldBtn
-    .addEventListener(
-      "click",
-      openNexusScreen
-    );
-
-}
-
-
-if (closeNexusWorldBtn) {
-
-  closeNexusWorldBtn
-    .addEventListener(
-      "click",
-      closeNexusScreen
-    );
-
-}
-
-
-if (centralSanctuaryBtn) {
-
-  centralSanctuaryBtn
-    .addEventListener(
-      "click",
-      closeNexusScreen
-    );
-
-}
-
-/* =========================================================
-   HABITATS VERROUILLÉS
-========================================================= */
-
-document
-  .querySelectorAll(
-    ".habitat-slot.locked"
-  )
-  .forEach(slot => {
-
-    if (
-      slot.dataset.habitat ===
-      "jardin-bulles"
-    ) {
-      return;
-    }
-
-
-    slot.addEventListener(
-      "click",
-      () => {
-
-        showToast(
-          "Cet habitat n'est pas encore éveillé."
-        );
-
-      }
-    );
-
-  });
-
-loadNexusWorldData();
-
-renderJardinBulles();
-
-   
 });
-
-
-
-
-                          
