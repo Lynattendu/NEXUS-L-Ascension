@@ -3060,4 +3060,490 @@ p {
       rgba(3,15,22,.58)
     );
 }
+/* =========================================================
+   MONDE NEXUS — ABYSSES ASTRALS
+========================================================= */
+
+.nexus-world-btn {
+  width: 100%;
+  margin-top: 18px;
+}
+
+
+/* =========================================================
+   ÉCRAN
+========================================================= */
+
+.nexus-world-screen {
+  padding: 0;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #020b13;
+}
+
+.nexus-world-background {
+  position: relative;
+
+  width: 100%;
+  min-height: 100vh;
+
+  overflow: hidden;
+}
+
+.nexus-world-bg-image {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center top;
+
+  z-index: 0;
+}
+
+.nexus-world-overlay {
+  position: absolute;
+  inset: 0;
+
+  z-index: 1;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(1,8,14,.42) 0%,
+      rgba(1,8,14,.05) 20%,
+      rgba(1,8,14,.03) 70%,
+      rgba(1,8,14,.48) 100%
+    );
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.nexus-world-header {
+  position: relative;
+  z-index: 5;
+
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  padding:
+    max(18px, env(safe-area-inset-top))
+    18px
+    10px;
+
+  color: white;
+}
+
+.nexus-world-header h1 {
+  margin: 3px 0 0;
+
+  font-size: clamp(1.65rem, 6vw, 2.5rem);
+  line-height: 1;
+
+  text-shadow:
+    0 3px 16px rgba(0,0,0,.7);
+}
+
+.nexus-world-header .small-label {
+  margin: 0;
+
+  color: #72f6ee;
+}
+
+.nexus-back-btn {
+  width: 46px;
+  height: 46px;
+
+  flex: 0 0 46px;
+
+  border-radius: 50%;
+
+  border:
+    1px solid rgba(255,255,255,.16);
+
+  background:
+    rgba(3,18,29,.72);
+
+  backdrop-filter:
+    blur(10px);
+
+  color: white;
+
+  font-size: 1.45rem;
+
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   MESSAGE QUOTIDIEN
+========================================================= */
+
+.nexus-daily-message {
+  position: relative;
+  z-index: 5;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  width:
+    calc(100% - 36px);
+
+  margin:
+    8px auto 0;
+
+  padding:
+    12px 14px;
+
+  border-radius:
+    18px;
+
+  border:
+    1px solid rgba(106,249,234,.25);
+
+  background:
+    rgba(3,18,29,.72);
+
+  backdrop-filter:
+    blur(14px);
+
+  box-shadow:
+    0 12px 30px rgba(0,0,0,.18);
+}
+
+.nexus-daily-symbol {
+  display: grid;
+  place-items: center;
+
+  width: 42px;
+  height: 42px;
+
+  flex: 0 0 42px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(106,249,234,.30),
+      rgba(105,184,255,.10)
+    );
+
+  color: #83fff4;
+
+  font-size: 1.4rem;
+
+  box-shadow:
+    0 0 22px rgba(106,249,234,.18);
+}
+
+.nexus-daily-message small {
+  display: block;
+
+  margin-bottom: 2px;
+
+  color: #72f6ee;
+}
+
+.nexus-daily-message strong {
+  display: block;
+
+  color: white;
+
+  font-size: .95rem;
+}
+
+
+/* =========================================================
+   CARTE DES ABYSSES
+========================================================= */
+
+.abysses-map {
+  position: relative;
+  z-index: 4;
+
+  width: 100%;
+  min-height: 820px;
+
+  margin-top: 10px;
+}
+
+
+/* =========================================================
+   HABITATS
+========================================================= */
+
+.habitat-slot {
+  position: absolute;
+
+  width:
+    min(43vw, 210px);
+
+  min-height:
+    86px;
+
+  padding:
+    10px 12px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+
+  border-radius:
+    18px;
+
+  border:
+    1px solid rgba(255,255,255,.15);
+
+  backdrop-filter:
+    blur(10px);
+
+  text-align: left;
+
+  color: white;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 14px 32px rgba(0,0,0,.25);
+}
+
+.habitat-slot.locked {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(8,20,31,.87),
+      rgba(15,20,37,.78)
+    );
+
+  filter:
+    saturate(.45);
+}
+
+.habitat-slot strong {
+  width: 100%;
+
+  margin-top: 2px;
+
+  font-size:
+    .83rem;
+
+  line-height: 1.1;
+}
+
+.habitat-slot small {
+  margin-top: 3px;
+
+  color:
+    rgba(205,220,230,.72);
+
+  font-size:
+    .72rem;
+}
+
+.habitat-number {
+  position: absolute;
+
+  top: 8px;
+  right: 10px;
+
+  color:
+    rgba(255,255,255,.42);
+
+  font-size:
+    .72rem;
+}
+
+.habitat-lock {
+  margin-bottom:
+    3px;
+
+  color:
+    #9ab4c5;
+
+  font-size:
+    1rem;
+}
+
+
+/* =========================================================
+   POSITION DES 6 HABITATS
+========================================================= */
+
+.habitat-1 {
+  top: 70px;
+  left: 4%;
+}
+
+.habitat-2 {
+  top: 160px;
+  right: 4%;
+}
+
+.habitat-3 {
+  top: 325px;
+  left: 4%;
+}
+
+.habitat-4 {
+  top: 390px;
+  right: 4%;
+}
+
+.habitat-5 {
+  top: 585px;
+  left: 4%;
+}
+
+.habitat-6 {
+  top: 650px;
+  right: 4%;
+}
+
+
+/* =========================================================
+   SANCTUAIRE CENTRAL
+========================================================= */
+
+.central-sanctuary {
+  position: absolute;
+
+  left: 50%;
+  top: 480px;
+
+  transform:
+    translateX(-50%);
+
+  width:
+    min(58vw, 260px);
+
+  min-height:
+    100px;
+
+  padding:
+    14px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border-radius:
+    26px;
+
+  border:
+    1px solid rgba(106,249,234,.42);
+
+  background:
+    radial-gradient(
+      circle at 50% 10%,
+      rgba(106,249,234,.25),
+      rgba(5,21,32,.85) 68%
+    );
+
+  backdrop-filter:
+    blur(12px);
+
+  color: white;
+
+  box-shadow:
+    0 0 26px rgba(106,249,234,.20),
+    0 18px 38px rgba(0,0,0,.32);
+
+  cursor: pointer;
+}
+
+.central-sanctuary-symbol {
+  margin-bottom:
+    5px;
+
+  color:
+    #79fff3;
+
+  font-size:
+    1.7rem;
+
+  text-shadow:
+    0 0 18px rgba(106,249,234,.75);
+}
+
+.central-sanctuary strong {
+  font-size:
+    1rem;
+}
+
+.central-sanctuary small {
+  margin-top:
+    3px;
+
+  color:
+    #9fd4dc;
+}
+
+
+/* =========================================================
+   TABLETTE
+========================================================= */
+
+@media
+(min-width: 700px) {
+
+  .abysses-map {
+    min-height:
+      900px;
+  }
+
+  .habitat-slot {
+    width:
+      220px;
+
+    min-height:
+      96px;
+  }
+
+  .habitat-1 {
+    left:
+      9%;
+  }
+
+  .habitat-2 {
+    right:
+      9%;
+  }
+
+  .habitat-3 {
+    left:
+      12%;
+  }
+
+  .habitat-4 {
+    right:
+      12%;
+  }
+
+  .habitat-5 {
+    left:
+      14%;
+  }
+
+  .habitat-6 {
+    right:
+      14%;
+  }
+
+}
+
+
+
+
 
