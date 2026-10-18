@@ -5038,6 +5038,10 @@ function getItemVisual(
       .toLowerCase();
 
 
+  /* =====================================================
+     MÉDUSE ASTRALE
+  ====================================================== */
+
   if (
     name.includes(
       "méduse astrale"
@@ -5054,6 +5058,10 @@ function getItemVisual(
 
   }
 
+
+  /* =====================================================
+     ÉCLAT D'AZUR
+  ====================================================== */
 
   if (
     name.includes(
@@ -5075,6 +5083,10 @@ function getItemVisual(
   }
 
 
+  /* =====================================================
+     RELIQUE DES MARÉES
+  ====================================================== */
+
   if (
     name.includes(
       "relique des marées"
@@ -5094,6 +5106,137 @@ function getItemVisual(
 
   }
 
+
+  /* =====================================================
+     GARDIEN MINIATURE
+  ====================================================== */
+
+  if (
+    name.includes(
+      "gardien miniature"
+    )
+  ) {
+
+    return `
+      <img
+        src="images/Objet-Gardien-Miniature.PNG"
+        alt="Gardien miniature"
+        class="collection-object-image"
+      >
+    `;
+
+  }
+
+
+  /* =====================================================
+     DRAGON DES ABYSSES
+  ====================================================== */
+
+  if (
+    name.includes(
+      "dragon des abysses"
+    )
+  ) {
+
+    return `
+      <img
+        src="images/Objet-Dragon-Abysses.PNG"
+        alt="Dragon des Abysses"
+        class="collection-object-image"
+      >
+    `;
+
+  }
+
+
+  /* =====================================================
+     FRAGMENT ORIGINEL
+  ====================================================== */
+
+  if (
+    name.includes(
+      "fragment originel"
+    )
+  ) {
+
+    return `
+      <img
+        src="images/Objet-Fragment-Originel.PNG"
+        alt="Fragment Originel"
+        class="collection-object-image"
+      >
+    `;
+
+  }
+
+
+  /* =====================================================
+     PERLE RUNIQUE
+  ====================================================== */
+
+  if (
+    name.includes(
+      "perle runique"
+    )
+  ) {
+
+    return `
+      <img
+        src="images/Objet-Perle-Runique.PNG"
+        alt="Perle runique"
+        class="collection-object-image"
+      >
+    `;
+
+  }
+
+
+  /* =====================================================
+     CRISTAL DES PROFONDEURS
+  ====================================================== */
+
+  if (
+    name.includes(
+      "cristal des profondeurs"
+    )
+  ) {
+
+    return `
+      <img
+        src="images/Objet-Cristal-Profondeurs.PNG"
+        alt="Cristal des profondeurs"
+        class="collection-object-image"
+      >
+    `;
+
+  }
+
+
+  /* =====================================================
+     FLEUR DE BRUME
+  ====================================================== */
+
+  if (
+    name.includes(
+      "fleur de brume"
+    )
+  ) {
+
+    return `
+      <img
+        src="images/Objet-Fleur-Brume.PNG"
+        alt="Fleur de brume"
+        class="collection-object-image"
+      >
+    `;
+
+  }
+
+
+  /* =====================================================
+     VISUEL GÉNÉRIQUE
+     pour les objets qui n'ont pas encore leur image
+  ====================================================== */
 
   return `
     <div class="visual-generic">
