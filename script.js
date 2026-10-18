@@ -1294,7 +1294,7 @@ function loadNexusWorldData() {
     nexusWorldData = {
 
       abyssesUnlocked:
-        true,
+        false,
 
       habitats: {
 
@@ -6086,7 +6086,7 @@ function resetAll() {
   nexusWorldData = {
 
     abyssesUnlocked:
-      true,
+      false,
 
     habitats: {
 
