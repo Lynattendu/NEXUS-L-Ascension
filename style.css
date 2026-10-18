@@ -3577,7 +3577,221 @@ p {
 
 }
 
+/* =========================================================
+   CONSTRUCTION DES HABITATS
+========================================================= */
 
+.habitat-build-modal {
+  width: min(92vw, 480px);
+
+  text-align: center;
+
+  overflow: hidden;
+}
+
+
+.build-habitat-preview {
+  width: min(100%, 320px);
+  height: 240px;
+
+  margin:
+    16px auto;
+
+  object-fit: contain;
+
+  filter:
+    drop-shadow(
+      0 0 25px rgba(106, 249, 234, .22)
+    );
+}
+
+
+.build-description {
+  max-width: 360px;
+
+  margin:
+    10px auto 18px;
+
+  color:
+    #b9cdd5;
+
+  line-height: 1.5;
+}
+
+
+.build-costs {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap: 10px;
+
+  margin:
+    18px 0;
+}
+
+
+.build-cost {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  min-height: 74px;
+
+  padding: 10px;
+
+  border-radius: 16px;
+
+  border:
+    1px solid rgba(106, 249, 234, .15);
+
+  background:
+    rgba(4, 18, 28, .72);
+}
+
+
+.build-cost > span {
+  font-size: 1.5rem;
+
+  color:
+    #74fff2;
+}
+
+
+.build-cost small {
+  display: block;
+
+  color:
+    #8ba8b3;
+
+  font-size: .72rem;
+}
+
+
+.build-cost strong {
+  display: block;
+
+  margin-top: 2px;
+
+  color: white;
+
+  font-size: 1.1rem;
+}
+
+
+.build-actions {
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap: 10px;
+
+  margin-top: 18px;
+}
+
+
+/* =========================================================
+   HABITAT CONSTRUIT
+========================================================= */
+
+.habitat-slot.built {
+  width:
+    min(46vw, 230px);
+
+  min-height:
+    170px;
+
+  padding: 0;
+
+  overflow: visible;
+
+  border: none;
+
+  background: transparent;
+
+  backdrop-filter: none;
+
+  box-shadow: none;
+
+  filter: none;
+}
+
+
+.habitat-slot.built:hover {
+  transform: scale(1.03);
+}
+
+
+.built-habitat-image {
+  width: 100%;
+  height: 170px;
+
+  object-fit: contain;
+
+  pointer-events: none;
+
+  filter:
+    drop-shadow(
+      0 10px 22px rgba(0, 0, 0, .35)
+    )
+    drop-shadow(
+      0 0 18px rgba(106, 249, 234, .15)
+    );
+}
+
+
+.built-habitat-label {
+  position: absolute;
+
+  left: 50%;
+  bottom: -12px;
+
+  transform:
+    translateX(-50%);
+
+  min-width: 145px;
+
+  padding:
+    7px 12px;
+
+  border-radius: 999px;
+
+  border:
+    1px solid rgba(106, 249, 234, .28);
+
+  background:
+    rgba(3, 16, 25, .88);
+
+  color: white;
+
+  font-size: .74rem;
+
+  font-weight: 800;
+
+  text-align: center;
+
+  white-space: nowrap;
+
+  backdrop-filter:
+    blur(10px);
+}
+
+
+@media (max-width: 520px) {
+
+  .build-costs {
+    grid-template-columns: 1fr;
+  }
+
+  .habitat-slot.built {
+    width: 44vw;
+  }
+
+}
 
 
 
