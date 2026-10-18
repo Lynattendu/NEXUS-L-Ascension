@@ -4910,6 +4910,125 @@ function capitalize(
   );
 
 }
+/* =========================================================
+   MONDE NEXUS
+========================================================= */
 
+const nexusWorldScreen =
+  document.getElementById("nexusWorldScreen");
+
+const openNexusWorldBtn =
+  document.getElementById("openNexusWorldBtn");
+
+const closeNexusWorldBtn =
+  document.getElementById("closeNexusWorldBtn");
+
+const centralSanctuaryBtn =
+  document.getElementById("centralSanctuaryBtn");
+
+
+/* =========================================================
+   CHANGEMENT D'ÉCRAN
+========================================================= */
+
+function openNexusScreen() {
+
+  document
+    .querySelectorAll(".screen")
+    .forEach(screen => {
+
+      screen.classList.remove("active");
+
+    });
+
+  nexusWorldScreen
+    .classList
+    .add("active");
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+}
+
+
+function closeNexusScreen() {
+
+  nexusWorldScreen
+    .classList
+    .remove("active");
+
+  sanctuaryScreen
+    .classList
+    .add("active");
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+}
+
+
+/* =========================================================
+   ÉVÉNEMENTS
+========================================================= */
+
+if (openNexusWorldBtn) {
+
+  openNexusWorldBtn
+    .addEventListener(
+      "click",
+      openNexusScreen
+    );
+
+}
+
+
+if (closeNexusWorldBtn) {
+
+  closeNexusWorldBtn
+    .addEventListener(
+      "click",
+      closeNexusScreen
+    );
+
+}
+
+
+if (centralSanctuaryBtn) {
+
+  centralSanctuaryBtn
+    .addEventListener(
+      "click",
+      closeNexusScreen
+    );
+
+}
+
+
+/* =========================================================
+   HABITATS VERROUILLÉS
+========================================================= */
+
+document
+  .querySelectorAll(
+    ".habitat-slot.locked"
+  )
+  .forEach(slot => {
+
+    slot.addEventListener(
+      "click",
+      () => {
+
+        showToast(
+          "Cet habitat n'est pas encore éveillé."
+        );
+
+      }
+    );
+
+  });
 
 });
