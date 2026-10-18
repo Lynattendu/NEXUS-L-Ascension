@@ -4736,11 +4736,19 @@ function renderJardinBulles() {
   jardinBullesSlot.innerHTML =
     `
 
-      <img
-        src="images/Habitat-Jardin-Bulles.PNG"
-        alt="Jardin des Bulles"
-        class="built-habitat-image"
-      >
+      <jardinBullesSlot.innerHTML = `
+
+  <img
+    src="/NEXUS-L-Ascension/images/Habitat-Jardin-Bulles.PNG"
+    alt="Jardin des Bulles"
+    class="built-habitat-image"
+  >
+
+  <span class="built-habitat-label">
+    Jardin des Bulles
+  </span>
+
+`;
 
       <span class="built-habitat-label">
         Jardin des Bulles
