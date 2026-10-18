@@ -5039,27 +5039,6 @@ function getItemVisual(
 
 
   /* =====================================================
-     MÉDUSE ASTRALE
-  ====================================================== */
-
-  if (
-    name.includes(
-      "méduse astrale"
-    )
-  ) {
-
-    return `
-      <img
-        src="images/Objet-Meduse-Astrale.PNG"
-        alt="Méduse astrale"
-        class="collection-object-image"
-      >
-    `;
-
-  }
-
-
-  /* =====================================================
      ÉCLAT D'AZUR
   ====================================================== */
 
@@ -5084,22 +5063,19 @@ function getItemVisual(
 
 
   /* =====================================================
-     RELIQUE DES MARÉES
+     MOUSSE LUMINEUSE
   ====================================================== */
 
   if (
     name.includes(
-      "relique des marées"
-    ) ||
-    name.includes(
-      "relique des marees"
+      "mousse lumineuse"
     )
   ) {
 
     return `
       <img
-        src="images/Objet-Relique-Marees.PNG"
-        alt="Relique des Marées"
+        src="images/Objet-Mousse-Lumineuse.PNG"
+        alt="Mousse lumineuse"
         class="collection-object-image"
       >
     `;
@@ -5108,19 +5084,19 @@ function getItemVisual(
 
 
   /* =====================================================
-     GARDIEN MINIATURE
+     FRAGMENT MARIN
   ====================================================== */
 
   if (
     name.includes(
-      "gardien miniature"
+      "fragment marin"
     )
   ) {
 
     return `
       <img
-        src="images/Objet-Gardien-Miniature.PNG"
-        alt="Gardien miniature"
+        src="images/Objet-Fragment-Marin.PNG"
+        alt="Fragment marin"
         class="collection-object-image"
       >
     `;
@@ -5129,19 +5105,19 @@ function getItemVisual(
 
 
   /* =====================================================
-     DRAGON DES ABYSSES
+     CORAIL SPECTRAL
   ====================================================== */
 
   if (
     name.includes(
-      "dragon des abysses"
+      "corail spectral"
     )
   ) {
 
     return `
       <img
-        src="images/Objet-Dragon-Abysses.PNG"
-        alt="Dragon des Abysses"
+        src="images/Objet-Corail-Spectral.PNG"
+        alt="Corail spectral"
         class="collection-object-image"
       >
     `;
@@ -5150,19 +5126,19 @@ function getItemVisual(
 
 
   /* =====================================================
-     FRAGMENT ORIGINEL
+     FLEUR DE BRUME
   ====================================================== */
 
   if (
     name.includes(
-      "fragment originel"
+      "fleur de brume"
     )
   ) {
 
     return `
       <img
-        src="images/Objet-Fragment-Originel.PNG"
-        alt="Fragment Originel"
+        src="images/Objet-Fleur-Brume.PNG"
+        alt="Fleur de brume"
         class="collection-object-image"
       >
     `;
@@ -5213,19 +5189,19 @@ function getItemVisual(
 
 
   /* =====================================================
-     FLEUR DE BRUME
+     MÉDUSE ASTRALE
   ====================================================== */
 
   if (
     name.includes(
-      "fleur de brume"
+      "méduse astrale"
     )
   ) {
 
     return `
       <img
-        src="images/Objet-Fleur-Brume.PNG"
-        alt="Fleur de brume"
+        src="images/Objet-Meduse-Astrale.PNG"
+        alt="Méduse astrale"
         class="collection-object-image"
       >
     `;
@@ -5234,8 +5210,163 @@ function getItemVisual(
 
 
   /* =====================================================
-     VISUEL GÉNÉRIQUE
-     pour les objets qui n'ont pas encore leur image
+     RELIQUE DES MARÉES
+  ====================================================== */
+
+  if (
+    name.includes(
+      "relique des marées"
+    ) ||
+    name.includes(
+      "relique des marees"
+    )
+  ) {
+
+    return `
+      <img
+        src="images/Objet-Relique-Marees.PNG"
+        alt="Relique des Marées"
+        class="collection-object-image"
+      >
+    `;
+
+  }
+
+
+  /* =====================================================
+     ORBE DU PASSAGE
+  ====================================================== */
+
+  if (
+    name.includes(
+      "orbe du passage"
+    )
+  ) {
+
+    return `
+      <img
+        src="images/Objet-Orbe-Passage.PNG"
+        alt="Orbe du Passage"
+        class="collection-object-image"
+      >
+    `;
+
+  }
+
+
+  /* =====================================================
+     GARDIEN MINIATURE
+  ====================================================== */
+
+  if (
+    name.includes(
+      "gardien miniature"
+    )
+  ) {
+
+    return `
+      <img
+        src="images/Objet-Gardien-Miniature.PNG"
+        alt="Gardien miniature"
+        class="collection-object-image"
+      >
+    `;
+
+  }
+
+
+  /* =====================================================
+     ARBRE DE LUMIÈRE
+  ====================================================== */
+
+  if (
+    name.includes(
+      "arbre de lumière"
+    ) ||
+    name.includes(
+      "arbre de lumiere"
+    )
+  ) {
+
+    return `
+      <img
+        src="images/Objet-Arbre-Lumiere.PNG"
+        alt="Arbre de lumière"
+        class="collection-object-image"
+      >
+    `;
+
+  }
+
+
+  /* =====================================================
+     CŒUR DU NEXUS
+  ====================================================== */
+
+  if (
+    name.includes(
+      "cœur du nexus"
+    ) ||
+    name.includes(
+      "coeur du nexus"
+    )
+  ) {
+
+    return `
+      <img
+        src="images/Objet-Coeur-Nexus.PNG"
+        alt="Cœur du NEXUS"
+        class="collection-object-image"
+      >
+    `;
+
+  }
+
+
+  /* =====================================================
+     DRAGON DES ABYSSES
+  ====================================================== */
+
+  if (
+    name.includes(
+      "dragon des abysses"
+    )
+  ) {
+
+    return `
+      <img
+        src="images/Objet-Dragon-Abysses.PNG"
+        alt="Dragon des Abysses"
+        class="collection-object-image"
+      >
+    `;
+
+  }
+
+
+  /* =====================================================
+     FRAGMENT ORIGINEL
+  ====================================================== */
+
+  if (
+    name.includes(
+      "fragment originel"
+    )
+  ) {
+
+    return `
+      <img
+        src="images/Objet-Fragment-Originel.PNG"
+        alt="Fragment Originel"
+        class="collection-object-image"
+      >
+    `;
+
+  }
+
+
+  /* =====================================================
+     VISUEL GÉNÉRIQUE DE SÉCURITÉ
   ====================================================== */
 
   return `
@@ -5249,7 +5380,6 @@ function getItemVisual(
   `;
 
 }
-
 
 /* =========================================================
    MONDE NEXUS — ÉVÉNEMENTS
