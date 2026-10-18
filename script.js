@@ -805,8 +805,18 @@ let stats = {
 
 let nexusWorldData = {
 
+  /*
+    Les Abysses Astrals ne sont plus ouverts
+    automatiquement.
+
+    Déblocage officiel :
+    - avoir réussi au moins 1 Ascension
+    - posséder 10 cristaux
+    - les 10 cristaux sont dépensés une seule fois
+  */
+
   abyssesUnlocked:
-    true,
+    false,
 
   habitats: {
 
@@ -831,7 +841,6 @@ let nexusWorldData = {
   }
 
 };
-
 
 /* =========================================================
    PARTIE EN COURS
@@ -5148,16 +5157,109 @@ function bindNexusWorld() {
 
 
 /* =========================================================
-   OUVRIR / FERMER MONDE NEXUS
+   OUVRIR LE MONDE NEXUS
 ========================================================= */
 
 function openNexusScreen() {
+
+  /* =====================================================
+     DÉJÀ DÉBLOQUÉ
+  ====================================================== */
+
+  if (
+    nexusWorldData.abyssesUnlocked
+  ) {
+
+    renderAllHabitats();
+
+
+    showScreen(
+      nexusWorldScreen
+    );
+
+
+    return;
+
+  }
+
+
+  /* =====================================================
+     CONDITION 1 :
+     AU MOINS UNE ASCENSION RÉUSSIE
+  ====================================================== */
+
+  if (
+    stats.successfulAscensions < 1
+  ) {
+
+    showToast(
+      "Réussis d'abord une Ascension pour éveiller les Abysses Astrals."
+    );
+
+
+    return;
+
+  }
+
+
+  /* =====================================================
+     CONDITION 2 :
+     10 CRISTAUX
+  ====================================================== */
+
+  const unlockCost =
+    10;
+
+
+  if (
+    totalPermanentCrystals <
+    unlockCost
+  ) {
+
+    const missing =
+      unlockCost -
+      totalPermanentCrystals;
+
+
+    showToast(
+      `Il te manque ${missing} cristaux pour éveiller les Abysses Astrals.`
+    );
+
+
+    return;
+
+  }
+
+
+  /* =====================================================
+     DÉBLOCAGE
+  ====================================================== */
+
+  totalPermanentCrystals -=
+    unlockCost;
+
+
+  nexusWorldData.abyssesUnlocked =
+    true;
+
+
+  savePermanentData();
+
+  saveNexusWorldData();
+
+
+  updateSanctuary();
 
   renderAllHabitats();
 
 
   showScreen(
     nexusWorldScreen
+  );
+
+
+  showToast(
+    "Les Abysses Astrals s'éveillent."
   );
 
 }
