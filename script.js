@@ -19,9 +19,6 @@ const STORAGE = {
   ascensionLevel: "nexusVital_ascensionLevel",
   world: "nexusVital_world",
   stats: "nexusVital_stats",
-
-  /* IMPORTANT :
-     clé séparée du monde de l'Ascension */
   nexusWorld: "nexusVital_nexusWorld"
 };
 
@@ -57,6 +54,7 @@ const VISUALS = {
 ========================================================= */
 
 const WORLDS = [
+
   {
     id: 1,
     name: "Les Jardins engloutis",
@@ -96,6 +94,7 @@ const WORLDS = [
     guardian: "Gardien Originel",
     guardianImage: "images/Gardien-5.PNG"
   }
+
 ];
 
 
@@ -106,6 +105,7 @@ const WORLDS = [
 const REWARD_ITEMS = {
 
   common: [
+
     {
       name: "Éclat d'azur",
       type: "Décoration",
@@ -123,9 +123,12 @@ const REWARD_ITEMS = {
       type: "Fragment",
       icon: "◈"
     }
+
   ],
 
+
   uncommon: [
+
     {
       name: "Corail spectral",
       type: "Décoration",
@@ -143,9 +146,12 @@ const REWARD_ITEMS = {
       type: "Artefact",
       icon: "●"
     }
+
   ],
 
+
   rare: [
+
     {
       name: "Cristal des profondeurs",
       type: "Artefact",
@@ -163,9 +169,12 @@ const REWARD_ITEMS = {
       type: "Artefact",
       icon: "◎"
     }
+
   ],
 
+
   epic: [
+
     {
       name: "Orbe du Passage",
       type: "Artefact",
@@ -183,9 +192,12 @@ const REWARD_ITEMS = {
       type: "Décoration",
       icon: "✧"
     }
+
   ],
 
+
   legendary: [
+
     {
       name: "Cœur du NEXUS",
       type: "Artefact",
@@ -203,7 +215,9 @@ const REWARD_ITEMS = {
       type: "Artefact",
       icon: "✷"
     }
+
   ]
+
 };
 
 
@@ -605,22 +619,36 @@ let run = {
 
 function getTodayKey() {
 
-  const date = new Date();
+  const date =
+    new Date();
+
 
   const year =
     date.getFullYear();
 
+
   const month =
     String(
       date.getMonth() + 1
-    ).padStart(2, "0");
+    ).padStart(
+      2,
+      "0"
+    );
+
 
   const day =
     String(
       date.getDate()
-    ).padStart(2, "0");
+    ).padStart(
+      2,
+      "0"
+    );
 
-  return `${year}-${month}-${day}`;
+
+  return (
+    `${year}-${month}-${day}`
+  );
+
 }
 
 
@@ -707,11 +735,14 @@ function applyPermanentVisuals() {
       url("${VISUALS.home}")
     `;
 
+
   homeScreen.style.backgroundSize =
     "cover";
 
+
   homeScreen.style.backgroundPosition =
     "center";
+
 
   homeScreen.style.backgroundAttachment =
     "fixed";
@@ -723,7 +754,9 @@ function applyPermanentVisuals() {
     );
 
 
-  if (portalCard) {
+  if (
+    portalCard
+  ) {
 
     portalCard.style.backgroundImage =
       `
@@ -735,8 +768,10 @@ function applyPermanentVisuals() {
         url("${VISUALS.portal}")
       `;
 
+
     portalCard.style.backgroundSize =
       "cover";
+
 
     portalCard.style.backgroundPosition =
       "center";
@@ -745,17 +780,25 @@ function applyPermanentVisuals() {
 
 
   setPathVisual(
-    document.querySelector(".mist-path"),
+    document.querySelector(
+      ".mist-path"
+    ),
     VISUALS.pathMist
   );
 
+
   setPathVisual(
-    document.querySelector(".crystal-path"),
+    document.querySelector(
+      ".crystal-path"
+    ),
     VISUALS.pathCrystal
   );
 
+
   setPathVisual(
-    document.querySelector(".forbidden-path"),
+    document.querySelector(
+      ".forbidden-path"
+    ),
     VISUALS.pathForbidden
   );
 
@@ -767,8 +810,12 @@ function setPathVisual(
   image
 ) {
 
-  if (!element) {
+  if (
+    !element
+  ) {
+
     return;
+
   }
 
 
@@ -782,8 +829,10 @@ function setPathVisual(
       url("${image}")
     `;
 
+
   element.style.backgroundSize =
     "cover";
+
 
   element.style.backgroundPosition =
     "center";
@@ -814,7 +863,9 @@ function loadPermanentData() {
         ) || "[]"
       );
 
-  } catch {
+  }
+
+  catch {
 
     collection = [];
 
@@ -849,7 +900,9 @@ function loadPermanentData() {
         )
       );
 
-  } catch {
+  }
+
+  catch {
 
     stats = {
       totalAscensions: 0,
@@ -873,24 +926,32 @@ function savePermanentData() {
     totalPermanentCrystals
   );
 
+
   localStorage.setItem(
     STORAGE.collection,
-    JSON.stringify(collection)
+    JSON.stringify(
+      collection
+    )
   );
+
 
   localStorage.setItem(
     STORAGE.ascensionLevel,
     ascensionLevel
   );
 
+
   localStorage.setItem(
     STORAGE.world,
     currentWorld
   );
 
+
   localStorage.setItem(
     STORAGE.stats,
-    JSON.stringify(stats)
+    JSON.stringify(
+      stats
+    )
   );
 
 }
@@ -908,7 +969,9 @@ function loadNexusWorldData() {
     );
 
 
-  if (!saved) {
+  if (
+    !saved
+  ) {
 
     saveNexusWorldData();
 
@@ -920,7 +983,9 @@ function loadNexusWorldData() {
   try {
 
     const parsed =
-      JSON.parse(saved);
+      JSON.parse(
+        saved
+      );
 
 
     nexusWorldData = {
@@ -933,7 +998,10 @@ function loadNexusWorldData() {
 
         ...nexusWorldData.habitats,
 
-        ...(parsed.habitats || {})
+        ...(
+          parsed.habitats ||
+          {}
+        )
 
       }
 
@@ -941,20 +1009,26 @@ function loadNexusWorldData() {
 
   }
 
-  catch (error) {
+  catch (
+    error
+  ) {
 
     console.warn(
       "Sauvegarde Monde NEXUS invalide.",
       error
     );
 
+
     nexusWorldData = {
+
       abyssesUnlocked: true,
 
       habitats: {
         jardinBulles: false
       }
+
     };
+
 
     saveNexusWorldData();
 
@@ -984,6 +1058,7 @@ function checkDailyReset() {
   const today =
     getTodayKey();
 
+
   const savedDate =
     localStorage.getItem(
       STORAGE.dayDate
@@ -991,7 +1066,8 @@ function checkDailyReset() {
 
 
   if (
-    savedDate !== today
+    savedDate !==
+    today
   ) {
 
     habits = {};
@@ -1028,7 +1104,9 @@ function loadDailyHabits() {
         ) || "{}"
       );
 
-  } catch {
+  }
+
+  catch {
 
     habits = {};
 
@@ -1041,7 +1119,9 @@ function saveDailyHabits() {
 
   localStorage.setItem(
     STORAGE.habits,
-    JSON.stringify(habits)
+    JSON.stringify(
+      habits
+    )
   );
 
 }
@@ -1057,35 +1137,39 @@ function bindHabitButtons() {
     .querySelectorAll(
       ".habit-card"
     )
-    .forEach(card => {
+    .forEach(
+      card => {
 
-      const habitName =
-        card.dataset.habit;
+        const habitName =
+          card.dataset.habit;
 
 
-      card
-        .querySelectorAll(
-          ".habit-choice"
-        )
-        .forEach(button => {
+        card
+          .querySelectorAll(
+            ".habit-choice"
+          )
+          .forEach(
+            button => {
 
-          button.addEventListener(
-            "click",
-            () => {
+              button.addEventListener(
+                "click",
+                () => {
 
-              selectHabit(
-                habitName,
-                Number(
-                  button.dataset.value
-                )
+                  selectHabit(
+                    habitName,
+                    Number(
+                      button.dataset.value
+                    )
+                  );
+
+                }
               );
 
             }
           );
 
-        });
-
-    });
+      }
+    );
 
 }
 
@@ -1116,7 +1200,8 @@ function selectHabit(
 
 
   if (
-    previousValue !== value
+    previousValue !==
+    value
   ) {
 
     if (
@@ -1127,7 +1212,9 @@ function selectHabit(
         `+${value} XP`
       );
 
-    } else {
+    }
+
+    else {
 
       showToast(
         "Critère enregistré"
@@ -1146,21 +1233,24 @@ function selectHabit(
 
 function calculateXP() {
 
-  let xp = 0;
+  let xp =
+    0;
 
 
   Object
     .values(
       habits
     )
-    .forEach(value => {
+    .forEach(
+      value => {
 
-      xp +=
-        Number(
-          value
-        ) || 0;
+        xp +=
+          Number(
+            value
+          ) || 0;
 
-    });
+      }
+    );
 
 
   return Math.min(
@@ -1184,8 +1274,10 @@ function updateDailyUI() {
   xpValue.textContent =
     currentXP;
 
+
   xpCurrentText.textContent =
     currentXP;
+
 
   xpBarFill.style.width =
     `${currentXP}%`;
@@ -1208,72 +1300,81 @@ function updateDailyUI() {
 
 function updateHabitVisuals() {
 
-  let completed = 0;
+  let completed =
+    0;
 
 
   document
     .querySelectorAll(
       ".habit-card"
     )
-    .forEach(card => {
+    .forEach(
+      card => {
 
-      const habitName =
-        card.dataset.habit;
-
-      const selectedValue =
-        habits[
-          habitName
-        ];
+        const habitName =
+          card.dataset.habit;
 
 
-      card.classList.remove(
-        "selected"
-      );
+        const selectedValue =
+          habits[
+            habitName
+          ];
 
 
-      card
-        .querySelectorAll(
-          ".habit-choice"
-        )
-        .forEach(button => {
+        card.classList.remove(
+          "selected"
+        );
 
-          button.classList.remove(
-            "active"
+
+        card
+          .querySelectorAll(
+            ".habit-choice"
+          )
+          .forEach(
+            button => {
+
+              button.classList.remove(
+                "active"
+              );
+
+
+              if (
+                selectedValue !==
+                  undefined &&
+                Number(
+                  button.dataset.value
+                ) ===
+                Number(
+                  selectedValue
+                )
+              ) {
+
+                button.classList.add(
+                  "active"
+                );
+
+
+                card.classList.add(
+                  "selected"
+                );
+
+              }
+
+            }
           );
 
 
-          if (
-            selectedValue !== undefined &&
-            Number(
-              button.dataset.value
-            ) ===
-            Number(
-              selectedValue
-            )
-          ) {
+        if (
+          selectedValue !==
+          undefined
+        ) {
 
-            button.classList.add(
-              "active"
-            );
+          completed++;
 
-            card.classList.add(
-              "selected"
-            );
-
-          }
-
-        });
-
-
-      if (
-        selectedValue !== undefined
-      ) {
-
-        completed++;
+        }
 
       }
-
-    });
+    );
 
 
   dailyCount.textContent =
@@ -1295,28 +1396,36 @@ function updateResonanceLevel() {
     resonanceLevel.textContent =
       "Résonance maximale";
 
-  } else if (
+  }
+
+  else if (
     currentXP >= 75
   ) {
 
     resonanceLevel.textContent =
       "Résonance forte";
 
-  } else if (
+  }
+
+  else if (
     currentXP >= 60
   ) {
 
     resonanceLevel.textContent =
       "Résonance stable";
 
-  } else if (
+  }
+
+  else if (
     currentXP >= 45
   ) {
 
     resonanceLevel.textContent =
       "Résonance fragile";
 
-  } else {
+  }
+
+  else {
 
     resonanceLevel.textContent =
       "Résonance faible";
@@ -1331,28 +1440,36 @@ function updateResonanceLevel() {
     dayStatusText.textContent =
       "Le NEXUS atteint sa résonance maximale.";
 
-  } else if (
+  }
+
+  else if (
     currentXP >= 90
   ) {
 
     dayStatusText.textContent =
       "Le Portail est pleinement accessible.";
 
-  } else if (
+  }
+
+  else if (
     currentXP >= 70
   ) {
 
     dayStatusText.textContent =
       "Le Portail est ouvert.";
 
-  } else if (
+  }
+
+  else if (
     currentXP >= 50
   ) {
 
     dayStatusText.textContent =
       "Le NEXUS commence à réagir.";
 
-  } else {
+  }
+
+  else {
 
     dayStatusText.textContent =
       "Alimente ton énergie pour éveiller le Portail.";
@@ -1372,42 +1489,50 @@ function updateRewardTrack() {
     .querySelectorAll(
       ".reward-step"
     )
-    .forEach(step => {
+    .forEach(
+      step => {
 
-      const threshold =
-        Number(
-          step.dataset.threshold
-        );
-
-      const state =
-        step.querySelector(
-          ".reward-state"
-        );
+        const threshold =
+          Number(
+            step.dataset.threshold
+          );
 
 
-      if (
-        currentXP >= threshold
-      ) {
+        const state =
+          step.querySelector(
+            ".reward-state"
+          );
 
-        step.classList.add(
-          "unlocked"
-        );
 
-        state.textContent =
-          "Débloqué";
+        if (
+          currentXP >=
+          threshold
+        ) {
 
-      } else {
+          step.classList.add(
+            "unlocked"
+          );
 
-        step.classList.remove(
-          "unlocked"
-        );
 
-        state.textContent =
-          "Verrouillé";
+          state.textContent =
+            "Débloqué";
+
+        }
+
+        else {
+
+          step.classList.remove(
+            "unlocked"
+          );
+
+
+          state.textContent =
+            "Verrouillé";
+
+        }
 
       }
-
-    });
+    );
 
 }
 
@@ -1437,14 +1562,18 @@ function updatePortalAccess() {
         "locked"
       );
 
+
     portalAccessTitle.textContent =
       "Portail verrouillé";
+
 
     portalAccessText.textContent =
       "Atteins 70 XP pour commencer à ouvrir le Portail.";
 
+
     enterAscensionBtn.disabled =
       true;
+
 
     return;
 
@@ -1453,6 +1582,7 @@ function updatePortalAccess() {
 
   enterAscensionBtn.disabled =
     false;
+
 
   portalPreview
     .classList
@@ -1471,36 +1601,47 @@ function updatePortalAccess() {
         "max-resonance"
       );
 
+
     portalAccessTitle.textContent =
       "Résonance maximale";
+
 
     portalAccessText.textContent =
       "Ascension complète, pouvoir renforcé et coffre rare garanti.";
 
-  } else if (
+  }
+
+  else if (
     currentXP >= 90
   ) {
 
     portalAccessTitle.textContent =
       "Ascension complète";
 
+
     portalAccessText.textContent =
       "8 étapes, Gardien du Portail et pouvoir renforcé.";
 
-  } else if (
+  }
+
+  else if (
     currentXP >= 80
   ) {
 
     portalAccessTitle.textContent =
       "Ascension intermédiaire";
 
+
     portalAccessText.textContent =
       "5 étapes sont accessibles.";
 
-  } else {
+  }
+
+  else {
 
     portalAccessTitle.textContent =
       "Mini-Ascension";
+
 
     portalAccessText.textContent =
       "3 étapes sont accessibles.";
@@ -1572,6 +1713,7 @@ function bindNavigation() {
 
       closeMenu();
 
+
       showToast(
         `Ascensions réussies : ${stats.successfulAscensions}`
       );
@@ -1611,6 +1753,7 @@ function bindNavigation() {
         run.active =
           false;
 
+
         showScreen(
           homeScreen
         );
@@ -1639,6 +1782,7 @@ function bindNavigation() {
 
       closeMenu();
 
+
       openConfirmation(
         "Réinitialiser la journée ?",
         "Tous les XP et choix du jour seront effacés.",
@@ -1654,6 +1798,7 @@ function bindNavigation() {
     () => {
 
       closeMenu();
+
 
       openConfirmation(
         "Tout réinitialiser ?",
@@ -1689,6 +1834,7 @@ function bindNavigation() {
           "hidden"
         );
 
+
       showScreen(
         homeScreen
       );
@@ -1707,7 +1853,9 @@ function bindNavigation() {
           "hidden"
         );
 
+
       updateSanctuary();
+
 
       showScreen(
         sanctuaryScreen
@@ -1733,14 +1881,18 @@ function showScreen(
     sanctuaryScreen,
     nexusWorldScreen
   ]
-    .filter(Boolean)
-    .forEach(item => {
+    .filter(
+      Boolean
+    )
+    .forEach(
+      item => {
 
-      item.classList.remove(
-        "active"
-      );
+        item.classList.remove(
+          "active"
+        );
 
-    });
+      }
+    );
 
 
   if (
@@ -1819,6 +1971,7 @@ function prepareAscension() {
 
   stats.totalAscensions++;
 
+
   savePermanentData();
 
 
@@ -1832,7 +1985,9 @@ function prepareAscension() {
         "hidden"
       );
 
-  } else {
+  }
+
+  else {
 
     startAscension();
 
@@ -1880,33 +2035,37 @@ function bindPowerButtons() {
     .querySelectorAll(
       ".power-card"
     )
-    .forEach(button => {
+    .forEach(
+      button => {
 
-      button.addEventListener(
-        "click",
-        () => {
+        button.addEventListener(
+          "click",
+          () => {
 
-          run.power =
-            button.dataset.power;
+            run.power =
+              button.dataset.power;
 
-          powerOverlay
-            .classList
-            .add(
-              "hidden"
-            );
 
-          startAscension();
+            powerOverlay
+              .classList
+              .add(
+                "hidden"
+              );
 
-        }
-      );
 
-    });
+            startAscension();
+
+          }
+        );
+
+      }
+    );
 
 }
 
 
 /* =========================================================
-   MONDE ACTUEL ASCENSION
+   MONDE ACTUEL
 ========================================================= */
 
 function getCurrentWorld() {
@@ -1936,6 +2095,7 @@ function startAscension() {
   worldName.textContent =
     `Monde ${world.id}`;
 
+
   ascensionName.textContent =
     world.name;
 
@@ -1950,11 +2110,14 @@ function startAscension() {
       url("${world.image}")
     `;
 
+
   ascensionScreen.style.backgroundSize =
     "cover";
 
+
   ascensionScreen.style.backgroundPosition =
     "center";
+
 
   ascensionScreen.style.backgroundAttachment =
     "fixed";
@@ -1962,9 +2125,11 @@ function startAscension() {
 
   updateRunUI();
 
+
   showScreen(
     ascensionScreen
   );
+
 
   showEntrance();
 
@@ -1972,13 +2137,14 @@ function startAscension() {
 
 
 /* =========================================================
-   ENTRÉE / CHOIX DU CHEMIN
+   ENTRÉE
 ========================================================= */
 
 function showEntrance() {
 
   roomTitle.textContent =
     "Le passage s'éveille";
+
 
   roomDescription.textContent =
     "Trois chemins se dessinent devant toi.";
@@ -1995,6 +2161,7 @@ function showEntrance() {
     .remove(
       "hidden"
     );
+
 
   roomActionZone
     .classList
@@ -2015,35 +2182,35 @@ function bindPathButtons() {
     .querySelectorAll(
       ".path-card"
     )
-    .forEach(button => {
+    .forEach(
+      button => {
 
-      button.addEventListener(
-        "click",
-        () => {
+        button.addEventListener(
+          "click",
+          () => {
 
-          /* Le chemin est choisi UNE SEULE FOIS */
+            if (
+              run.path
+            ) {
 
-          if (
-            run.path
-          ) {
+              return;
 
-            return;
+            }
+
+
+            run.path =
+              button.dataset.path;
+
+
+            resolvePathChoice(
+              run.path
+            );
 
           }
+        );
 
-
-          run.path =
-            button.dataset.path;
-
-
-          resolvePathChoice(
-            run.path
-          );
-
-        }
-      );
-
-    });
+      }
+    );
 
 }
 
@@ -2091,20 +2258,29 @@ function generateRoom(
     if (
       roll < 0.30
     ) {
+
       return "sanctuary";
+
     }
+
 
     if (
       roll < 0.58
     ) {
+
       return "crystal";
+
     }
+
 
     if (
       roll < 0.80
     ) {
+
       return "mist";
+
     }
+
 
     return "challenge";
 
@@ -2118,20 +2294,29 @@ function generateRoom(
     if (
       roll < 0.28
     ) {
+
       return "crystal";
+
     }
+
 
     if (
       roll < 0.52
     ) {
+
       return "chest";
+
     }
+
 
     if (
       roll < 0.76
     ) {
+
       return "challenge";
+
     }
+
 
     return "obstacle";
 
@@ -2145,26 +2330,38 @@ function generateRoom(
     if (
       roll < 0.28
     ) {
+
       return "forbidden";
+
     }
+
 
     if (
       roll < 0.50
     ) {
+
       return "obstacle";
+
     }
+
 
     if (
       roll < 0.72
     ) {
+
       return "challenge";
+
     }
+
 
     if (
       roll < 0.92
     ) {
+
       return "chest";
+
     }
+
 
     return "secret";
 
@@ -2232,19 +2429,23 @@ function showRoom(
   /* CRISTAUX */
 
   if (
-    type === "crystal"
+    type ===
+    "crystal"
   ) {
 
     roomTitle.textContent =
       "Salle des Cristaux";
 
+
     roomDescription.textContent =
       "Des fragments d'énergie résonnent autour de toi.";
+
 
     setRoomImage(
       VISUALS.crystalRoom,
       "◆"
     );
+
 
     roomActionBtn.textContent =
       "Collecter";
@@ -2259,13 +2460,16 @@ function showRoom(
             10
           );
 
+
         addRunCrystals(
           gain
         );
 
+
         showToast(
           `+${gain} cristaux`
         );
+
 
         nextStep();
 
@@ -2280,18 +2484,22 @@ function showRoom(
   /* COFFRE */
 
   if (
-    type === "chest"
+    type ===
+    "chest"
   ) {
 
     roomTitle.textContent =
       "Salle du Coffre";
 
+
     roomDescription.textContent =
       "Un coffre ancien pulse au centre de la salle.";
+
 
     setRoomImage(
       VISUALS.chestRoom
     );
+
 
     roomActionBtn.textContent =
       "Ouvrir le coffre";
@@ -2318,18 +2526,22 @@ function showRoom(
   /* BRUMES */
 
   if (
-    type === "mist"
+    type ===
+    "mist"
   ) {
 
     roomTitle.textContent =
       "Salle des Brumes";
 
+
     roomDescription.textContent =
       "Quelque chose bouge derrière le voile.";
+
 
     setRoomImage(
       VISUALS.mistRoom
     );
+
 
     roomActionBtn.textContent =
       "Traverser";
@@ -2352,21 +2564,27 @@ function showRoom(
               8
             );
 
+
           addRunCrystals(
             gain
           );
+
 
           showToast(
             `+${gain} cristaux`
           );
 
-        } else if (
+        }
+
+        else if (
           roll < 0.80
         ) {
 
           restoreStability();
 
-        } else {
+        }
+
+        else {
 
           loseStability();
 
@@ -2392,18 +2610,22 @@ function showRoom(
   /* SANCTUAIRE */
 
   if (
-    type === "sanctuary"
+    type ===
+    "sanctuary"
   ) {
 
     roomTitle.textContent =
       "Salle du Sanctuaire";
 
+
     roomDescription.textContent =
       "Une énergie ancienne stabilise ton passage.";
+
 
     setRoomImage(
       VISUALS.sanctuaryRoom
     );
+
 
     roomActionBtn.textContent =
       "Recevoir l'énergie";
@@ -2427,19 +2649,23 @@ function showRoom(
   /* ÉPREUVE */
 
   if (
-    type === "challenge"
+    type ===
+    "challenge"
   ) {
 
     roomTitle.textContent =
       "Salle d'Épreuve";
 
+
     roomDescription.textContent =
       "Le NEXUS te soumet à une épreuve.";
+
 
     setRoomImage(
       VISUALS.challenge,
       "◈"
     );
+
 
     roomActionBtn.textContent =
       "Commencer l'épreuve";
@@ -2468,19 +2694,23 @@ function showRoom(
   /* OBSTACLE */
 
   if (
-    type === "obstacle"
+    type ===
+    "obstacle"
   ) {
 
     roomTitle.textContent =
       "Salle de l'Obstacle";
 
+
     roomDescription.textContent =
       "Le passage est instable. Traverse-le.";
+
 
     setRoomImage(
       VISUALS.forbiddenRoom,
       "⚠"
     );
+
 
     roomActionBtn.textContent =
       "Affronter l'obstacle";
@@ -2503,9 +2733,11 @@ function showRoom(
                   12
                 );
 
+
               addRunCrystals(
                 bonus
               );
+
 
               showToast(
                 `+${bonus} cristaux`
@@ -2536,19 +2768,23 @@ function showRoom(
   /* INTERDITE */
 
   if (
-    type === "forbidden"
+    type ===
+    "forbidden"
   ) {
 
     roomTitle.textContent =
       "Salle Interdite";
 
+
     roomDescription.textContent =
       "Une énergie dangereuse protège un trésor rare.";
+
 
     setRoomImage(
       VISUALS.forbiddenRoom,
       "✦"
     );
+
 
     roomActionBtn.textContent =
       "Entrer";
@@ -2571,6 +2807,7 @@ function showRoom(
                   24
                 );
 
+
               addRunCrystals(
                 gain
               );
@@ -2581,7 +2818,9 @@ function showRoom(
                 nextStep
               );
 
-            } else if (
+            }
+
+            else if (
               run.stability > 0
             ) {
 
@@ -2603,19 +2842,23 @@ function showRoom(
   /* SECRÈTE */
 
   if (
-    type === "secret"
+    type ===
+    "secret"
   ) {
 
     roomTitle.textContent =
       "Salle Secrète";
 
+
     roomDescription.textContent =
       "Un passage oublié vient de s'ouvrir.";
+
 
     setRoomImage(
       VISUALS.secretRoom,
       "✶"
     );
+
 
     roomActionBtn.textContent =
       "Découvrir le secret";
@@ -2625,7 +2868,8 @@ function showRoom(
       () => {
 
         giveRandomReward(
-          Math.random() < 0.30
+          Math.random() <
+            0.30
             ? "legendary"
             : "epic",
           nextStep
@@ -2640,8 +2884,6 @@ function showRoom(
 
 /* =========================================================
    ÉTAPE SUIVANTE
-   IMPORTANT :
-   ON RESTE SUR LE CHEMIN CHOISI
 ========================================================= */
 
 function nextStep() {
@@ -2662,6 +2904,7 @@ function nextStep() {
     endAscension(
       false
     );
+
 
     return;
 
@@ -2698,12 +2941,6 @@ function nextStep() {
   }
 
 
-  /*
-    ON NE REVIENT PLUS À showEntrance().
-    On génère directement la prochaine salle
-    du même chemin.
-  */
-
   const nextRoom =
     generateRoom(
       run.path
@@ -2726,8 +2963,10 @@ function finalTreasure() {
   roomTitle.textContent =
     "Trésor final";
 
+
   roomDescription.textContent =
     "Le NEXUS reconnaît ton passage.";
+
 
   setRoomImage(
     VISUALS.reward
@@ -2740,11 +2979,13 @@ function finalTreasure() {
       "hidden"
     );
 
+
   roomActionZone
     .classList
     .remove(
       "hidden"
     );
+
 
   roomActionBtn.textContent =
     "Ouvrir le trésor";
@@ -2786,14 +3027,20 @@ function getFinalRarity() {
     if (
       roll < 0.08
     ) {
+
       return "epic";
+
     }
+
 
     if (
       roll < 0.35
     ) {
+
       return "rare";
+
     }
+
 
     return "uncommon";
 
@@ -2807,8 +3054,11 @@ function getFinalRarity() {
     if (
       roll < 0.20
     ) {
+
       return "rare";
+
     }
+
 
     return "uncommon";
 
@@ -2821,7 +3071,7 @@ function getFinalRarity() {
 
 
 /* =========================================================
-   CRISTAUX PARTIE
+   CRISTAUX DE LA PARTIE
 ========================================================= */
 
 function addRunCrystals(
@@ -2830,6 +3080,7 @@ function addRunCrystals(
 
   run.crystals +=
     amount;
+
 
   runCrystals.textContent =
     run.crystals;
@@ -2851,6 +3102,7 @@ function restoreStability() {
       "Stabilité déjà maximale"
     );
 
+
     return;
 
   }
@@ -2858,7 +3110,9 @@ function restoreStability() {
 
   run.stability++;
 
+
   updateStabilityUI();
+
 
   showToast(
     "Stabilité restaurée"
@@ -2870,16 +3124,20 @@ function restoreStability() {
 function loseStability() {
 
   if (
-    run.power === "shield" &&
-    run.shieldUsed === false
+    run.power ===
+      "shield" &&
+    run.shieldUsed ===
+      false
   ) {
 
     run.shieldUsed =
       true;
 
+
     showToast(
       "Bouclier runique activé"
     );
+
 
     return;
 
@@ -2912,7 +3170,9 @@ function loseStability() {
       650
     );
 
-  } else {
+  }
+
+  else {
 
     showToast(
       "Le Portail vacille"
@@ -2945,7 +3205,8 @@ function updateStabilityUI() {
 
         crystal.classList.toggle(
           "active",
-          index < run.stability
+          index <
+            run.stability
         );
 
       }
@@ -2968,7 +3229,9 @@ function updateStabilityUI() {
     stabilityMessage.textContent =
       "Le portail est parfaitement stable.";
 
-  } else if (
+  }
+
+  else if (
     run.stability === 2
   ) {
 
@@ -2978,10 +3241,13 @@ function updateStabilityUI() {
         "fragile"
       );
 
+
     stabilityMessage.textContent =
       "Le portail commence à vaciller.";
 
-  } else if (
+  }
+
+  else if (
     run.stability === 1
   ) {
 
@@ -2991,16 +3257,20 @@ function updateStabilityUI() {
         "critical"
       );
 
+
     stabilityMessage.textContent =
       "La résonance est critique.";
 
-  } else {
+  }
+
+  else {
 
     runicStability
       .classList
       .add(
         "collapsed"
       );
+
 
     stabilityMessage.textContent =
       "Le portail s'est effondré.";
@@ -3028,20 +3298,26 @@ function updateRunUI() {
 
 
   if (
-    run.power === "shield"
+    run.power ===
+    "shield"
   ) {
 
     activePowerText.textContent =
       "Bouclier";
 
-  } else if (
-    run.power === "vision"
+  }
+
+  else if (
+    run.power ===
+    "vision"
   ) {
 
     activePowerText.textContent =
       "Vision";
 
-  } else {
+  }
+
+  else {
 
     activePowerText.textContent =
       "Aucun";
@@ -3087,8 +3363,10 @@ function startRandomChallenge(
       url("${VISUALS.challenge}")
     `;
 
+
   challengeCard.style.backgroundSize =
     "cover";
+
 
   challengeCard.style.backgroundPosition =
     "center";
@@ -3118,7 +3396,8 @@ function startRandomChallenge(
 
 
   if (
-    selected === "memory"
+    selected ===
+    "memory"
   ) {
 
     challengeMemory(
@@ -3126,8 +3405,11 @@ function startRandomChallenge(
       callback
     );
 
-  } else if (
-    selected === "different"
+  }
+
+  else if (
+    selected ===
+    "different"
   ) {
 
     challengeDifferent(
@@ -3135,7 +3417,9 @@ function startRandomChallenge(
       callback
     );
 
-  } else {
+  }
+
+  else {
 
     challengeSeal(
       hardMode,
@@ -3159,8 +3443,10 @@ function challengeMemory(
   challengeType.textContent =
     "Mémoire runique";
 
+
   challengeTitle.textContent =
     "Mémorise le cristal";
+
 
   challengeInstructions.textContent =
     "Observe son symbole avant qu'il ne disparaisse.";
@@ -3235,33 +3521,35 @@ function challengeMemory(
           >
 
             ${
-              options.map(
-                symbol => `
-                  <button
-                    class="challenge-memory-button"
-                    data-answer="${symbol}"
-                    style="
-                      width:90px;
-                      height:90px;
-                      border-radius:24px;
-                      border:
-                        1px solid rgba(106,249,234,.30);
-                      background:
-                        radial-gradient(
-                          circle,
-                          rgba(106,249,234,.15),
-                          rgba(7,25,34,.88)
-                        );
-                      color:#7cfff1;
-                      font-size:2.5rem;
-                      box-shadow:
-                        0 0 20px rgba(106,249,234,.08);
-                    "
-                  >
-                    ${symbol}
-                  </button>
-                `
-              ).join("")
+              options
+                .map(
+                  symbol => `
+                    <button
+                      class="challenge-memory-button"
+                      data-answer="${symbol}"
+                      style="
+                        width:90px;
+                        height:90px;
+                        border-radius:24px;
+                        border:
+                          1px solid rgba(106,249,234,.30);
+                        background:
+                          radial-gradient(
+                            circle,
+                            rgba(106,249,234,.15),
+                            rgba(7,25,34,.88)
+                          );
+                        color:#7cfff1;
+                        font-size:2.5rem;
+                        box-shadow:
+                          0 0 20px rgba(106,249,234,.08);
+                      "
+                    >
+                      ${symbol}
+                    </button>
+                  `
+                )
+                .join("")
             }
 
           </div>
@@ -3272,22 +3560,24 @@ function challengeMemory(
         .querySelectorAll(
           ".challenge-memory-button"
         )
-        .forEach(button => {
+        .forEach(
+          button => {
 
-          button.addEventListener(
-            "click",
-            () => {
+            button.addEventListener(
+              "click",
+              () => {
 
-              resolveChallenge(
-                button.dataset.answer ===
-                correct,
-                callback
-              );
+                resolveChallenge(
+                  button.dataset.answer ===
+                    correct,
+                  callback
+                );
 
-            }
-          );
+              }
+            );
 
-        });
+          }
+        );
 
     },
     hardMode
@@ -3310,8 +3600,10 @@ function challengeDifferent(
   challengeType.textContent =
     "Observation runique";
 
+
   challengeTitle.textContent =
     "Trouve la rune instable";
+
 
   challengeInstructions.textContent =
     "Une seule rune ne résonne pas comme les autres.";
@@ -3321,6 +3613,7 @@ function challengeDifferent(
     hardMode
       ? 15
       : 12;
+
 
   const target =
     randomInt(
@@ -3376,13 +3669,11 @@ function challengeDifferent(
               inset 0 0 20px rgba(106,249,234,.04);
           "
         >
-
           ${
             i === target
               ? "◇"
               : "◆"
           }
-
         </button>
       `;
 
@@ -3401,22 +3692,24 @@ function challengeDifferent(
     .querySelectorAll(
       ".challenge-rune"
     )
-    .forEach(button => {
+    .forEach(
+      button => {
 
-      button.addEventListener(
-        "click",
-        () => {
+        button.addEventListener(
+          "click",
+          () => {
 
-          resolveChallenge(
-            button.dataset.correct ===
-            "yes",
-            callback
-          );
+            resolveChallenge(
+              button.dataset.correct ===
+                "yes",
+              callback
+            );
 
-        }
-      );
+          }
+        );
 
-    });
+      }
+    );
 
 }
 
@@ -3433,8 +3726,10 @@ function challengeSeal(
   challengeType.textContent =
     "Résonance";
 
+
   challengeTitle.textContent =
     "Choisis le sceau vivant";
+
 
   challengeInstructions.textContent =
     "Un seul sceau contient l'énergie du NEXUS.";
@@ -3525,22 +3820,24 @@ function challengeSeal(
     .querySelectorAll(
       ".challenge-seal"
     )
-    .forEach(button => {
+    .forEach(
+      button => {
 
-      button.addEventListener(
-        "click",
-        () => {
+        button.addEventListener(
+          "click",
+          () => {
 
-          resolveChallenge(
-            button.dataset.correct ===
-            "yes",
-            callback
-          );
+            resolveChallenge(
+              button.dataset.correct ===
+                "yes",
+              callback
+            );
 
-        }
-      );
+          }
+        );
 
-    });
+      }
+    );
 
 }
 
@@ -3666,8 +3963,10 @@ function openGuardian() {
       url("${world.guardianImage}")
     `;
 
+
   guardianCard.style.backgroundSize =
     "cover";
+
 
   guardianCard.style.backgroundPosition =
     "center";
@@ -3675,6 +3974,7 @@ function openGuardian() {
 
   run.guardianWins =
     0;
+
 
   run.guardianRounds =
     0;
@@ -3689,6 +3989,7 @@ function openGuardian() {
 
   startGuardianBtn.textContent =
     "Affronter le Gardien";
+
 
   startGuardianBtn.onclick =
     guardianRound;
@@ -3738,11 +4039,14 @@ function guardianRound() {
         guardianMessage.textContent =
           "Le Gardien reconnaît ta résonance.";
 
+
         startGuardianBtn.textContent =
           "Franchir le Portail";
 
+
         startGuardianBtn.onclick =
           guardianVictory;
+
 
         return;
 
@@ -3757,11 +4061,14 @@ function guardianRound() {
         guardianMessage.textContent =
           "Le Gardien referme le passage.";
 
+
         startGuardianBtn.textContent =
           "Terminer";
 
+
         startGuardianBtn.onclick =
           guardianDefeat;
+
 
         return;
 
@@ -3771,8 +4078,10 @@ function guardianRound() {
       guardianMessage.textContent =
         "Le Gardien prépare une nouvelle épreuve.";
 
+
       startGuardianBtn.textContent =
         "Manche suivante";
+
 
       startGuardianBtn.onclick =
         guardianRound;
@@ -3788,6 +4097,7 @@ function updateGuardianUI() {
   guardianWins.textContent =
     `${run.guardianWins} / 2`;
 
+
   guardianRounds.textContent =
     `${run.guardianRounds} / 3`;
 
@@ -3802,10 +4112,13 @@ function guardianVictory() {
       "hidden"
     );
 
+
   run.currentStep =
     8;
 
+
   updateRunUI();
+
 
   finalTreasure();
 
@@ -3819,6 +4132,7 @@ function guardianDefeat() {
     .add(
       "hidden"
     );
+
 
   endAscension(
     false
@@ -3851,7 +4165,8 @@ function giveRandomReward(
       )
     ],
 
-    rarity: rarity,
+    rarity:
+      rarity,
 
     obtainedAt:
       new Date()
@@ -3871,13 +4186,16 @@ function giveRandomReward(
   rewardBigIcon.textContent =
     reward.icon;
 
+
   rewardRarity.textContent =
     getRarityLabel(
       rarity
     );
 
+
   rewardTitle.textContent =
     reward.name;
+
 
   rewardDescription.textContent =
     `${reward.type} ajouté au Sanctuaire.`;
@@ -3900,8 +4218,10 @@ function giveRandomReward(
       url("${VISUALS.reward}")
     `;
 
+
   rewardCard.style.backgroundSize =
     "cover";
+
 
   rewardCard.style.backgroundPosition =
     "center";
@@ -3950,24 +4270,45 @@ function getRewardRarity(
 
 
   if (
-    path === "forbidden"
+    path ===
+    "forbidden"
   ) {
 
-    if (roll < 0.05) {
+    if (
+      roll < 0.05
+    ) {
+
       return "legendary";
+
     }
 
-    if (roll < 0.18) {
+
+    if (
+      roll < 0.18
+    ) {
+
       return "epic";
+
     }
 
-    if (roll < 0.48) {
+
+    if (
+      roll < 0.48
+    ) {
+
       return "rare";
+
     }
 
-    if (roll < 0.80) {
+
+    if (
+      roll < 0.80
+    ) {
+
       return "uncommon";
+
     }
+
 
     return "common";
 
@@ -3975,20 +4316,36 @@ function getRewardRarity(
 
 
   if (
-    path === "crystal"
+    path ===
+    "crystal"
   ) {
 
-    if (roll < 0.04) {
+    if (
+      roll < 0.04
+    ) {
+
       return "epic";
+
     }
 
-    if (roll < 0.22) {
+
+    if (
+      roll < 0.22
+    ) {
+
       return "rare";
+
     }
 
-    if (roll < 0.62) {
+
+    if (
+      roll < 0.62
+    ) {
+
       return "uncommon";
+
     }
+
 
     return "common";
 
@@ -3998,14 +4355,20 @@ function getRewardRarity(
   if (
     roll < 0.12
   ) {
+
     return "rare";
+
   }
+
 
   if (
     roll < 0.42
   ) {
+
     return "uncommon";
+
   }
+
 
   return "common";
 
@@ -4026,6 +4389,7 @@ function randomRareRarity() {
 
   }
 
+
   if (
     roll < 0.28
   ) {
@@ -4033,6 +4397,7 @@ function randomRareRarity() {
     return "epic";
 
   }
+
 
   return "rare";
 
@@ -4044,11 +4409,22 @@ function getRarityLabel(
 ) {
 
   const labels = {
-    common: "Commun",
-    uncommon: "Peu commun",
-    rare: "Rare",
-    epic: "Épique",
-    legendary: "Légendaire"
+
+    common:
+      "Commun",
+
+    uncommon:
+      "Peu commun",
+
+    rare:
+      "Rare",
+
+    epic:
+      "Épique",
+
+    legendary:
+      "Légendaire"
+
   };
 
 
@@ -4094,6 +4470,7 @@ function completeAscension() {
     ascensionLevel =
       1;
 
+
     currentWorld++;
 
 
@@ -4112,6 +4489,7 @@ function completeAscension() {
 
   savePermanentData();
 
+
   endAscension(
     true
   );
@@ -4120,7 +4498,7 @@ function completeAscension() {
 
 
 /* =========================================================
-   FIN
+   FIN ASCENSION
 ========================================================= */
 
 function endAscension(
@@ -4138,6 +4516,7 @@ function endAscension(
     totalPermanentCrystals +=
       run.crystals;
 
+
     savePermanentData();
 
   }
@@ -4150,19 +4529,25 @@ function endAscension(
     endAscensionLabel.textContent =
       "Ascension réussie";
 
+
     endAscensionTitle.textContent =
       "Portail franchi";
+
 
     endAscensionText.textContent =
       "Le NEXUS a enregistré ta progression.";
 
-  } else {
+  }
+
+  else {
 
     endAscensionLabel.textContent =
       "Ascension interrompue";
 
+
     endAscensionTitle.textContent =
       "Le Portail s'est refermé";
+
 
     endAscensionText.textContent =
       "Tes trésors et cristaux déjà gagnés sont conservés.";
@@ -4172,6 +4557,7 @@ function endAscension(
 
   endCrystals.textContent =
     run.crystals;
+
 
   endSteps.textContent =
     `${Math.min(
@@ -4208,11 +4594,14 @@ function updateSanctuary() {
       url("${VISUALS.sanctuary}")
     `;
 
+
   sanctuaryScreen.style.backgroundSize =
     "cover";
 
+
   sanctuaryScreen.style.backgroundPosition =
     "center";
+
 
   sanctuaryScreen.style.backgroundAttachment =
     "fixed";
@@ -4267,6 +4656,7 @@ function renderCollection() {
 
         </div>
       `;
+
 
     return;
 
@@ -4436,7 +4826,7 @@ function getItemVisual(
 
 
 /* =========================================================
-   MONDE NEXUS — NAVIGATION
+   MONDE NEXUS — ÉVÉNEMENTS
 ========================================================= */
 
 function bindNexusWorld() {
@@ -4480,49 +4870,42 @@ function bindNexusWorld() {
   }
 
 
-  /*
-    UN SEUL gestionnaire pour TOUS les habitats.
-    Plus de double événement.
-  */
-
   document
     .querySelectorAll(
       ".habitat-slot"
     )
-    .forEach(slot => {
+    .forEach(
+      slot => {
 
-      slot.addEventListener(
-        "click",
-        () => {
+        slot.addEventListener(
+          "click",
+          () => {
 
-          const habitat =
-            slot.dataset.habitat;
+            const habitat =
+              slot.dataset.habitat;
 
 
-          /* JARDIN DES BULLES */
+            if (
+              habitat ===
+              "jardin-bulles"
+            ) {
 
-          if (
-            habitat ===
-            "jardin-bulles"
-          ) {
+              openJardinBullesBuild();
 
-            openJardinBullesBuild();
+              return;
 
-            return;
+            }
+
+
+            showToast(
+              "Cet habitat n'est pas encore éveillé."
+            );
 
           }
+        );
 
-
-          /* AUTRES HABITATS */
-
-          showToast(
-            "Cet habitat n'est pas encore éveillé."
-          );
-
-        }
-      );
-
-    });
+      }
+    );
 
 
   if (
@@ -4578,12 +4961,13 @@ function bindNexusWorld() {
 
 
 /* =========================================================
-   OUVRIR LE MONDE NEXUS
+   OUVRIR MONDE NEXUS
 ========================================================= */
 
 function openNexusScreen() {
 
   renderJardinBulles();
+
 
   showScreen(
     nexusWorldScreen
@@ -4600,6 +4984,7 @@ function closeNexusScreen() {
 
   updateSanctuary();
 
+
   showScreen(
     sanctuaryScreen
   );
@@ -4608,7 +4993,7 @@ function closeNexusScreen() {
 
 
 /* =========================================================
-   INVENTAIRE — QUANTITÉ D'UN OBJET
+   INVENTAIRE
 ========================================================= */
 
 function countCollectionItem(
@@ -4623,10 +5008,6 @@ function countCollectionItem(
 
 }
 
-
-/* =========================================================
-   RETIRER UN OBJET
-========================================================= */
 
 function removeCollectionItem(
   itemName,
@@ -4656,6 +5037,7 @@ function removeCollectionItem(
         i,
         1
       );
+
 
       remaining--;
 
@@ -4694,6 +5076,10 @@ function renderJardinBulles() {
     );
 
 
+  /* =====================================================
+     NON CONSTRUIT
+  ====================================================== */
+
   if (
     !built
   ) {
@@ -4704,7 +5090,6 @@ function renderJardinBulles() {
 
     jardinBullesSlot.innerHTML =
       `
-
         <span class="habitat-lock">
           ◆
         </span>
@@ -4720,7 +5105,6 @@ function renderJardinBulles() {
         <small>
           À construire
         </small>
-
       `;
 
 
@@ -4729,38 +5113,32 @@ function renderJardinBulles() {
   }
 
 
+  /* =====================================================
+     CONSTRUIT
+  ====================================================== */
+
   jardinBullesSlot.className =
     "habitat-slot habitat-1 built";
 
 
   jardinBullesSlot.innerHTML =
     `
-
-      <jardinBullesSlot.innerHTML = `
-
-  <img
-    src="/NEXUS-L-Ascension/images/Habitat-Jardin-Bulles.PNG"
-    alt="Jardin des Bulles"
-    class="built-habitat-image"
-  >
-
-  <span class="built-habitat-label">
-    Jardin des Bulles
-  </span>
-
-`;
+      <img
+        src="images/Habitat-Jardin-Bulles.PNG"
+        alt="Jardin des Bulles"
+        class="built-habitat-image"
+      >
 
       <span class="built-habitat-label">
         Jardin des Bulles
       </span>
-
     `;
 
 }
 
 
 /* =========================================================
-   JARDIN DES BULLES — OUVRIR CONSTRUCTION
+   OUVRIR CONSTRUCTION
 ========================================================= */
 
 function openJardinBullesBuild() {
@@ -4775,6 +5153,7 @@ function openJardinBullesBuild() {
       "Le Jardin des Bulles est déjà construit."
     );
 
+
     return;
 
   }
@@ -4787,6 +5166,7 @@ function openJardinBullesBuild() {
     showToast(
       "Fenêtre de construction introuvable."
     );
+
 
     return;
 
@@ -4803,7 +5183,7 @@ function openJardinBullesBuild() {
 
 
 /* =========================================================
-   JARDIN DES BULLES — FERMER CONSTRUCTION
+   FERMER CONSTRUCTION
 ========================================================= */
 
 function closeJardinBullesBuild() {
@@ -4827,29 +5207,18 @@ function closeJardinBullesBuild() {
 
 
 /* =========================================================
-   JARDIN DES BULLES — CONSTRUIRE
+   CONSTRUIRE LE JARDIN DES BULLES
 ========================================================= */
 
 function buildJardinBulles() {
 
-  /*
-    COÛT OFFICIEL :
-    15 cristaux
-    + 1 Fragment marin
-  */
-
   const crystalCost =
     15;
+
 
   const fragmentCost =
     1;
 
-
-  /*
-    IMPORTANT :
-    on utilise totalPermanentCrystals,
-    PAS l'élément HTML totalCrystals.
-  */
 
   if (
     totalPermanentCrystals <
@@ -4862,6 +5231,7 @@ function buildJardinBulles() {
         totalPermanentCrystals
       } cristaux.`
     );
+
 
     return;
 
@@ -4883,12 +5253,11 @@ function buildJardinBulles() {
       "Il te manque 1 Fragment marin."
     );
 
+
     return;
 
   }
 
-
-  /* RETIRER LES RESSOURCES */
 
   totalPermanentCrystals -=
     crystalCost;
@@ -4901,12 +5270,6 @@ function buildJardinBulles() {
     );
 
 
-  /*
-    Sécurité :
-    en cas de problème inattendu,
-    on rend les cristaux.
-  */
-
   if (
     !removed
   ) {
@@ -4914,16 +5277,16 @@ function buildJardinBulles() {
     totalPermanentCrystals +=
       crystalCost;
 
+
     showToast(
       "Impossible d'utiliser le Fragment marin."
     );
+
 
     return;
 
   }
 
-
-  /* CONSTRUCTION */
 
   nexusWorldData
     .habitats
@@ -4931,14 +5294,10 @@ function buildJardinBulles() {
       true;
 
 
-  /* SAUVEGARDES */
-
   savePermanentData();
 
   saveNexusWorldData();
 
-
-  /* MISE À JOUR */
 
   renderJardinBulles();
 
@@ -4967,6 +5326,7 @@ function openConfirmation(
   confirmTitle.textContent =
     title;
 
+
   confirmText.textContent =
     text;
 
@@ -4987,6 +5347,7 @@ function openConfirmation(
           "hidden"
         );
 
+
       callback();
 
     };
@@ -5000,7 +5361,8 @@ function openConfirmation(
 
 function resetToday() {
 
-  habits = {};
+  habits =
+    {};
 
 
   localStorage.setItem(
@@ -5035,26 +5397,39 @@ function resetAll() {
     .values(
       STORAGE
     )
-    .forEach(key => {
+    .forEach(
+      key => {
 
-      localStorage.removeItem(
-        key
-      );
+        localStorage.removeItem(
+          key
+        );
 
-    });
+      }
+    );
 
 
-  habits = {};
+  habits =
+    {};
 
-  currentXP = 0;
 
-  totalPermanentCrystals = 0;
+  currentXP =
+    0;
 
-  collection = [];
 
-  ascensionLevel = 1;
+  totalPermanentCrystals =
+    0;
 
-  currentWorld = 1;
+
+  collection =
+    [];
+
+
+  ascensionLevel =
+    1;
+
+
+  currentWorld =
+    1;
 
 
   stats = {
@@ -5066,8 +5441,7 @@ function resetAll() {
 
   nexusWorldData = {
 
-    abyssesUnlocked:
-      true,
+    abyssesUnlocked: true,
 
     habitats: {
       jardinBulles: false
@@ -5190,7 +5564,9 @@ function shuffleArray(
     const j =
       Math.floor(
         Math.random() *
-        (i + 1)
+        (
+          i + 1
+        )
       );
 
 
