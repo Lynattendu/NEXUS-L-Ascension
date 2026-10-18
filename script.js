@@ -5255,42 +5255,6 @@ function buildJardinBulles() {
 
 }  
 
-/* =========================================================
-   ÉVÉNEMENTS — JARDIN DES BULLES
-========================================================= */
-
-if (jardinBullesSlot) {
-
-  jardinBullesSlot
-    .addEventListener(
-      "click",
-      openJardinBullesBuild
-    );
-
-}
-
-
-if (cancelBuildHabitatBtn) {
-
-  cancelBuildHabitatBtn
-    .addEventListener(
-      "click",
-      closeJardinBullesBuild
-    );
-
-}
-
-
-if (confirmBuildHabitatBtn) {
-
-  confirmBuildHabitatBtn
-    .addEventListener(
-      "click",
-      buildJardinBulles
-    );
-
-}
-
 
 
 
@@ -5375,7 +5339,6 @@ if (centralSanctuaryBtn) {
 
 }
 
-
 /* =========================================================
    HABITATS VERROUILLÉS
 ========================================================= */
@@ -5413,3 +5376,8 @@ renderJardinBulles();
 
    
 });
+
+
+
+
+                          
