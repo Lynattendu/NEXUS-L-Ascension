@@ -4866,14 +4866,73 @@ function renderCollection() {
         </div>
       `;
 
-
     return;
 
   }
 
 
+  /* =====================================================
+     REGROUPER LES DOUBLONS
+  ====================================================== */
+
+  const groupedCollection =
+    {};
+
+
+  collection.forEach(
+    item => {
+
+      const key =
+        item.name;
+
+
+      if (
+        !groupedCollection[
+          key
+        ]
+      ) {
+
+        groupedCollection[
+          key
+        ] = {
+
+          ...item,
+
+          quantity:
+            1
+
+        };
+
+      }
+
+      else {
+
+        groupedCollection[
+          key
+        ].quantity++;
+
+      }
+
+    }
+  );
+
+
+  /* =====================================================
+     TRANSFORMER EN TABLEAU
+  ====================================================== */
+
+  const groupedItems =
+    Object.values(
+      groupedCollection
+    );
+
+
+  /* =====================================================
+     AFFICHAGE
+  ====================================================== */
+
   collectionGrid.innerHTML =
-    collection
+    groupedItems
       .slice()
       .reverse()
       .map(
@@ -4882,7 +4941,19 @@ function renderCollection() {
           <article class="collection-item ${getItemClass(item)}">
 
             <div class="collection-item-visual">
+
               ${getItemVisual(item)}
+
+              ${
+                item.quantity > 1
+                  ? `
+                      <div class="collection-quantity">
+                        x${item.quantity}
+                      </div>
+                    `
+                  : ""
+              }
+
             </div>
 
             <div class="collection-item-name">
@@ -4904,7 +4975,6 @@ function renderCollection() {
       .join("");
 
 }
-
 
 function getItemClass(
   item
