@@ -3081,16 +3081,22 @@ p {
   background: #020b13;
 }
 
+/* =========================================================
+   FOND DU MONDE NEXUS
+========================================================= */
+
 .nexus-world-background {
   position: relative;
 
   width: 100%;
-  min-height: 100vh;
+
+  min-height: 1100px;
 
   overflow: hidden;
 
   background: #020b13;
 }
+
 
 .nexus-world-bg-image {
   position: absolute;
@@ -3103,16 +3109,20 @@ p {
 
   max-width: none;
 
+  display: block;
+
   object-fit: cover;
   object-position: center top;
 
-  display: block;
-
   z-index: 0;
+
+  pointer-events: none;
 }
+
 
 .nexus-world-overlay {
   position: absolute;
+
   inset: 0;
 
   z-index: 1;
@@ -3122,12 +3132,27 @@ p {
   background:
     linear-gradient(
       180deg,
-      rgba(1,8,14,.42) 0%,
-      rgba(1,8,14,.05) 20%,
-      rgba(1,8,14,.03) 70%,
-      rgba(1,8,14,.48) 100%
+      rgba(1, 8, 14, .28) 0%,
+      rgba(1, 8, 14, .03) 25%,
+      rgba(1, 8, 14, .02) 70%,
+      rgba(1, 8, 14, .35) 100%
     );
 }
+
+
+.abysses-map {
+  position: relative;
+
+  z-index: 4;
+
+  width: 100%;
+
+  min-height: 900px;
+
+  margin-top: 10px;
+}
+
+
 
 
 /* =========================================================
