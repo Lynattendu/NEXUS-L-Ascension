@@ -1616,141 +1616,151 @@
 
 
 
-  <!-- =======================================================
-       ÉCRAN SANCTUAIRE
-  ======================================================== -->
+ <!-- =======================================================
+     ÉCRAN SANCTUAIRE
+======================================================== -->
 
-  <main
-    class="screen"
-    id="sanctuaryScreen"
-  >
+<main
+  class="screen"
+  id="sanctuaryScreen"
+>
+
+  <header class="main-header">
+
+    <button
+      class="icon-button"
+      id="sanctuaryBackBtn"
+      type="button"
+      aria-label="Retour"
+    >
+      ←
+    </button>
+
+    <div>
+
+      <p class="small-label">
+        Collection permanente
+      </p>
+
+      <h1>
+        Sanctuaire NEXUS
+      </h1>
+
+    </div>
+
+  </header>
 
 
-    <header class="main-header">
+  <!-- =====================================================
+       RÉSUMÉ
+  ====================================================== -->
 
-      <button
-        class="icon-button"
-        id="sanctuaryBackBtn"
-        type="button"
-        aria-label="Retour"
+  <section class="sanctuary-summary">
+
+    <div class="summary-card crystal-summary">
+
+      <img
+        src="./images/Objet-Cristaux.PNG"
+        alt=""
+        class="summary-object-image"
       >
-        ←
-      </button>
 
+      <span>
+        Cristaux
+      </span>
+
+      <strong id="totalCrystals">
+        0
+      </strong>
+
+    </div>
+
+
+    <div class="summary-card">
+
+      <span>
+        Artefacts
+      </span>
+
+      <strong id="artifactCount">
+        0
+      </strong>
+
+    </div>
+
+
+    <div class="summary-card">
+
+      <span>
+        Créatures
+      </span>
+
+      <strong id="creatureCount">
+        0
+      </strong>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       COLLECTION
+  ====================================================== -->
+
+  <section class="collection-section">
+
+    <div class="section-heading">
 
       <div>
 
         <p class="small-label">
-          Collection permanente
+          Trésors
         </p>
 
-        <h1>
-          Sanctuaire NEXUS
-        </h1>
+        <h2>
+          Collection
+        </h2>
 
       </div>
 
-    </header>
+    </div>
 
 
+    <div
+      class="collection-grid"
+      id="collectionGrid"
+    >
 
-    <section class="sanctuary-summary">
+      <div class="empty-collection">
 
-     <div class="summary-card crystal-summary">
-
-  <img
-    src="images/Objet-Cristaux.PNG"
-    alt=""
-    class="summary-object-image"
-  >
-
-  <span>
-    Cristaux
-  </span>
-
-  <strong id="totalCrystals">
-    0
-  </strong>
-
-</div>
-
-      <div class="summary-card">
-
-        <span>
-          Artefacts
-        </span>
-
-        <strong id="artifactCount">
-          0
-        </strong>
-
-      </div>
-
-
-      <div class="summary-card">
-
-        <span>
-          Créatures
-        </span>
-
-        <strong id="creatureCount">
-          0
-        </strong>
-
-      </div>
-
-    </section>
-
-
-
-    <section class="collection-section">
-
-      <div class="section-heading">
-
-        <div>
-
-          <p class="small-label">
-            Trésors
-          </p>
-
-          <h2>
-            Collection
-          </h2>
-
+        <div class="empty-symbol">
+          ◇
         </div>
 
-      </div>
-
-
-      <div
-        class="collection-grid"
-        id="collectionGrid"
-      >
-
-        <div class="empty-collection">
-
-          <div class="empty-symbol">
-            ◇
-          </div>
-
-          <p>
-            Ton Sanctuaire attend ses premiers trésors.
-          </p>
-
-        </div>
+        <p>
+          Ton Sanctuaire attend ses premiers trésors.
+        </p>
 
       </div>
-<button
-  type="button"
-  class="primary-btn nexus-world-btn"
-  id="openNexusWorldBtn"
->
-  Explorer le Monde NEXUS
-</button>
-    </section>
+
+    </div>
+
+
+    <button
+      type="button"
+      class="primary-btn nexus-world-btn"
+      id="openNexusWorldBtn"
+    >
+      Explorer le Monde NEXUS
+    </button>
+
+  </section>
+
 </main>
 
-    
+
+
 <!-- =====================================================
      MONDE NEXUS — ABYSSES ASTRALS
 ===================================================== -->
@@ -1762,16 +1772,24 @@
 
   <div class="nexus-world-background">
 
+
+    <!-- =================================================
+         FOND DES ABYSSES
+    ================================================== -->
+
     <img
-      src="images/Monde-Abysses-Astrals.PNG"
+      src="./images/Monde-Abysses-Astrals.PNG?v=2"
       alt=""
       class="nexus-world-bg-image"
     >
 
+
     <div class="nexus-world-overlay"></div>
 
 
-    <!-- HEADER -->
+    <!-- =================================================
+         HEADER
+    ================================================== -->
 
     <header class="nexus-world-header">
 
@@ -1783,6 +1801,7 @@
       >
         ←
       </button>
+
 
       <div>
 
@@ -1799,13 +1818,17 @@
     </header>
 
 
-    <!-- MESSAGE QUOTIDIEN -->
+
+    <!-- =================================================
+         MESSAGE QUOTIDIEN
+    ================================================== -->
 
     <div class="nexus-daily-message">
 
       <span class="nexus-daily-symbol">
         ✦
       </span>
+
 
       <div>
 
@@ -1822,14 +1845,17 @@
     </div>
 
 
+
     <!-- =================================================
-         HABITATS
+         CARTE DES HABITATS
     ================================================== -->
 
     <div class="abysses-map">
 
 
-      <!-- 1 -->
+      <!-- =================================================
+           HABITAT 1
+      ================================================== -->
 
       <button
         type="button"
@@ -1856,7 +1882,10 @@
       </button>
 
 
-      <!-- 2 -->
+
+      <!-- =================================================
+           HABITAT 2
+      ================================================== -->
 
       <button
         type="button"
@@ -1883,7 +1912,10 @@
       </button>
 
 
-      <!-- 3 -->
+
+      <!-- =================================================
+           HABITAT 3
+      ================================================== -->
 
       <button
         type="button"
@@ -1910,7 +1942,10 @@
       </button>
 
 
-      <!-- 4 -->
+
+      <!-- =================================================
+           HABITAT 4
+      ================================================== -->
 
       <button
         type="button"
@@ -1937,7 +1972,10 @@
       </button>
 
 
-      <!-- 5 -->
+
+      <!-- =================================================
+           HABITAT 5
+      ================================================== -->
 
       <button
         type="button"
@@ -1964,7 +2002,10 @@
       </button>
 
 
-      <!-- 6 -->
+
+      <!-- =================================================
+           HABITAT 6
+      ================================================== -->
 
       <button
         type="button"
@@ -1989,6 +2030,7 @@
         </small>
 
       </button>
+
 
 
       <!-- =================================================
@@ -2021,8 +2063,6 @@
   </div>
 
 </section>
-
- 
 
 
   <!-- =======================================================
