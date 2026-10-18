@@ -4919,6 +4919,7 @@ const nexusWorldScreen =
 
 const openNexusWorldBtn =
   document.getElementById("openNexusWorldBtn");
+   
 
 const closeNexusWorldBtn =
   document.getElementById("closeNexusWorldBtn");
@@ -4926,7 +4927,374 @@ const closeNexusWorldBtn =
 const centralSanctuaryBtn =
   document.getElementById("centralSanctuaryBtn");
 
+   /* =========================================================
+   JARDIN DES BULLES
+========================================================= */
 
+const jardinBullesSlot =
+  document.getElementById("jardinBullesSlot");
+
+const buildHabitatOverlay =
+  document.getElementById("buildHabitatOverlay");
+
+const cancelBuildHabitatBtn =
+  document.getElementById("cancelBuildHabitatBtn");
+
+const confirmBuildHabitatBtn =
+  document.getElementById("confirmBuildHabitatBtn");
+
+
+const WORLD_STORAGE_KEY =
+  "nexusVital_world";
+
+
+let nexusWorldData = {
+  abyssesUnlocked: true,
+
+  habitats: {
+    jardinBulles: false
+  }
+};
+
+
+   /* =========================================================
+   CHARGEMENT DU MONDE
+========================================================= */
+
+function loadNexusWorldData() {
+
+  const saved =
+    localStorage.getItem(
+      WORLD_STORAGE_KEY
+    );
+
+  if (!saved) {
+
+    saveNexusWorldData();
+
+    return;
+
+  }
+
+  try {
+
+    const parsed =
+      JSON.parse(saved);
+
+    nexusWorldData = {
+      ...nexusWorldData,
+      ...parsed,
+
+      habitats: {
+        ...nexusWorldData.habitats,
+        ...(parsed.habitats || {})
+      }
+    };
+
+  }
+
+  catch (error) {
+
+    console.warn(
+      "Sauvegarde Monde NEXUS invalide.",
+      error
+    );
+
+  }
+
+}
+
+
+function saveNexusWorldData() {
+
+  localStorage.setItem(
+    WORLD_STORAGE_KEY,
+    JSON.stringify(nexusWorldData)
+  );
+
+}
+
+/* =========================================================
+   INVENTAIRE — RECHERCHE D'OBJETS
+========================================================= */
+
+function countCollectionItem(itemName) {
+
+  return collection.filter(item =>
+    item.name === itemName
+  ).length;
+
+}
+
+
+function removeCollectionItem(
+  itemName,
+  quantity = 1
+) {
+
+  let remaining =
+    quantity;
+
+
+  for (
+    let i = collection.length - 1;
+    i >= 0 && remaining > 0;
+    i--
+  ) {
+
+    if (
+      collection[i].name === itemName
+    ) {
+
+      collection.splice(i, 1);
+
+      remaining--;
+
+    }
+
+  }
+
+
+  return remaining === 0;
+
+}
+/* =========================================================
+   AFFICHAGE DU JARDIN DES BULLES
+========================================================= */
+
+function renderJardinBulles() {
+
+  if (!jardinBullesSlot) {
+    return;
+  }
+
+
+  const built =
+    nexusWorldData
+      .habitats
+      .jardinBulles;
+
+
+  if (!built) {
+
+    jardinBullesSlot.className =
+      "habitat-slot habitat-1 locked";
+
+    jardinBullesSlot.innerHTML = `
+
+      <span class="habitat-lock">
+        ◆
+      </span>
+
+      <span class="habitat-number">
+        1
+      </span>
+
+      <strong>
+        Jardin des Bulles
+      </strong>
+
+      <small>
+        À construire
+      </small>
+
+    `;
+
+    return;
+
+  }
+
+
+  jardinBullesSlot.className =
+    "habitat-slot habitat-1 built";
+
+
+  jardinBullesSlot.innerHTML = `
+
+    <img
+      src="images/Habitat-Jardin-Bulles.PNG"
+      alt=""
+      class="built-habitat-image"
+    >
+
+    <span class="built-habitat-label">
+      Jardin des Bulles
+    </span>
+
+  `;
+
+}
+
+/* =========================================================
+   OUVRIR / FERMER LA CONSTRUCTION
+========================================================= */
+
+function openJardinBullesBuild() {
+
+  if (
+    nexusWorldData
+      .habitats
+      .jardinBulles
+  ) {
+
+    showToast(
+      "Le Jardin des Bulles est déjà construit."
+    );
+
+    return;
+
+  }
+
+
+  buildHabitatOverlay
+    .classList
+    .remove("hidden");
+
+}
+
+
+function closeJardinBullesBuild() {
+
+  buildHabitatOverlay
+    .classList
+    .add("hidden");
+
+}
+   
+ /* =========================================================
+   CONSTRUIRE LE JARDIN DES BULLES
+========================================================= */
+
+function buildJardinBulles() {
+
+  const crystalCost = 15;
+
+  const fragmentCost = 1;
+
+
+  const fragmentCount =
+    countCollectionItem(
+      "Fragment marin"
+    );
+
+
+  if (
+    totalCrystals < crystalCost
+  ) {
+
+    showToast(
+      "Il te manque des cristaux."
+    );
+
+    return;
+
+  }
+
+
+  if (
+    fragmentCount < fragmentCost
+  ) {
+
+    showToast(
+      "Il te manque un Fragment marin."
+    );
+
+    return;
+
+  }
+
+
+  /* RETRAIT DES RESSOURCES */
+
+  totalCrystals -=
+    crystalCost;
+
+
+  removeCollectionItem(
+    "Fragment marin",
+    fragmentCost
+  );
+
+
+  /* SAUVEGARDE DES RESSOURCES */
+
+  localStorage.setItem(
+    STORAGE.totalCrystals,
+    JSON.stringify(totalCrystals)
+  );
+
+
+  localStorage.setItem(
+    STORAGE.collection,
+    JSON.stringify(collection)
+  );
+
+
+  /* CONSTRUCTION */
+
+  nexusWorldData
+    .habitats
+    .jardinBulles = true;
+
+
+  saveNexusWorldData();
+
+
+  /* MISE À JOUR */
+
+  renderJardinBulles();
+
+  renderSanctuary();
+
+  closeJardinBullesBuild();
+
+
+  showToast(
+    "Le Jardin des Bulles s'éveille."
+  );
+
+}  
+
+/* =========================================================
+   ÉVÉNEMENTS — JARDIN DES BULLES
+========================================================= */
+
+if (jardinBullesSlot) {
+
+  jardinBullesSlot
+    .addEventListener(
+      "click",
+      openJardinBullesBuild
+    );
+
+}
+
+
+if (cancelBuildHabitatBtn) {
+
+  cancelBuildHabitatBtn
+    .addEventListener(
+      "click",
+      closeJardinBullesBuild
+    );
+
+}
+
+
+if (confirmBuildHabitatBtn) {
+
+  confirmBuildHabitatBtn
+    .addEventListener(
+      "click",
+      buildJardinBulles
+    );
+
+}
+
+
+
+
+   
 /* =========================================================
    CHANGEMENT D'ÉCRAN
 ========================================================= */
@@ -5018,6 +5386,14 @@ document
   )
   .forEach(slot => {
 
+    if (
+      slot.dataset.habitat ===
+      "jardin-bulles"
+    ) {
+      return;
+    }
+
+
     slot.addEventListener(
       "click",
       () => {
@@ -5031,4 +5407,9 @@ document
 
   });
 
+loadNexusWorldData();
+
+renderJardinBulles();
+
+   
 });
