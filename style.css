@@ -2092,127 +2092,200 @@ p {
 
 
 /* =========================================================
-   MINI-JEU — COURANT DES ABYSSES
+   MINI-JEUX NEXUS
+   1 — RÉSONANCE DES CRISTAUX
+   2 — PORTAIL INSTABLE
+   3 — SCEAU FRACTURÉ
+========================================================= */
+
+
+/* =========================================================
+   CARTE PRINCIPALE
 ========================================================= */
 
 .challenge-card {
   width:
     min(
-      96vw,
+      94vw,
       620px
     );
 
-  max-height:
-    96vh;
+  max-height: 94vh;
 
   padding:
-    14px;
+    24px 20px;
 
-  display: flex;
+  overflow-y: auto;
 
-  flex-direction: column;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(2, 10, 17, 0.98),
-      rgba(1, 7, 12, 0.99)
-    );
+  border-radius: 28px;
 
   border:
     1px solid
-    rgba(106, 249, 234, 0.24);
+    rgba(106, 249, 234, 0.28);
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(3, 16, 25, 0.88),
+      rgba(2, 8, 14, 0.96)
+    );
+
+  background-repeat:
+    no-repeat;
+
+  background-size:
+    cover;
+
+  background-position:
+    center;
 
   box-shadow:
     0 30px 100px
-    rgba(0, 0, 0, 0.58),
+    rgba(0, 0, 0, 0.62),
 
     inset
     0 0 50px
-    rgba(106, 249, 234, 0.025);
+    rgba(106, 249, 234, 0.03);
 
-  overflow-y: auto;
+  text-align: center;
 }
+
 
 .challenge-card::before {
   background:
-    radial-gradient(
-      circle at 50% 10%,
-      rgba(106, 249, 234, 0.08),
-      transparent 34%
-    ),
     linear-gradient(
       180deg,
-      rgba(0, 0, 0, 0),
-      rgba(0, 0, 0, 0.18)
+      rgba(1, 8, 14, 0.10),
+      rgba(1, 8, 14, 0.30) 42%,
+      rgba(1, 8, 14, 0.88) 100%
     );
 }
+
 
 .challenge-card
 .small-label {
-  margin-bottom: 4px;
+  margin-bottom: 7px;
 
   color:
     var(--cyan);
+
+  font-size: 0.72rem;
+
+  font-weight: 900;
+
+  letter-spacing:
+    0.18em;
 }
 
+
 .challenge-card h2 {
-  margin-bottom: 5px;
+  margin-bottom: 7px;
 
   font-size:
     clamp(
-      1.25rem,
+      1.45rem,
       5vw,
-      1.8rem
+      2rem
     );
 }
 
+
 .challenge-card > p {
-  max-width: 460px;
+  max-width: 500px;
 
   margin:
-    0 auto 8px;
+    0 auto 18px;
 
   color:
-    #bdd0d8;
+    #c1d3dc;
 
-  font-size: 0.83rem;
+  font-size: 0.9rem;
 
-  line-height: 1.4;
+  line-height: 1.45;
 }
+
+
+/* =========================================================
+   ZONE DE JEU
+========================================================= */
 
 .challenge-area {
   width: 100%;
 
-  min-height: 0;
+  min-height: 280px;
 
   margin:
-    8px 0 12px;
+    12px 0 18px;
 
-  padding: 0;
+  padding:
+    22px 16px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
 
   position: relative;
 
   overflow: hidden;
 
-  border-radius: 22px;
+  border-radius: 24px;
 
   border:
     1px solid
-    rgba(106, 249, 234, 0.24);
+    rgba(106, 249, 234, 0.25);
 
   background:
-    #020c14;
+    linear-gradient(
+      180deg,
+      rgba(2, 14, 22, 0.94),
+      rgba(1, 8, 14, 0.98)
+    );
 
   box-shadow:
     inset
-    0 0 35px
-    rgba(106, 249, 234, 0.025);
+    0 0 40px
+    rgba(106, 249, 234, 0.035);
 }
 
-.challenge-area::before {
-  display: none;
+
+.challenge-status {
+  margin-bottom: 22px;
+
+  color:
+    #f5fbff;
+
+  font-size: 1rem;
+
+  font-weight: 800;
+
+  text-align: center;
 }
+
+
+.challenge-status.success {
+  color:
+    var(--green);
+
+  text-shadow:
+    0 0 18px
+    rgba(134, 244, 189, 0.55);
+}
+
+
+.challenge-status.fail {
+  color:
+    var(--orange);
+
+  text-shadow:
+    0 0 18px
+    rgba(255, 186, 120, 0.45);
+}
+
+
+/* =========================================================
+   BOUTON CONTINUER
+========================================================= */
 
 .challenge-footer {
   width: 100%;
@@ -2222,533 +2295,595 @@ p {
   justify-content: center;
 }
 
+
 .challenge-footer
 .primary-button {
   width: 100%;
 
-  max-width: 380px;
+  max-width: 390px;
 }
 
 
 /* =========================================================
-   TERRAIN
+   1 — RÉSONANCE DES CRISTAUX
 ========================================================= */
 
-.abyss-game {
+.crystal-game {
+  width: 100%;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+}
+
+
+.crystal-grid {
+  width:
+    min(
+      100%,
+      420px
+    );
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      4,
+      1fr
+    );
+
+  gap: 14px;
+
+  margin:
+    4px auto 20px;
+}
+
+
+.resonance-crystal {
   position: relative;
 
   width: 100%;
 
-  aspect-ratio:
-    9 / 15.2;
+  aspect-ratio: 0.78;
 
-  max-height:
-    70vh;
+  border: none;
 
-  overflow: hidden;
+  border-radius:
+    16px 16px 24px 24px;
 
-  touch-action: none;
-
-  user-select: none;
-
-  -webkit-user-select:
-    none;
-
-  background:
-    #03111c;
-}
-
-.abyss-game-background {
-  position: absolute;
-
-  inset: 0;
-
-  width: 100%;
-  height: 100%;
-
-  object-fit: cover;
-
-  z-index: 0;
-
-  pointer-events: none;
-}
-
-.abyss-game::after {
-  content: "";
-
-  position: absolute;
-
-  inset: 0;
-
-  z-index: 1;
-
-  pointer-events: none;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(0, 9, 19, 0.10),
-      transparent 28%,
-      transparent 72%,
-      rgba(0, 8, 15, 0.24)
-    );
-}
-
-
-/* =========================================================
-   HUD MINI-JEU
-========================================================= */
-
-.abyss-game-hud {
-  position: absolute;
-
-  top: 10px;
-  left: 10px;
-  right: 10px;
-
-  z-index: 20;
-
-  display: flex;
-
-  justify-content:
-    space-between;
-
-  pointer-events: none;
-}
-
-.abyss-game-status {
-  min-width: 72px;
-
-  padding:
-    6px 10px;
-
-  border-radius: 13px;
-
-  text-align: center;
-
-  border:
-    1px solid
-    rgba(106, 249, 234, 0.25);
-
-  background:
-    rgba(2, 15, 25, 0.78);
-
-  backdrop-filter:
-    blur(8px);
-
-  -webkit-backdrop-filter:
-    blur(8px);
-
-  box-shadow:
-    0 5px 18px
-    rgba(0, 0, 0, 0.22);
-}
-
-.abyss-game-status span {
-  display: block;
-
-  color:
-    #9bbbc7;
-
-  font-size: 0.58rem;
-  font-weight: 800;
-
-  text-transform:
-    uppercase;
-
-  letter-spacing:
-    0.08em;
-}
-
-.abyss-game-status strong {
-  display: block;
-
-  margin-top: 2px;
-
-  color:
-    #75fff1;
-
-  font-size: 0.95rem;
-}
-
-#abyssCrystalStatus.collected {
-  color:
-    var(--gold);
-
-  text-shadow:
-    0 0 15px
-    rgba(255, 217, 121, 0.7);
-}
-
-
-/* =========================================================
-   TIMER
-========================================================= */
-
-.abyss-time-bar {
-  position: absolute;
-
-  top: 60px;
-  left: 12px;
-  right: 12px;
-
-  z-index: 20;
-
-  height: 6px;
-
-  overflow: hidden;
-
-  border-radius: 999px;
-
-  background:
-    rgba(1, 9, 15, 0.74);
-
-  pointer-events: none;
-}
-
-.abyss-time-fill {
-  width: 100%;
-  height: 100%;
-
-  border-radius: inherit;
-
-  background:
-    linear-gradient(
-      90deg,
-      var(--blue),
-      var(--cyan)
+  clip-path:
+    polygon(
+      50% 0%,
+      92% 22%,
+      100% 72%,
+      72% 100%,
+      28% 100%,
+      0% 72%,
+      8% 22%
     );
 
-  box-shadow:
-    0 0 12px
-    rgba(106, 249, 234, 0.55);
+  opacity: 0.48;
+
+  transform:
+    scale(0.92);
+
+  cursor: pointer;
 
   transition:
-    width
-    1s linear;
+    transform 0.16s ease,
+    opacity 0.16s ease,
+    filter 0.16s ease,
+    box-shadow 0.16s ease;
 }
 
-.abyss-time-fill.critical {
+
+.resonance-crystal:disabled {
+  cursor: default;
+}
+
+
+/* CYAN */
+
+.resonance-crystal.cyan {
   background:
     linear-gradient(
-      90deg,
-      #ff9f79,
-      var(--gold)
+      145deg,
+      #eaffff,
+      #6af9ea 32%,
+      #138a91 70%,
+      #073847
     );
-
-  box-shadow:
-    0 0 16px
-    rgba(255, 186, 120, 0.45);
-}
-
-
-/* =========================================================
-   ÉLÉMENTS DU MINI-JEU
-========================================================= */
-
-.abyss-game-object {
-  position: absolute;
-
-  z-index: 5;
-
-  object-fit: contain;
-
-  pointer-events: none;
-
-  user-select: none;
-
-  -webkit-user-drag:
-    none;
 
   filter:
     drop-shadow(
-      0 0 12px
+      0 0 7px
+      rgba(106, 249, 234, 0.28)
+    );
+}
+
+
+/* BLEU */
+
+.resonance-crystal.blue {
+  background:
+    linear-gradient(
+      145deg,
+      #eff8ff,
+      #69b8ff 32%,
+      #245eaf 70%,
+      #102d63
+    );
+
+  filter:
+    drop-shadow(
+      0 0 7px
       rgba(105, 184, 255, 0.28)
     );
 }
 
 
-/* =========================================================
-   PORTAIL
-========================================================= */
+/* VIOLET */
 
-.abyss-portal {
-  width: 31%;
-
-  left: 50%;
-  top: 7%;
-
-  transform:
-    translateX(-50%);
-
-  mix-blend-mode:
-    screen;
-
-  animation:
-    abyssPortalPulse
-    2.2s ease-in-out infinite;
-}
-
-
-/* =========================================================
-   CRÉATURE
-========================================================= */
-
-.abyss-creature {
-  position: absolute;
-
-  z-index: 15;
-
-  width: 21%;
-
-  left: 50%;
-  top: 88%;
-
-  transform:
-    translate(
-      -50%,
-      -50%
+.resonance-crystal.violet {
+  background:
+    linear-gradient(
+      145deg,
+      #f4ecff,
+      #a986ff 32%,
+      #6742b9 70%,
+      #301868
     );
-
-  object-fit: contain;
-
-  touch-action: none;
-
-  cursor: grab;
-
-  user-select: none;
-
-  -webkit-user-drag:
-    none;
-
-  mix-blend-mode:
-    screen;
 
   filter:
     drop-shadow(
-      0 0 12px
-      rgba(106, 249, 234, 0.65)
+      0 0 7px
+      rgba(169, 134, 255, 0.28)
     );
-
-  transition:
-    filter
-    0.15s ease;
 }
 
-.abyss-creature.dragging {
-  cursor: grabbing;
+
+/* OR */
+
+.resonance-crystal.gold {
+  background:
+    linear-gradient(
+      145deg,
+      #fff9d9,
+      #ffd979 32%,
+      #b97827 70%,
+      #643c0e
+    );
 
   filter:
     drop-shadow(
-      0 0 22px
-      rgba(106, 249, 234, 0.95)
+      0 0 7px
+      rgba(255, 217, 121, 0.28)
+    );
+}
+
+
+/* CRISTAL ALLUMÉ */
+
+.resonance-crystal.active {
+  opacity: 1;
+
+  transform:
+    scale(1.16);
+
+  filter:
+    brightness(1.65)
+    saturate(1.25)
+    drop-shadow(
+      0 0 18px
+      rgba(255, 255, 255, 0.92)
     )
-    brightness(1.12);
-}
+    drop-shadow(
+      0 0 38px
+      rgba(106, 249, 234, 0.82)
+    );
 
-.abyss-creature.vortex-hit {
-  animation:
-    abyssVortexHit
-    0.65s ease;
-}
-
-
-/* =========================================================
-   MÉDUSE DANGEREUSE
-========================================================= */
-
-.abyss-jellyfish {
-  width: 22%;
-
-  top: 35%;
-  right: 5%;
-
-  mix-blend-mode:
-    screen;
-
-  animation:
-    abyssJellyFloat
-    3.4s ease-in-out infinite;
+  z-index: 5;
 }
 
 
-/* =========================================================
-   MINES
-========================================================= */
+/* CLIC DU JOUEUR */
 
-.abyss-mine {
-  width: 16%;
-
-  mix-blend-mode:
-    screen;
-
-  animation:
-    abyssMinePulse
-    2.4s ease-in-out infinite;
-}
-
-.abyss-mine-1 {
-  top: 52%;
-  left: 9%;
-}
-
-.abyss-mine-2 {
-  top: 25%;
-  left: 16%;
-}
-
-.abyss-mine-3 {
-  top: 48%;
-  right: 9%;
-}
-
-.abyss-mine.exploded {
-  animation:
-    abyssMineExplode
-    0.5s ease forwards;
-}
-
-
-/* =========================================================
-   TOURBILLON
-========================================================= */
-
-.abyss-vortex {
-  width: 29%;
-
-  left: 50%;
-  top: 61%;
-
+.resonance-crystal.player-hit {
   transform:
-    translateX(-50%);
+    scale(1.08);
+}
 
-  mix-blend-mode:
-    screen;
 
-  animation:
-    abyssVortexSpin
-    7s linear infinite;
+.crystal-sequence-info {
+  color:
+    #a8c4ce;
+
+  font-size: 0.82rem;
+
+  font-weight: 700;
+
+  letter-spacing: 0.04em;
 }
 
 
 /* =========================================================
-   CRISTAL BONUS
+   2 — PORTAIL INSTABLE
 ========================================================= */
 
-.abyss-crystal-bonus {
-  width: 14%;
+.portal-timing-game {
+  width: 100%;
 
-  top: 42%;
-  left: 48%;
+  display: flex;
 
-  mix-blend-mode:
-    screen;
+  flex-direction: column;
 
-  animation:
-    abyssCrystalFloat
-    2s ease-in-out infinite;
-
-  transition:
-    opacity 0.3s ease,
-    transform 0.3s ease;
-}
-
-.abyss-crystal-bonus.collected {
-  opacity: 0;
-
-  transform:
-    scale(1.8);
-
-  pointer-events: none;
+  align-items: center;
 }
 
 
-/* =========================================================
-   DÉPART
-========================================================= */
+.portal-timing-orb {
+  width: 76px;
+  height: 76px;
 
-.abyss-start-zone {
-  position: absolute;
+  margin:
+    2px auto 22px;
 
-  left: 50%;
-  bottom: 1.5%;
+  display: grid;
 
-  z-index: 2;
+  place-items: center;
 
-  transform:
-    translateX(-50%);
+  border-radius: 50%;
 
   color:
-    rgba(173, 230, 238, 0.48);
+    var(--cyan);
 
-  font-size: 0.52rem;
-  font-weight: 900;
+  font-size: 2.5rem;
 
-  letter-spacing:
-    0.18em;
+  background:
+    radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.95),
+      rgba(106, 249, 234, 0.5) 24%,
+      rgba(105, 184, 255, 0.24) 52%,
+      rgba(7, 22, 36, 0.98) 76%
+    );
 
-  pointer-events: none;
+  box-shadow:
+    0 0 20px
+    rgba(106, 249, 234, 0.55),
+
+    0 0 55px
+    rgba(105, 184, 255, 0.22);
+
+  animation:
+    timingOrbPulse
+    1.8s ease-in-out infinite;
 }
 
 
-/* =========================================================
-   MESSAGE MINI-JEU
-========================================================= */
+/* BARRE */
 
-.abyss-message {
-  position: absolute;
-
-  left: 50%;
-  bottom: 4%;
-
-  z-index: 21;
-
-  transform:
-    translateX(-50%);
+.timing-track {
+  position: relative;
 
   width:
     min(
-      86%,
-      360px
+      92%,
+      470px
     );
 
-  padding:
-    8px 12px;
+  height: 42px;
+
+  margin:
+    4px auto 24px;
+
+  overflow: hidden;
 
   border-radius: 999px;
 
-  text-align: center;
-
-  color: white;
-
-  font-size: 0.72rem;
-  font-weight: 800;
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.18);
 
   background:
-    rgba(2, 14, 23, 0.78);
+    linear-gradient(
+      180deg,
+      rgba(5, 26, 38, 0.96),
+      rgba(2, 12, 19, 0.98)
+    );
+
+  box-shadow:
+    inset
+    0 0 18px
+    rgba(0, 0, 0, 0.68),
+
+    0 0 20px
+    rgba(106, 249, 234, 0.10);
+}
+
+
+/* ZONE À VISER */
+
+.timing-target {
+  position: absolute;
+
+  top: 4px;
+  bottom: 4px;
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(134, 244, 189, 0.34),
+      rgba(106, 249, 234, 0.92),
+      rgba(134, 244, 189, 0.34)
+    );
 
   border:
     1px solid
-    rgba(106, 249, 234, 0.22);
+    rgba(185, 255, 224, 0.78);
 
-  backdrop-filter:
-    blur(8px);
+  box-shadow:
+    0 0 18px
+    rgba(106, 249, 234, 0.58),
 
-  -webkit-backdrop-filter:
-    blur(8px);
+    inset
+    0 0 14px
+    rgba(255, 255, 255, 0.22);
 
-  pointer-events: none;
+  animation:
+    timingTargetPulse
+    1.2s ease-in-out infinite;
+}
+
+
+/* CURSEUR MOBILE */
+
+.timing-cursor {
+  position: absolute;
+
+  top: 50%;
+
+  width: 14px;
+  height: 34px;
+
+  transform:
+    translateY(-50%);
+
+  border-radius: 999px;
+
+  background:
+    #ffffff;
+
+  box-shadow:
+    0 0 10px
+    #ffffff,
+
+    0 0 24px
+    rgba(105, 184, 255, 0.92),
+
+    0 0 42px
+    rgba(106, 249, 234, 0.62);
+
+  z-index: 4;
+}
+
+
+.timing-stop-button {
+  min-width: 180px;
+
+  min-height: 52px;
+
+  padding:
+    12px 24px;
+
+  border: none;
+
+  border-radius: 16px;
+
+  color:
+    #021012;
+
+  font-weight: 900;
+
+  font-size: 1rem;
+
+  background:
+    linear-gradient(
+      135deg,
+      #76fff0,
+      #b7ffe5
+    );
+
+  box-shadow:
+    0 0 24px
+    rgba(106, 249, 234, 0.20);
+
+  cursor: pointer;
+}
+
+
+.timing-stop-button:disabled {
+  opacity: 0.55;
+
+  cursor: default;
 }
 
 
 /* =========================================================
-   RÉSULTAT MINI-JEU
+   3 — SCEAU FRACTURÉ
+========================================================= */
+
+.seal-game {
+  width: 100%;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+}
+
+
+.seal-core {
+  width:
+    min(
+      100%,
+      430px
+    );
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      4,
+      1fr
+    );
+
+  gap: 14px;
+
+  margin:
+    6px auto 22px;
+}
+
+
+.seal-piece {
+  width: 100%;
+
+  aspect-ratio: 1;
+
+  display: grid;
+
+  place-items: center;
+
+  border-radius: 50%;
+
+  border:
+    1px solid
+    rgba(169, 134, 255, 0.32);
+
+  color:
+    #bca7ff;
+
+  font-size:
+    clamp(
+      1.8rem,
+      7vw,
+      2.8rem
+    );
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(169, 134, 255, 0.10),
+      rgba(5, 18, 31, 0.96) 66%
+    );
+
+  opacity: 0.56;
+
+  cursor: pointer;
+
+  transform:
+    scale(0.94);
+
+  box-shadow:
+    inset
+    0 0 20px
+    rgba(169, 134, 255, 0.04);
+
+  transition:
+    transform 0.16s ease,
+    opacity 0.16s ease,
+    background 0.16s ease,
+    box-shadow 0.16s ease,
+    color 0.16s ease;
+}
+
+
+.seal-piece:disabled {
+  cursor: default;
+}
+
+
+/* SCEAU ALLUMÉ PENDANT LA SÉQUENCE */
+
+.seal-piece.active {
+  opacity: 1;
+
+  color:
+    white;
+
+  transform:
+    scale(1.15);
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.92),
+      rgba(169, 134, 255, 0.82) 26%,
+      rgba(106, 249, 234, 0.45) 52%,
+      rgba(7, 18, 35, 0.98) 78%
+    );
+
+  box-shadow:
+    0 0 18px
+    rgba(255, 255, 255, 0.72),
+
+    0 0 40px
+    rgba(169, 134, 255, 0.72),
+
+    0 0 70px
+    rgba(106, 249, 234, 0.24);
+
+  z-index: 5;
+}
+
+
+.seal-sequence {
+  min-height: 46px;
+
+  padding:
+    10px 18px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 999px;
+
+  color:
+    #cbbcff;
+
+  font-size: 1rem;
+
+  font-weight: 900;
+
+  background:
+    rgba(169, 134, 255, 0.08);
+
+  border:
+    1px solid
+    rgba(169, 134, 255, 0.18);
+
+  text-shadow:
+    0 0 18px
+    rgba(169, 134, 255, 0.36);
+}
+
+
+/* =========================================================
+   RÉSULTATS
 ========================================================= */
 
 .challenge-result {
   width: 100%;
 
-  min-height: 220px;
+  min-height: 240px;
 
   display: flex;
 
@@ -2757,16 +2892,18 @@ p {
   align-items: center;
   justify-content: center;
 
-  gap: 12px;
+  gap: 14px;
 
-  padding: 24px;
+  padding:
+    24px 18px;
 
   text-align: center;
 }
 
+
 .challenge-result-symbol {
-  width: 88px;
-  height: 88px;
+  width: 92px;
+  height: 92px;
 
   display: grid;
 
@@ -2774,7 +2911,7 @@ p {
 
   border-radius: 50%;
 
-  font-size: 2.4rem;
+  font-size: 2.5rem;
 
   background:
     rgba(106, 249, 234, 0.08);
@@ -2784,15 +2921,17 @@ p {
     rgba(106, 249, 234, 0.22);
 }
 
+
 .challenge-result.success
 .challenge-result-symbol {
   color:
     var(--green);
 
   box-shadow:
-    0 0 28px
-    rgba(134, 244, 189, 0.16);
+    0 0 35px
+    rgba(134, 244, 189, 0.24);
 }
+
 
 .challenge-result.fail
 .challenge-result-symbol {
@@ -2800,57 +2939,137 @@ p {
     var(--orange);
 
   box-shadow:
-    0 0 28px
-    rgba(255, 186, 120, 0.14);
+    0 0 35px
+    rgba(255, 186, 120, 0.20);
 }
+
 
 .challenge-result strong {
-  font-size: 1.12rem;
+  font-size: 1.25rem;
 }
 
+
 .challenge-result p {
-  max-width: 320px;
+  max-width: 340px;
 
   margin: 0;
 
-  font-size: 0.88rem;
+  color:
+    #b9ccd5;
 }
 
-.abyss-game.abyss-success::before,
-.abyss-game.abyss-failure::before {
-  content: "";
 
-  position: absolute;
+/* =========================================================
+   ANIMATIONS MINI-JEUX
+========================================================= */
 
-  inset: 0;
+@keyframes timingOrbPulse {
 
-  z-index: 19;
+  0%,
+  100% {
+    transform:
+      scale(1);
 
-  pointer-events: none;
+    filter:
+      brightness(1);
+  }
 
-  animation:
-    abyssResultFlash
-    0.7s ease;
+  50% {
+    transform:
+      scale(1.08);
+
+    filter:
+      brightness(1.25);
+  }
+
 }
 
-.abyss-game.abyss-success::before {
-  background:
-    radial-gradient(
-      circle,
-      rgba(106, 249, 234, 0.28),
-      transparent 66%
-    );
+
+@keyframes timingTargetPulse {
+
+  0%,
+  100% {
+    opacity: 0.72;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
 }
 
-.abyss-game.abyss-failure::before {
-  background:
-    radial-gradient(
-      circle,
-      rgba(255, 127, 147, 0.24),
-      transparent 66%
-    );
+
+/* =========================================================
+   RESPONSIVE MINI-JEUX
+========================================================= */
+
+@media (max-width: 520px) {
+
+  .challenge-card {
+    width: 96vw;
+
+    padding:
+      18px 12px;
+  }
+
+
+  .challenge-area {
+    min-height: 250px;
+
+    padding:
+      18px 10px;
+  }
+
+
+  .crystal-grid {
+    gap: 8px;
+  }
+
+
+  .seal-core {
+    gap: 8px;
+  }
+
+
+  .timing-track {
+    width: 96%;
+  }
+
+
+  .timing-stop-button {
+    width: 80%;
+  }
+
 }
 
+
+@media (max-width: 390px) {
+
+  .challenge-card h2 {
+    font-size: 1.25rem;
+  }
+
+
+  .challenge-card > p {
+    font-size: 0.78rem;
+  }
+
+
+  .challenge-area {
+    min-height: 230px;
+  }
+
+
+  .challenge-status {
+    font-size: 0.88rem;
+  }
+
+
+  .seal-piece {
+    font-size: 1.7rem;
+  }
+
+}
 
 /* =========================================================
    POUVOIRS
