@@ -992,7 +992,6 @@ function challengeCrystals(
 
         }
 
-
         crystal
           .classList
           .add(
