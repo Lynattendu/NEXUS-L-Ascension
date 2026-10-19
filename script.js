@@ -602,10 +602,36 @@ const roomActionBtn =
 const powerOverlay =
   document.getElementById("powerOverlay");
 
+/* =========================================================
+   ÉPREUVES — SYSTÈME NEXUS
+   SEULS CES 3 MINI-JEUX SONT UTILISÉS :
+   1. RÉSONANCE DES CRISTAUX
+   2. PORTAIL INSTABLE
+   3. SCEAU FRACTURÉ
+========================================================= */
+
 
 /* =========================================================
-   ÉPREUVES — NOUVEAU SYSTÈME NEXUS
+   ÉLÉMENTS DOM DES ÉPREUVES
 ========================================================= */
+
+const challengeOverlay =
+  document.getElementById("challengeOverlay");
+
+const challengeType =
+  document.getElementById("challengeType");
+
+const challengeTitle =
+  document.getElementById("challengeTitle");
+
+const challengeInstructions =
+  document.getElementById("challengeInstructions");
+
+const challengeArea =
+  document.getElementById("challengeArea");
+
+const challengeContinueBtn =
+  document.getElementById("challengeContinueBtn");
 
 
 /* =========================================================
@@ -617,26 +643,108 @@ function startRandomChallenge(
   callback = null
 ) {
 
-  challengeOverlay.classList.remove(
-    "hidden"
-  );
+  if (
+    !challengeOverlay ||
+    !challengeArea
+  ) {
 
-  challengeContinueBtn.classList.add(
-    "hidden"
-  );
+    console.error(
+      "Zone d'épreuve NEXUS introuvable."
+    );
 
-  challengeContinueBtn.onclick = null;
+    return;
 
-  challengeArea.innerHTML = "";
+  }
+
+
+  challengeOverlay
+    .classList
+    .remove(
+      "hidden"
+    );
+
+
+  /*
+    VISUEL DE FOND
+  */
+
+  const challengeCard =
+    challengeOverlay
+      .querySelector(
+        ".challenge-card"
+      );
+
+
+  if (
+    challengeCard
+  ) {
+
+    challengeCard.style.backgroundImage =
+      `
+        linear-gradient(
+          180deg,
+          rgba(3,10,15,.18),
+          rgba(3,10,15,.86)
+        ),
+        url("${VISUALS.challenge}")
+      `;
+
+
+    challengeCard.style.backgroundSize =
+      "cover";
+
+
+    challengeCard.style.backgroundPosition =
+      "center";
+
+  }
+
+
+  /*
+    RESET DU BOUTON CONTINUER
+  */
+
+  if (
+    challengeContinueBtn
+  ) {
+
+    challengeContinueBtn
+      .classList
+      .add(
+        "hidden"
+      );
+
+
+    challengeContinueBtn.onclick =
+      null;
+
+  }
+
+
+  /*
+    RESET DE LA ZONE
+  */
+
+  challengeArea.innerHTML =
+    "";
+
 
   challengeArea.className =
     "challenge-area";
 
 
+  /*
+    UNIQUEMENT LES 3 NOUVELLES ÉPREUVES
+  */
+
   const challenges = [
+
     "crystals",
+
     "portal",
+
     "seal"
+
   ];
 
 
@@ -649,6 +757,12 @@ function startRandomChallenge(
     ];
 
 
+  console.log(
+    "Épreuve NEXUS :",
+    selected
+  );
+
+
   if (
     selected ===
     "crystals"
@@ -658,6 +772,7 @@ function startRandomChallenge(
       hardMode,
       callback
     );
+
 
     return;
 
@@ -674,6 +789,7 @@ function startRandomChallenge(
       callback
     );
 
+
     return;
 
   }
@@ -685,7 +801,6 @@ function startRandomChallenge(
   );
 
 }
-
 
 
 /* =========================================================
@@ -712,10 +827,15 @@ function challengeCrystals(
 
 
   const crystalClasses = [
+
     "cyan",
+
     "blue",
+
     "violet",
+
     "gold"
+
   ];
 
 
@@ -725,14 +845,25 @@ function challengeCrystals(
       : 4;
 
 
-  const sequence = [];
+  const sequence =
+    [];
 
-  let playerIndex = 0;
 
-  let acceptingInput = false;
+  let playerIndex =
+    0;
 
-  let finished = false;
 
+  let acceptingInput =
+    false;
+
+
+  let finished =
+    false;
+
+
+  /*
+    CRÉATION DE LA SÉQUENCE
+  */
 
   for (
     let i = 0;
@@ -749,6 +880,10 @@ function challengeCrystals(
   }
 
 
+  /*
+    AFFICHAGE
+  */
+
   challengeArea.innerHTML = `
     <div class="crystal-game">
 
@@ -761,29 +896,35 @@ function challengeCrystals(
 
       <div class="crystal-grid">
 
-        ${crystalClasses.map(
-          (
-            crystalClass,
-            index
-          ) => `
-            <button
-              type="button"
-              class="resonance-crystal ${crystalClass}"
-              data-crystal="${index}"
-              disabled
-              aria-label="Cristal ${index + 1}"
-            ></button>
-          `
-        ).join("")}
+        ${crystalClasses
+          .map(
+            (
+              crystalClass,
+              index
+            ) => `
+
+              <button
+                type="button"
+                class="resonance-crystal ${crystalClass}"
+                data-crystal="${index}"
+                disabled
+                aria-label="Cristal ${index + 1}"
+              ></button>
+
+            `
+          )
+          .join("")}
 
       </div>
 
       <div class="crystal-sequence-info">
+
         ${
           hardMode
             ? "Résonance intense • 6 impulsions"
             : "Résonance stable • 4 impulsions"
         }
+
       </div>
 
     </div>
@@ -798,11 +939,16 @@ function challengeCrystals(
 
   const crystals =
     Array.from(
-      challengeArea.querySelectorAll(
-        ".resonance-crystal"
-      )
+      challengeArea
+        .querySelectorAll(
+          ".resonance-crystal"
+        )
     );
 
+
+  /*
+    ALLUMER UN CRISTAL
+  */
 
   function illuminateCrystal(
     index,
@@ -815,17 +961,34 @@ function challengeCrystals(
         const crystal =
           crystals[index];
 
-        crystal.classList.add(
-          "active"
-        );
+
+        if (
+          !crystal
+        ) {
+
+          resolve();
+
+          return;
+
+        }
+
+
+        crystal
+          .classList
+          .add(
+            "active"
+          );
 
 
         setTimeout(
           () => {
 
-            crystal.classList.remove(
-              "active"
-            );
+            crystal
+              .classList
+              .remove(
+                "active"
+              );
+
 
             setTimeout(
               resolve,
@@ -841,6 +1004,10 @@ function challengeCrystals(
 
   }
 
+
+  /*
+    JOUER LA SÉQUENCE
+  */
 
   async function playSequence() {
 
@@ -861,7 +1028,9 @@ function challengeCrystals(
       if (
         finished
       ) {
+
         return;
+
       }
 
 
@@ -878,11 +1047,14 @@ function challengeCrystals(
     if (
       finished
     ) {
+
       return;
+
     }
 
 
-    acceptingInput = true;
+    acceptingInput =
+      true;
 
 
     crystalStatus.textContent =
@@ -901,6 +1073,10 @@ function challengeCrystals(
   }
 
 
+  /*
+    CLIC DU JOUEUR
+  */
+
   crystals.forEach(
     crystal => {
 
@@ -912,7 +1088,9 @@ function challengeCrystals(
             !acceptingInput ||
             finished
           ) {
+
             return;
+
           }
 
 
@@ -922,33 +1100,44 @@ function challengeCrystals(
             );
 
 
-          crystal.classList.add(
-            "active",
-            "player-hit"
-          );
+          crystal
+            .classList
+            .add(
+              "active",
+              "player-hit"
+            );
 
 
           setTimeout(
             () => {
 
-              crystal.classList.remove(
-                "active",
-                "player-hit"
-              );
+              crystal
+                .classList
+                .remove(
+                  "active",
+                  "player-hit"
+                );
 
             },
             220
           );
 
 
+          /*
+            ERREUR
+          */
+
           if (
             selected !==
             sequence[playerIndex]
           ) {
 
-            finished = true;
+            finished =
+              true;
 
-            acceptingInput = false;
+
+            acceptingInput =
+              false;
 
 
             crystals.forEach(
@@ -965,9 +1154,11 @@ function challengeCrystals(
               "La résonance s'est rompue";
 
 
-            crystalStatus.classList.add(
-              "fail"
-            );
+            crystalStatus
+              .classList
+              .add(
+                "fail"
+              );
 
 
             setTimeout(
@@ -988,6 +1179,10 @@ function challengeCrystals(
           }
 
 
+          /*
+            BON CRISTAL
+          */
+
           playerIndex++;
 
 
@@ -995,14 +1190,21 @@ function challengeCrystals(
             `${playerIndex} / ${sequenceLength}`;
 
 
+          /*
+            VICTOIRE
+          */
+
           if (
             playerIndex >=
             sequence.length
           ) {
 
-            finished = true;
+            finished =
+              true;
 
-            acceptingInput = false;
+
+            acceptingInput =
+              false;
 
 
             crystals.forEach(
@@ -1019,9 +1221,11 @@ function challengeCrystals(
               "Résonance parfaite";
 
 
-            crystalStatus.classList.add(
-              "success"
-            );
+            crystalStatus
+              .classList
+              .add(
+                "success"
+              );
 
 
             setTimeout(
@@ -1048,7 +1252,6 @@ function challengeCrystals(
   playSequence();
 
 }
-
 
 
 /* =========================================================
@@ -1084,11 +1287,9 @@ function challengePortal(
         Synchronise-toi avec le Portail
       </div>
 
-
       <div class="portal-timing-orb">
         ◎
       </div>
-
 
       <div
         class="timing-track"
@@ -1107,7 +1308,6 @@ function challengePortal(
 
       </div>
 
-
       <button
         type="button"
         class="timing-stop-button"
@@ -1123,12 +1323,6 @@ function challengePortal(
   const portalStatus =
     document.getElementById(
       "portalStatus"
-    );
-
-
-  const timingTrack =
-    document.getElementById(
-      "timingTrack"
     );
 
 
@@ -1150,11 +1344,19 @@ function challengePortal(
     );
 
 
+  /*
+    TAILLE DE LA ZONE CIBLE
+  */
+
   const targetWidth =
     hardMode
       ? 15
       : 22;
 
+
+  /*
+    POSITION ALÉATOIRE
+  */
 
   const targetLeft =
     18 +
@@ -1173,15 +1375,28 @@ function challengePortal(
     `${targetWidth}%`;
 
 
-  let position = 0;
+  /*
+    CURSEUR
+  */
 
-  let direction = 1;
+  let position =
+    0;
 
-  let previousTime = null;
 
-  let animationId = null;
+  let direction =
+    1;
 
-  let finished = false;
+
+  let previousTime =
+    null;
+
+
+  let animationId =
+    null;
+
+
+  let finished =
+    false;
 
 
   const speed =
@@ -1190,6 +1405,10 @@ function challengePortal(
       : 54;
 
 
+  /*
+    ANIMATION
+  */
+
   function animateCursor(
     timestamp
   ) {
@@ -1197,7 +1416,9 @@ function challengePortal(
     if (
       finished
     ) {
+
       return;
+
     }
 
 
@@ -1235,9 +1456,12 @@ function challengePortal(
       position >= 100
     ) {
 
-      position = 100;
+      position =
+        100;
 
-      direction = -1;
+
+      direction =
+        -1;
 
     }
 
@@ -1246,9 +1470,12 @@ function challengePortal(
       position <= 0
     ) {
 
-      position = 0;
+      position =
+        0;
 
-      direction = 1;
+
+      direction =
+        1;
 
     }
 
@@ -1271,6 +1498,10 @@ function challengePortal(
     );
 
 
+  /*
+    BOUTON STABILISER
+  */
+
   timingStopButton.addEventListener(
     "click",
     () => {
@@ -1278,11 +1509,14 @@ function challengePortal(
       if (
         finished
       ) {
+
         return;
+
       }
 
 
-      finished = true;
+      finished =
+        true;
 
 
       cancelAnimationFrame(
@@ -1304,6 +1538,10 @@ function challengePortal(
         position <= targetEnd;
 
 
+      /*
+        RÉUSSITE
+      */
+
       if (
         success
       ) {
@@ -1312,23 +1550,33 @@ function challengePortal(
           "Portail stabilisé";
 
 
-        portalStatus.classList.add(
-          "success"
-        );
+        portalStatus
+          .classList
+          .add(
+            "success"
+          );
 
 
         timingCursor.style.boxShadow =
           "0 0 18px #fff, 0 0 38px #6af9ea";
 
-      } else {
+      }
+
+      /*
+        ÉCHEC
+      */
+
+      else {
 
         portalStatus.textContent =
           "Synchronisation manquée";
 
 
-        portalStatus.classList.add(
-          "fail"
-        );
+        portalStatus
+          .classList
+          .add(
+            "fail"
+          );
 
       }
 
@@ -1349,7 +1597,6 @@ function challengePortal(
   );
 
 }
-
 
 
 /* =========================================================
@@ -1376,10 +1623,15 @@ function challengeSeal(
 
 
   const symbols = [
+
     "◇",
+
     "△",
+
     "◉",
+
     "✦"
+
   ];
 
 
@@ -1389,14 +1641,25 @@ function challengeSeal(
       : 4;
 
 
-  const sequence = [];
+  const sequence =
+    [];
 
-  let playerIndex = 0;
 
-  let acceptingInput = false;
+  let playerIndex =
+    0;
 
-  let finished = false;
 
+  let acceptingInput =
+    false;
+
+
+  let finished =
+    false;
+
+
+  /*
+    CRÉATION DE LA SÉQUENCE
+  */
 
   for (
     let i = 0;
@@ -1414,6 +1677,10 @@ function challengeSeal(
   }
 
 
+  /*
+    AFFICHAGE
+  */
+
   challengeArea.innerHTML = `
     <div class="seal-game">
 
@@ -1424,31 +1691,33 @@ function challengeSeal(
         Le sceau révèle sa structure…
       </div>
 
-
       <div
         class="seal-core"
         id="sealCore"
       >
 
-        ${symbols.map(
-          (
-            symbol,
-            index
-          ) => `
-            <button
-              type="button"
-              class="seal-piece"
-              data-seal="${index}"
-              disabled
-              aria-label="Fragment ${index + 1}"
-            >
-              ${symbol}
-            </button>
-          `
-        ).join("")}
+        ${symbols
+          .map(
+            (
+              symbol,
+              index
+            ) => `
+
+              <button
+                type="button"
+                class="seal-piece"
+                data-seal="${index}"
+                disabled
+                aria-label="Fragment ${index + 1}"
+              >
+                ${symbol}
+              </button>
+
+            `
+          )
+          .join("")}
 
       </div>
-
 
       <div
         class="seal-sequence"
@@ -1475,11 +1744,16 @@ function challengeSeal(
 
   const pieces =
     Array.from(
-      challengeArea.querySelectorAll(
-        ".seal-piece"
-      )
+      challengeArea
+        .querySelectorAll(
+          ".seal-piece"
+        )
     );
 
+
+  /*
+    ILLUMINER UN FRAGMENT
+  */
 
   function illuminatePiece(
     index,
@@ -1493,17 +1767,32 @@ function challengeSeal(
           pieces[index];
 
 
-        piece.classList.add(
-          "active"
-        );
+        if (
+          !piece
+        ) {
+
+          resolve();
+
+          return;
+
+        }
+
+
+        piece
+          .classList
+          .add(
+            "active"
+          );
 
 
         setTimeout(
           () => {
 
-            piece.classList.remove(
-              "active"
-            );
+            piece
+              .classList
+              .remove(
+                "active"
+              );
 
 
             setTimeout(
@@ -1520,6 +1809,10 @@ function challengeSeal(
 
   }
 
+
+  /*
+    MONTRER LA SÉQUENCE
+  */
 
   async function revealSeal() {
 
@@ -1540,7 +1833,9 @@ function challengeSeal(
       if (
         finished
       ) {
+
         return;
+
       }
 
 
@@ -1561,7 +1856,9 @@ function challengeSeal(
     if (
       finished
     ) {
+
       return;
+
     }
 
 
@@ -1573,7 +1870,8 @@ function challengeSeal(
       "À toi";
 
 
-    acceptingInput = true;
+    acceptingInput =
+      true;
 
 
     pieces.forEach(
@@ -1588,6 +1886,10 @@ function challengeSeal(
   }
 
 
+  /*
+    CLIC SUR LES FRAGMENTS
+  */
+
   pieces.forEach(
     piece => {
 
@@ -1599,7 +1901,9 @@ function challengeSeal(
             !acceptingInput ||
             finished
           ) {
+
             return;
+
           }
 
 
@@ -1609,31 +1913,42 @@ function challengeSeal(
             );
 
 
-          piece.classList.add(
-            "active"
-          );
+          piece
+            .classList
+            .add(
+              "active"
+            );
 
 
           setTimeout(
             () => {
 
-              piece.classList.remove(
-                "active"
-              );
+              piece
+                .classList
+                .remove(
+                  "active"
+                );
 
             },
             220
           );
 
 
+          /*
+            ERREUR
+          */
+
           if (
             selected !==
             sequence[playerIndex]
           ) {
 
-            finished = true;
+            finished =
+              true;
 
-            acceptingInput = false;
+
+            acceptingInput =
+              false;
 
 
             pieces.forEach(
@@ -1650,9 +1965,11 @@ function challengeSeal(
               "Le sceau s'est brisé";
 
 
-            sealStatus.classList.add(
-              "fail"
-            );
+            sealStatus
+              .classList
+              .add(
+                "fail"
+              );
 
 
             setTimeout(
@@ -1673,6 +1990,10 @@ function challengeSeal(
           }
 
 
+          /*
+            BON FRAGMENT
+          */
+
           playerIndex++;
 
 
@@ -1680,14 +2001,21 @@ function challengeSeal(
             `${playerIndex} / ${sequenceLength}`;
 
 
+          /*
+            VICTOIRE
+          */
+
           if (
             playerIndex >=
             sequence.length
           ) {
 
-            finished = true;
+            finished =
+              true;
 
-            acceptingInput = false;
+
+            acceptingInput =
+              false;
 
 
             pieces.forEach(
@@ -1704,9 +2032,11 @@ function challengeSeal(
               "Sceau restauré";
 
 
-            sealStatus.classList.add(
-              "success"
-            );
+            sealStatus
+              .classList
+              .add(
+                "success"
+              );
 
 
             sealSequence.textContent =
@@ -1739,7 +2069,6 @@ function challengeSeal(
 }
 
 
-
 /* =========================================================
    RÉSOLUTION DE L'ÉPREUVE
 ========================================================= */
@@ -1749,10 +2078,29 @@ function resolveChallenge(
   callback = null
 ) {
 
-  challengeContinueBtn.classList.remove(
-    "hidden"
-  );
+  if (
+    !challengeContinueBtn
+  ) {
 
+    return;
+
+  }
+
+
+  /*
+    AFFICHER CONTINUER
+  */
+
+  challengeContinueBtn
+    .classList
+    .remove(
+      "hidden"
+    );
+
+
+  /*
+    RÉUSSITE
+  */
 
   if (
     success
@@ -1792,7 +2140,13 @@ function resolveChallenge(
       </div>
     `;
 
-  } else {
+  }
+
+  /*
+    ÉCHEC
+  */
+
+  else {
 
     challengeType.textContent =
       "Épreuve manquée";
@@ -1834,6 +2188,10 @@ function resolveChallenge(
   }
 
 
+  /*
+    CONTINUER
+  */
+
   challengeContinueBtn.onclick =
     () => {
 
@@ -1841,15 +2199,30 @@ function resolveChallenge(
         null;
 
 
-      challengeOverlay.classList.add(
-        "hidden"
-      );
+      challengeOverlay
+        .classList
+        .add(
+          "hidden"
+        );
 
 
       /*
-       Le Gardien fournit un callback.
-       On lui transmet le résultat
-       de la manche.
+        SI LE PORTAIL S'EST EFFONDRÉ,
+        ON NE CONTINUE PAS.
+      */
+
+      if (
+        run.stability <= 0
+      ) {
+
+        return;
+
+      }
+
+
+      /*
+        CALLBACK :
+        obstacle, salle interdite ou Gardien.
       */
 
       if (
@@ -1861,24 +2234,19 @@ function resolveChallenge(
           success
         );
 
+
         return;
 
       }
 
 
       /*
-       Épreuve normale :
-       on continue l'Ascension
-       tant que le Portail tient encore.
+        SÉCURITÉ :
+        si aucune fonction n'a été fournie,
+        on passe à l'étape suivante.
       */
 
-      if (
-        run.stability > 0
-      ) {
-
-        nextStep();
-
-      }
+      nextStep();
 
     };
 
