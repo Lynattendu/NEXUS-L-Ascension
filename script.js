@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
 const STORAGE = {
   dayDate: "nexusVital_dayDate",
   habits: "nexusVital_habits",
+  dailyRewards: "nexusVital_dailyRewards",
   totalCrystals: "nexusVital_totalCrystals",
   collection: "nexusVital_collection",
   ascensionLevel: "nexusVital_ascensionLevel",
@@ -21,7 +22,6 @@ const STORAGE = {
   stats: "nexusVital_stats",
   nexusWorld: "nexusVital_nexusWorld"
 };
-
 
 /* =========================================================
    VISUELS
@@ -3236,6 +3236,25 @@ let collection = [];
 let ascensionLevel = 1;
 
 let currentWorld = 1;
+  let dailyRewards = {
+
+  reward30Claimed:
+    false,
+
+  reward50Claimed:
+    false
+
+};
+
+
+/*
+  Indique qu'une épreuve est lancée
+  depuis le palier bonus de 50 XP
+  et non depuis l'Ascension.
+*/
+
+let bonusChallengeActive =
+  false; 
 
 let stats = {
 
@@ -3395,7 +3414,9 @@ function init() {
 
   checkDailyReset();
 
-  loadDailyHabits();
+loadDailyHabits();
+
+loadDailyRewards();
 
 
   todayLabel.textContent =
@@ -3813,6 +3834,17 @@ function checkDailyReset() {
       {};
 
 
+    dailyRewards = {
+
+      reward30Claimed:
+        false,
+
+      reward50Claimed:
+        false
+
+    };
+
+
     localStorage.setItem(
       STORAGE.dayDate,
       today
@@ -3822,6 +3854,14 @@ function checkDailyReset() {
     localStorage.setItem(
       STORAGE.habits,
       JSON.stringify({})
+    );
+
+
+    localStorage.setItem(
+      STORAGE.dailyRewards,
+      JSON.stringify(
+        dailyRewards
+      )
     );
 
   }
@@ -3867,7 +3907,203 @@ function saveDailyHabits() {
 
 }
 
+/* =========================================================
+   RÉCOMPENSES QUOTIDIENNES
+========================================================= */
 
+function loadDailyRewards() {
+
+  try {
+
+    const saved =
+      JSON.parse(
+        localStorage.getItem(
+          STORAGE.dailyRewards
+        ) || "{}"
+      );
+
+
+    dailyRewards = {
+
+      reward30Claimed:
+        Boolean(
+          saved.reward30Claimed
+        ),
+
+      reward50Claimed:
+        Boolean(
+          saved.reward50Claimed
+        )
+
+    };
+
+  }
+
+  catch {
+
+    dailyRewards = {
+
+      reward30Claimed:
+        false,
+
+      reward50Claimed:
+        false
+
+    };
+
+  }
+
+}
+
+
+function saveDailyRewards() {
+
+  localStorage.setItem(
+    STORAGE.dailyRewards,
+    JSON.stringify(
+      dailyRewards
+    )
+  );
+
+}
+
+
+/* =========================================================
+   PALIER 30 XP — FRAGMENT D'ÉNERGIE
+========================================================= */
+
+function claimEnergyFragment() {
+
+  if (
+    currentXP < 30 ||
+    dailyRewards.reward30Claimed
+  ) {
+
+    return;
+
+  }
+
+
+  dailyRewards.reward30Claimed =
+    true;
+
+
+  collection.push({
+
+    name:
+      "Fragment d'énergie",
+
+    type:
+      "Fragment",
+
+    icon:
+      "✦",
+
+    rarity:
+      "common",
+
+    obtainedAt:
+      new Date()
+        .toISOString()
+
+  });
+
+
+  saveDailyRewards();
+
+  savePermanentData();
+
+
+  updateRewardTrack();
+
+  updateSanctuary();
+
+
+  showToast(
+    "✦ Fragment d'énergie récupéré"
+  );
+
+}
+
+
+/* =========================================================
+   PALIER 50 XP — ÉPREUVE BONUS
+========================================================= */
+
+function startDailyBonusChallenge() {
+
+  if (
+    currentXP < 50 ||
+    dailyRewards.reward50Claimed
+  ) {
+
+    return;
+
+  }
+
+
+  /*
+    L'épreuve est consommée
+    au moment où elle commence.
+  */
+
+  dailyRewards.reward50Claimed =
+    true;
+
+
+  saveDailyRewards();
+
+
+  updateRewardTrack();
+
+
+  bonusChallengeActive =
+    true;
+
+
+  startRandomChallenge(
+    false,
+    success => {
+
+      bonusChallengeActive =
+        false;
+
+
+      if (
+        success
+      ) {
+
+        const bonus =
+          5;
+
+
+        totalPermanentCrystals +=
+          bonus;
+
+
+        savePermanentData();
+
+        updateSanctuary();
+
+
+        showToast(
+          `✦ Épreuve bonus réussie : +${bonus} cristaux`
+        );
+
+      }
+
+      else {
+
+        showToast(
+          "Épreuve bonus manquée — aucune pénalité"
+        );
+
+      }
+
+    }
+  );
+
+}
 /* =========================================================
    BOUTONS HABITUDES
 ========================================================= */
@@ -4235,31 +4471,218 @@ function updateRewardTrack() {
           );
 
 
+        /*
+          RESET
+        */
+
+        step.classList.remove(
+          "unlocked",
+          "claimable",
+          "claimed"
+        );
+
+
+        step.onclick =
+          null;
+
+
+        step.removeAttribute(
+          "role"
+        );
+
+
+        step.removeAttribute(
+          "tabindex"
+        );
+
+
+        step.style.cursor =
+          "";
+
+
+        /*
+          PAS ENCORE DÉBLOQUÉ
+        */
+
         if (
-          currentXP >= threshold
+          currentXP < threshold
         ) {
-
-          step.classList.add(
-            "unlocked"
-          );
-
-
-          state.textContent =
-            "Débloqué";
-
-        }
-
-        else {
-
-          step.classList.remove(
-            "unlocked"
-          );
-
 
           state.textContent =
             "Verrouillé";
 
+
+          return;
+
         }
+
+
+        step.classList.add(
+          "unlocked"
+        );
+
+
+        /* =================================================
+           PALIER 30 XP
+        ================================================= */
+
+        if (
+          threshold === 30
+        ) {
+
+          if (
+            dailyRewards.reward30Claimed
+          ) {
+
+            step.classList.add(
+              "claimed"
+            );
+
+
+            state.textContent =
+              "Récupéré";
+
+
+            return;
+
+          }
+
+
+          step.classList.add(
+            "claimable"
+          );
+
+
+          state.textContent =
+            "Récupérer";
+
+
+          step.style.cursor =
+            "pointer";
+
+
+          step.setAttribute(
+            "role",
+            "button"
+          );
+
+
+          step.setAttribute(
+            "tabindex",
+            "0"
+          );
+
+
+          step.onclick =
+            claimEnergyFragment;
+
+
+          step.onkeydown =
+            event => {
+
+              if (
+                event.key === "Enter" ||
+                event.key === " "
+              ) {
+
+                event.preventDefault();
+
+                claimEnergyFragment();
+
+              }
+
+            };
+
+
+          return;
+
+        }
+
+
+        /* =================================================
+           PALIER 50 XP
+        ================================================= */
+
+        if (
+          threshold === 50
+        ) {
+
+          if (
+            dailyRewards.reward50Claimed
+          ) {
+
+            step.classList.add(
+              "claimed"
+            );
+
+
+            state.textContent =
+              "Terminé";
+
+
+            return;
+
+          }
+
+
+          step.classList.add(
+            "claimable"
+          );
+
+
+          state.textContent =
+            "Jouer";
+
+
+          step.style.cursor =
+            "pointer";
+
+
+          step.setAttribute(
+            "role",
+            "button"
+          );
+
+
+          step.setAttribute(
+            "tabindex",
+            "0"
+          );
+
+
+          step.onclick =
+            startDailyBonusChallenge;
+
+
+          step.onkeydown =
+            event => {
+
+              if (
+                event.key === "Enter" ||
+                event.key === " "
+              ) {
+
+                event.preventDefault();
+
+                startDailyBonusChallenge();
+
+              }
+
+            };
+
+
+          return;
+
+        }
+
+
+        /*
+          AUTRES PALIERS :
+          70 / 80 / 90 / 100
+        */
+
+        state.textContent =
+          "Débloqué";
 
       }
     );
@@ -6020,42 +6443,25 @@ function updateRunUI() {
 
 function resolveChallenge(
   success,
-  callback
+  callback = null
 ) {
 
   if (
-    !success
+    !challengeContinueBtn
   ) {
 
-    loseStability();
+    return;
 
   }
 
 
-  challengeArea.innerHTML =
-    success
-      ? `
-          <div
-            style="
-              font-size:1.3rem;
-              font-weight:800;
-              color:#82f2ba;
-            "
-          >
-            ✦ Résonance réussie
-          </div>
-        `
-      : `
-          <div
-            style="
-              font-size:1.3rem;
-              font-weight:800;
-              color:#ffba78;
-            "
-          >
-            Le Portail vacille
-          </div>
-        `;
+  /*
+    On mémorise immédiatement
+    le type d'épreuve en cours.
+  */
+
+  const isBonusChallenge =
+    bonusChallengeActive;
 
 
   challengeContinueBtn
@@ -6065,8 +6471,144 @@ function resolveChallenge(
     );
 
 
+  /* =====================================================
+     RÉUSSITE
+  ====================================================== */
+
+  if (
+    success
+  ) {
+
+    challengeType.textContent =
+      isBonusChallenge
+        ? "Épreuve bonus réussie"
+        : "Épreuve réussie";
+
+
+    challengeTitle.textContent =
+      "Résonance stabilisée";
+
+
+    challengeInstructions.textContent =
+      isBonusChallenge
+        ? "Le NEXUS libère une récompense supplémentaire."
+        : "Le NEXUS reconnaît ta maîtrise.";
+
+
+    challengeArea.innerHTML = `
+      <div
+        class="challenge-result success"
+      >
+
+        <div
+          class="challenge-result-symbol"
+        >
+          ✦
+        </div>
+
+        <strong>
+          ${
+            isBonusChallenge
+              ? "Bonus réussi"
+              : "Épreuve réussie"
+          }
+        </strong>
+
+        <p>
+          ${
+            isBonusChallenge
+              ? "Une énergie supplémentaire a été libérée."
+              : "Le passage reste parfaitement stable."
+          }
+        </p>
+
+      </div>
+    `;
+
+  }
+
+
+  /* =====================================================
+     ÉCHEC
+  ====================================================== */
+
+  else {
+
+    challengeType.textContent =
+      isBonusChallenge
+        ? "Épreuve bonus manquée"
+        : "Épreuve manquée";
+
+
+    challengeTitle.textContent =
+      isBonusChallenge
+        ? "La résonance s'est dissipée"
+        : "La résonance vacille";
+
+
+    challengeInstructions.textContent =
+      isBonusChallenge
+        ? "Aucune pénalité : demain offrira une nouvelle tentative."
+        : "Le Portail absorbe le choc.";
+
+
+    challengeArea.innerHTML = `
+      <div
+        class="challenge-result fail"
+      >
+
+        <div
+          class="challenge-result-symbol"
+        >
+          ◇
+        </div>
+
+        <strong>
+          ${
+            isBonusChallenge
+              ? "Bonus manqué"
+              : "Épreuve manquée"
+          }
+        </strong>
+
+        <p>
+          ${
+            isBonusChallenge
+              ? "Aucune stabilité n'est perdue."
+              : "La stabilité du passage est mise à l'épreuve."
+          }
+        </p>
+
+      </div>
+    `;
+
+
+    /*
+      Une épreuve bonus ne touche JAMAIS
+      à la stabilité de l'Ascension.
+    */
+
+    if (
+      !isBonusChallenge
+    ) {
+
+      loseStability();
+
+    }
+
+  }
+
+
+  /* =====================================================
+     CONTINUER
+  ====================================================== */
+
   challengeContinueBtn.onclick =
     () => {
+
+      challengeContinueBtn.onclick =
+        null;
+
 
       challengeOverlay
         .classList
@@ -6074,6 +6616,40 @@ function resolveChallenge(
           "hidden"
         );
 
+
+      /*
+        CAS SPÉCIAL :
+        ÉPREUVE BONUS DE 50 XP
+      */
+
+      if (
+        isBonusChallenge
+      ) {
+
+        bonusChallengeActive =
+          false;
+
+
+        if (
+          typeof callback ===
+          "function"
+        ) {
+
+          callback(
+            success
+          );
+
+        }
+
+
+        return;
+
+      }
+
+
+      /*
+        ASCENSION NORMALE
+      */
 
       if (
         run.stability <= 0
@@ -6085,19 +6661,25 @@ function resolveChallenge(
 
 
       if (
-        callback
+        typeof callback ===
+        "function"
       ) {
 
         callback(
           success
         );
 
+
+        return;
+
       }
+
+
+      nextStep();
 
     };
 
 }
-
 
 /* =========================================================
    GARDIEN
@@ -8347,7 +8929,19 @@ function resetAll() {
 
   habits =
     {};
+dailyRewards = {
 
+  reward30Claimed:
+    false,
+
+  reward50Claimed:
+    false
+
+};
+
+
+bonusChallengeActive =
+  false;
 
   currentXP =
     0;
