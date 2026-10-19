@@ -2108,42 +2108,38 @@ function challengeAbyssMatch(
 
   challengeInstructions.textContent =
     hardMode
-      ? "Crée deux alignements de 3 symboles identiques."
-      : "Échange deux symboles voisins pour créer un alignement de 3.";
+      ? "Crée deux alignements de 3 créatures identiques."
+      : "Échange deux créatures voisines pour créer un alignement de 3.";
+
+
+  const rows = 5;
+  const cols = 5;
 
 
   /* =====================================================
-     CONFIGURATION
+     ICÔNES
   ====================================================== */
-
-  const rows =
-    5;
-
-
-  const cols =
-    5;
-
 
   const symbols = [
 
     {
-      id: "cyan",
-      icon: "◆"
+      id: "star",
+      icon: "⭐"
     },
 
     {
-      id: "violet",
-      icon: "✦"
+      id: "fish",
+      icon: "🐟"
     },
 
     {
-      id: "gold",
-      icon: "●"
+      id: "jelly",
+      icon: "🪼"
     },
 
     {
-      id: "blue",
-      icon: "◇"
+      id: "octopus",
+      icon: "🐙"
     }
 
   ];
@@ -2161,28 +2157,922 @@ function challengeAbyssMatch(
       : 6;
 
 
-  let board =
-    [];
+  let board = [];
+
+  let selectedIndex = null;
+
+  let moves = 0;
+
+  let matchesMade = 0;
+
+  let locked = false;
+
+  let finished = false;
 
 
-  let selectedIndex =
-    null;
+  /* =====================================================
+     OUTILS
+  ====================================================== */
+
+  function randomSymbol() {
+
+    return symbols[
+      Math.floor(
+        Math.random() *
+        symbols.length
+      )
+    ];
+
+  }
 
 
-  let moves =
-    0;
+  function getRow(index) {
+
+    return Math.floor(
+      index / cols
+    );
+
+  }
 
 
-  let matchesMade =
-    0;
+  function getCol(index) {
+
+    return index % cols;
+
+  }
 
 
-  let locked =
-    false;
+  function areAdjacent(
+    first,
+    second
+  ) {
+
+    const row1 =
+      getRow(first);
+
+    const col1 =
+      getCol(first);
+
+    const row2 =
+      getRow(second);
+
+    const col2 =
+      getCol(second);
 
 
-  let finished =
-    false;
+    return (
+      Math.abs(
+        row1 - row2
+      ) +
+      Math.abs(
+        col1 - col2
+      )
+    ) === 1;
+
+  }
+
+
+  function swapCells(
+    first,
+    second
+  ) {
+
+    const temp =
+      board[first];
+
+
+    board[first] =
+      board[second];
+
+
+    board[second] =
+      temp;
+
+  }
+
+
+  /* =====================================================
+     TROUVER LES ALIGNEMENTS
+  ====================================================== */
+
+  function findMatches() {
+
+    const matched =
+      new Set();
+
+
+    /* -------------------------
+       HORIZONTAL
+    ------------------------- */
+
+    for (
+      let row = 0;
+      row < rows;
+      row++
+    ) {
+
+      let start = 0;
+
+
+      while (
+        start < cols
+      ) {
+
+        const startIndex =
+          row * cols +
+          start;
+
+
+        const symbolId =
+          board[
+            startIndex
+          ].id;
+
+
+        let end =
+          start + 1;
+
+
+        while (
+          end < cols &&
+          board[
+            row * cols +
+            end
+          ].id === symbolId
+        ) {
+
+          end++;
+
+        }
+
+
+        const length =
+          end - start;
+
+
+        if (
+          length >= 3
+        ) {
+
+          for (
+            let col = start;
+            col < end;
+            col++
+          ) {
+
+            matched.add(
+              row * cols +
+              col
+            );
+
+          }
+
+        }
+
+
+        start =
+          end;
+
+      }
+
+    }
+
+
+    /* -------------------------
+       VERTICAL
+    ------------------------- */
+
+    for (
+      let col = 0;
+      col < cols;
+      col++
+    ) {
+
+      let start = 0;
+
+
+      while (
+        start < rows
+      ) {
+
+        const startIndex =
+          start * cols +
+          col;
+
+
+        const symbolId =
+          board[
+            startIndex
+          ].id;
+
+
+        let end =
+          start + 1;
+
+
+        while (
+          end < rows &&
+          board[
+            end * cols +
+            col
+          ].id === symbolId
+        ) {
+
+          end++;
+
+        }
+
+
+        const length =
+          end - start;
+
+
+        if (
+          length >= 3
+        ) {
+
+          for (
+            let row = start;
+            row < end;
+            row++
+          ) {
+
+            matched.add(
+              row * cols +
+              col
+            );
+
+          }
+
+        }
+
+
+        start =
+          end;
+
+      }
+
+    }
+
+
+    return Array.from(
+      matched
+    );
+
+  }
+
+
+  /* =====================================================
+     VÉRIFIER QU'UN COUP EST POSSIBLE
+  ====================================================== */
+
+  function hasPossibleMove() {
+
+    for (
+      let index = 0;
+      index < board.length;
+      index++
+    ) {
+
+      const row =
+        getRow(index);
+
+      const col =
+        getCol(index);
+
+
+      const neighbours =
+        [];
+
+
+      if (
+        col < cols - 1
+      ) {
+
+        neighbours.push(
+          index + 1
+        );
+
+      }
+
+
+      if (
+        row < rows - 1
+      ) {
+
+        neighbours.push(
+          index + cols
+        );
+
+      }
+
+
+      for (
+        const neighbour
+        of neighbours
+      ) {
+
+        swapCells(
+          index,
+          neighbour
+        );
+
+
+        const match =
+          findMatches()
+            .length > 0;
+
+
+        swapCells(
+          index,
+          neighbour
+        );
+
+
+        if (
+          match
+        ) {
+
+          return true;
+
+        }
+
+      }
+
+    }
+
+
+    return false;
+
+  }
+
+
+  /* =====================================================
+     CRÉER UNE GRILLE JOUABLE
+  ====================================================== */
+
+  function createBoard() {
+
+    let attempts = 0;
+
+
+    do {
+
+      board = [];
+
+
+      for (
+        let index = 0;
+        index < rows * cols;
+        index++
+      ) {
+
+        board.push(
+          randomSymbol()
+        );
+
+      }
+
+
+      attempts++;
+
+
+    } while (
+      (
+        findMatches().length > 0 ||
+        !hasPossibleMove()
+      ) &&
+      attempts < 250
+    );
+
+  }
+
+
+  /* =====================================================
+     INTERFACE
+  ====================================================== */
+
+  challengeArea.innerHTML = `
+    <div class="abyss-match-game">
+
+      <div
+        class="challenge-status"
+        id="abyssMatchStatus"
+      >
+        Choisis une créature
+      </div>
+
+
+      <div class="abyss-match-info">
+
+        <div>
+          <span>
+            Résonances
+          </span>
+
+          <strong id="abyssMatchScore">
+            0 / ${requiredMatches}
+          </strong>
+        </div>
+
+
+        <div>
+          <span>
+            Déplacements
+          </span>
+
+          <strong id="abyssMatchMoves">
+            0 / ${maxMoves}
+          </strong>
+        </div>
+
+      </div>
+
+
+      <div
+        class="abyss-match-grid"
+        id="abyssMatchGrid"
+      ></div>
+
+
+      <div class="abyss-match-help">
+        Touche une créature puis une créature voisine.
+      </div>
+
+    </div>
+  `;
+
+
+  const status =
+    document.getElementById(
+      "abyssMatchStatus"
+    );
+
+
+  const scoreElement =
+    document.getElementById(
+      "abyssMatchScore"
+    );
+
+
+  const movesElement =
+    document.getElementById(
+      "abyssMatchMoves"
+    );
+
+
+  const grid =
+    document.getElementById(
+      "abyssMatchGrid"
+    );
+
+
+  /* =====================================================
+     AFFICHER LA GRILLE
+  ====================================================== */
+
+  function renderBoard() {
+
+    if (
+      !grid
+    ) {
+
+      return;
+
+    }
+
+
+    grid.innerHTML =
+      board
+        .map(
+          (
+            symbol,
+            index
+          ) => `
+
+            <button
+              type="button"
+              class="
+                abyss-match-cell
+                abyss-match-${symbol.id}
+                ${
+                  selectedIndex === index
+                    ? "selected"
+                    : ""
+                }
+              "
+              data-index="${index}"
+              aria-label="${symbol.id}"
+            >
+              <span class="abyss-match-icon">
+                ${symbol.icon}
+              </span>
+            </button>
+
+          `
+        )
+        .join("");
+
+
+    grid
+      .querySelectorAll(
+        ".abyss-match-cell"
+      )
+      .forEach(
+        button => {
+
+          button.addEventListener(
+            "click",
+            () => {
+
+              handleCellClick(
+                Number(
+                  button.dataset.index
+                )
+              );
+
+            }
+          );
+
+        }
+      );
+
+  }
+
+
+  /* =====================================================
+     SURBRILLANCE
+  ====================================================== */
+
+  function highlightMatches(
+    matched
+  ) {
+
+    matched.forEach(
+      index => {
+
+        const cell =
+          grid.querySelector(
+            `[data-index="${index}"]`
+          );
+
+
+        if (
+          cell
+        ) {
+
+          cell.classList.add(
+            "matched"
+          );
+
+        }
+
+      }
+    );
+
+  }
+
+
+  /* =====================================================
+     REMPLACER LES ALIGNEMENTS
+  ====================================================== */
+
+  function replaceMatchedSymbols(
+    matched
+  ) {
+
+    matched.forEach(
+      index => {
+
+        board[index] =
+          randomSymbol();
+
+      }
+    );
+
+
+    let safety = 0;
+
+
+    while (
+      findMatches().length > 0 &&
+      safety < 80
+    ) {
+
+      const automaticMatches =
+        findMatches();
+
+
+      automaticMatches.forEach(
+        index => {
+
+          board[index] =
+            randomSymbol();
+
+        }
+      );
+
+
+      safety++;
+
+    }
+
+
+    if (
+      !hasPossibleMove()
+    ) {
+
+      createBoard();
+
+    }
+
+  }
+
+
+  /* =====================================================
+     CLIC JOUEUR
+  ====================================================== */
+
+  function handleCellClick(
+    index
+  ) {
+
+    if (
+      locked ||
+      finished
+    ) {
+
+      return;
+
+    }
+
+
+    /* PREMIER CHOIX */
+
+    if (
+      selectedIndex === null
+    ) {
+
+      selectedIndex =
+        index;
+
+
+      status.textContent =
+        "Choisis une créature voisine";
+
+
+      renderBoard();
+
+
+      return;
+
+    }
+
+
+    /* MÊME CASE */
+
+    if (
+      selectedIndex === index
+    ) {
+
+      selectedIndex =
+        null;
+
+
+      status.textContent =
+        "Choisis une créature";
+
+
+      renderBoard();
+
+
+      return;
+
+    }
+
+
+    /* CASE NON VOISINE */
+
+    if (
+      !areAdjacent(
+        selectedIndex,
+        index
+      )
+    ) {
+
+      selectedIndex =
+        index;
+
+
+      status.textContent =
+        "Choisis une créature voisine";
+
+
+      renderBoard();
+
+
+      return;
+
+    }
+
+
+    const first =
+      selectedIndex;
+
+
+    const second =
+      index;
+
+
+    selectedIndex =
+      null;
+
+
+    locked =
+      true;
+
+
+    swapCells(
+      first,
+      second
+    );
+
+
+    renderBoard();
+
+
+    const matched =
+      findMatches();
+
+
+    /* =====================================================
+       PAS D'ALIGNEMENT
+    ====================================================== */
+
+    if (
+      matched.length === 0
+    ) {
+
+      status.textContent =
+        "Aucune résonance";
+
+
+      setTimeout(
+        () => {
+
+          swapCells(
+            first,
+            second
+          );
+
+
+          renderBoard();
+
+
+          status.textContent =
+            "Essaie un autre déplacement";
+
+
+          locked =
+            false;
+
+        },
+        420
+      );
+
+
+      return;
+
+    }
+
+
+    /* =====================================================
+       ALIGNEMENT RÉUSSI
+    ====================================================== */
+
+    moves++;
+
+    matchesMade++;
+
+
+    scoreElement.textContent =
+      `${matchesMade} / ${requiredMatches}`;
+
+
+    movesElement.textContent =
+      `${moves} / ${maxMoves}`;
+
+
+    status.textContent =
+      "Résonance détectée";
+
+
+    status.classList.add(
+      "success"
+    );
+
+
+    highlightMatches(
+      matched
+    );
+
+
+    /* =====================================================
+       VICTOIRE
+    ====================================================== */
+
+    if (
+      matchesMade >=
+      requiredMatches
+    ) {
+
+      finished =
+        true;
+
+
+      setTimeout(
+        () => {
+
+          resolveChallenge(
+            true,
+            callback
+          );
+
+        },
+        750
+      );
+
+
+      return;
+
+    }
+
+
+    /* =====================================================
+       CONTINUER
+    ====================================================== */
+
+    setTimeout(
+      () => {
+
+        status
+          .classList
+          .remove(
+            "success"
+          );
+
+
+        replaceMatchedSymbols(
+          matched
+        );
+
+
+        renderBoard();
+
+
+        if (
+          moves >=
+          maxMoves
+        ) {
+
+          finished =
+            true;
+
+
+          resolveChallenge(
+            false,
+            callback
+          );
+
+
+          return;
+
+        }
+
+
+        status.textContent =
+          "Crée une nouvelle résonance";
+
+
+        locked =
+          false;
+
+      },
+      650
+    );
+
+  }
+
+
+  /* =====================================================
+     DÉMARRAGE
+  ====================================================== */
+
+  createBoard();
+
+  renderBoard();
+
+}
 
 
   /* =====================================================
