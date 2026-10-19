@@ -604,10 +604,11 @@ const powerOverlay =
 
 /* =========================================================
    ÉPREUVES — SYSTÈME NEXUS
-   SEULS CES 3 MINI-JEUX SONT UTILISÉS :
+   SEULS CES 4 MINI-JEUX SONT UTILISÉS :
    1. RÉSONANCE DES CRISTAUX
    2. PORTAIL INSTABLE
    3. SCEAU FRACTURÉ
+   4. Résonnance des abysses
 ========================================================= */
 
 
