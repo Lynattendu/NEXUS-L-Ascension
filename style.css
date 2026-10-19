@@ -4597,176 +4597,6 @@ p {
 }
 
 
-/* =========================================================
-   ANIMATIONS COURANT DES ABYSSES
-========================================================= */
-
-@keyframes abyssPortalPulse {
-
-  0%,
-  100% {
-    transform:
-      translateX(-50%)
-      scale(1);
-
-    filter:
-      brightness(1);
-  }
-
-  50% {
-    transform:
-      translateX(-50%)
-      scale(1.06);
-
-    filter:
-      brightness(1.18);
-  }
-
-}
-
-@keyframes abyssJellyFloat {
-
-  0%,
-  100% {
-    transform:
-      translateY(0)
-      rotate(-2deg);
-  }
-
-  50% {
-    transform:
-      translateY(-12px)
-      rotate(3deg);
-  }
-
-}
-
-@keyframes abyssMinePulse {
-
-  0%,
-  100% {
-    transform:
-      scale(1);
-
-    filter:
-      drop-shadow(
-        0 0 9px
-        rgba(105, 184, 255, 0.32)
-      );
-  }
-
-  50% {
-    transform:
-      scale(1.08);
-
-    filter:
-      drop-shadow(
-        0 0 19px
-        rgba(106, 249, 234, 0.72)
-      );
-  }
-
-}
-
-@keyframes abyssVortexSpin {
-
-  from {
-    transform:
-      translateX(-50%)
-      rotate(0deg);
-  }
-
-  to {
-    transform:
-      translateX(-50%)
-      rotate(360deg);
-  }
-
-}
-
-@keyframes abyssCrystalFloat {
-
-  0%,
-  100% {
-    transform:
-      translateY(0)
-      scale(1);
-  }
-
-  50% {
-    transform:
-      translateY(-9px)
-      scale(1.06);
-  }
-
-}
-
-@keyframes abyssVortexHit {
-
-  0% {
-    transform:
-      translate(-50%, -50%)
-      rotate(0deg)
-      scale(1);
-  }
-
-  50% {
-    transform:
-      translate(-50%, -50%)
-      rotate(180deg)
-      scale(0.82);
-  }
-
-  100% {
-    transform:
-      translate(-50%, -50%)
-      rotate(360deg)
-      scale(1);
-  }
-
-}
-
-@keyframes abyssMineExplode {
-
-  0% {
-    transform:
-      scale(1);
-
-    opacity: 1;
-  }
-
-  50% {
-    transform:
-      scale(1.6);
-
-    filter:
-      brightness(2);
-  }
-
-  100% {
-    transform:
-      scale(2.1);
-
-    opacity: 0;
-  }
-
-}
-
-@keyframes abyssResultFlash {
-
-  from {
-    opacity: 0;
-  }
-
-  40% {
-    opacity: 1;
-  }
-
-  to {
-    opacity: 0;
-  }
-
-}
 
 
 /* =========================================================
@@ -4912,12 +4742,7 @@ p {
     right: 14%;
   }
 
-  .abyss-game {
-    max-height: 72vh;
-
-    margin:
-      0 auto;
-  }
+  
 
 }
 
@@ -5004,12 +4829,7 @@ p {
     font-size: 0.74rem;
   }
 
-  .abyss-message {
-    font-size: 0.65rem;
-
-    padding:
-      7px 10px;
-  }
+ 
 
 }
 
