@@ -5328,3 +5328,673 @@ p {
   }
 
 }
+
+/* =========================================================
+   5 — COURANT DES ABYSSES
+========================================================= */
+
+.abyss-current-game {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 14px;
+}
+
+
+/* =========================================================
+   PLATEAU PRINCIPAL
+========================================================= */
+
+.abyss-current-board {
+  position: relative;
+
+  width:
+    min(
+      100%,
+      430px
+    );
+
+  aspect-ratio: 9 / 14;
+
+  overflow: hidden;
+
+  border-radius: 24px;
+
+  border:
+    1px solid
+    rgba(106, 249, 234, 0.22);
+
+  background:
+    rgba(3, 12, 18, 0.96);
+
+  box-shadow:
+    inset
+    0 0 40px
+    rgba(106, 249, 234, 0.04),
+
+    0 0 30px
+    rgba(0, 0, 0, 0.28);
+}
+
+
+/* =========================================================
+   FOND
+========================================================= */
+
+.abyss-current-background {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  z-index: 0;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   VOILE SOMBRE POUR LISIBILITÉ
+========================================================= */
+
+.abyss-current-board::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(2, 10, 18, 0.10),
+      rgba(2, 10, 18, 0.08) 45%,
+      rgba(2, 10, 18, 0.32)
+    );
+
+  z-index: 1;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   PORTAIL
+========================================================= */
+
+.abyss-current-portal {
+  position: absolute;
+
+  top: 2%;
+
+  left: 50%;
+
+  width: 32%;
+
+  transform:
+    translateX(-50%);
+
+  z-index: 5;
+
+  pointer-events: none;
+}
+
+
+.abyss-current-portal img {
+  display: block;
+
+  width: 100%;
+  height: auto;
+
+  filter:
+    drop-shadow(
+      0 0 14px
+      rgba(106, 249, 234, 0.65)
+    );
+}
+
+
+/* =========================================================
+   GRILLE 3 COULOIRS
+========================================================= */
+
+.abyss-current-grid {
+  position: absolute;
+
+  left: 7%;
+  right: 7%;
+
+  top: 14%;
+  bottom: 6%;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      3,
+      1fr
+    );
+
+  grid-auto-flow: row;
+
+  z-index: 3;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   CASES
+========================================================= */
+
+.abyss-current-cell {
+  position: relative;
+
+  display: grid;
+
+  place-items: center;
+
+  min-width: 0;
+  min-height: 0;
+}
+
+
+/* =========================================================
+   OBJETS
+========================================================= */
+
+.abyss-current-object {
+  display: block;
+
+  width: 68%;
+  height: 68%;
+
+  object-fit: contain;
+
+  pointer-events: none;
+
+  user-select: none;
+}
+
+
+/* =========================================================
+   MINE
+========================================================= */
+
+.abyss-current-mine {
+  width: 62%;
+  height: 62%;
+
+  animation:
+    abyssMinePulse
+    1.15s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   MÉDUSE
+========================================================= */
+
+.abyss-current-jelly {
+  width: 70%;
+  height: 70%;
+
+  animation:
+    abyssJellyFloat
+    1.7s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   TOURBILLON
+========================================================= */
+
+.abyss-current-vortex {
+  width: 74%;
+  height: 74%;
+
+  animation:
+    abyssVortexSpin
+    3.4s linear infinite;
+}
+
+
+/* =========================================================
+   CRISTAL BONUS
+========================================================= */
+
+.abyss-current-bonus {
+  width: 52%;
+  height: 52%;
+
+  animation:
+    abyssCrystalFloat
+    1.25s ease-in-out infinite;
+
+  filter:
+    drop-shadow(
+      0 0 10px
+      rgba(106, 249, 234, 0.72)
+    )
+
+    drop-shadow(
+      0 0 18px
+      rgba(148, 126, 255, 0.40)
+    );
+}
+
+
+/* =========================================================
+   CRÉATURE
+========================================================= */
+
+.abyss-current-creature {
+  position: absolute;
+
+  left: 50%;
+  bottom: 5%;
+
+  width: 21%;
+
+  transform:
+    translateX(-50%);
+
+  transition:
+    left 0.20s ease,
+    bottom 0.62s ease;
+
+  z-index: 6;
+
+  pointer-events: none;
+}
+
+
+.abyss-current-creature img {
+  display: block;
+
+  width: 100%;
+  height: auto;
+
+  filter:
+    drop-shadow(
+      0 0 10px
+      rgba(106, 249, 234, 0.48)
+    );
+}
+
+
+/* =========================================================
+   CRÉATURE TOUCHÉE
+========================================================= */
+
+.abyss-current-creature.hit {
+  animation:
+    abyssCreatureHit
+    0.55s ease both;
+}
+
+
+/* =========================================================
+   PROGRESSION
+========================================================= */
+
+.abyss-current-progress {
+  width:
+    min(
+      100%,
+      430px
+    );
+
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  padding:
+    9px 12px;
+
+  border-radius: 14px;
+
+  background:
+    rgba(4, 18, 28, 0.78);
+
+  border:
+    1px solid
+    rgba(106, 249, 234, 0.14);
+}
+
+
+.abyss-current-progress span {
+  color:
+    #9db4be;
+
+  font-size: 0.76rem;
+
+  font-weight: 800;
+
+  letter-spacing: 0.08em;
+
+  text-transform: uppercase;
+}
+
+
+.abyss-current-progress strong {
+  color:
+    #f6fbff;
+
+  font-size: 0.95rem;
+}
+
+
+/* =========================================================
+   CONTRÔLES
+========================================================= */
+
+.abyss-current-controls {
+  width:
+    min(
+      100%,
+      430px
+    );
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      2,
+      1fr
+    );
+
+  gap: 12px;
+}
+
+
+.abyss-current-control {
+  min-height: 58px;
+
+  border: 0;
+
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(29, 93, 118, 0.95),
+      rgba(10, 48, 67, 0.95)
+    );
+
+  color:
+    #ffffff;
+
+  font-size: 2rem;
+
+  font-weight: 900;
+
+  cursor: pointer;
+
+  box-shadow:
+    inset
+    0 0 16px
+    rgba(255, 255, 255, 0.05),
+
+    0 0 18px
+    rgba(106, 249, 234, 0.12);
+
+  transition:
+    transform 0.12s ease,
+    filter 0.12s ease,
+    opacity 0.12s ease;
+}
+
+
+.abyss-current-control:active {
+  transform:
+    scale(0.96);
+
+  filter:
+    brightness(1.16);
+}
+
+
+.abyss-current-control:disabled {
+  opacity: 0.38;
+
+  cursor: default;
+}
+
+
+/* =========================================================
+   TEXTE AIDE
+========================================================= */
+
+.abyss-current-help {
+  width:
+    min(
+      100%,
+      430px
+    );
+
+  color:
+    #9bb5c0;
+
+  font-size: 0.78rem;
+
+  text-align: center;
+
+  line-height: 1.45;
+}
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes abyssMinePulse {
+
+  0%,
+  100% {
+    transform:
+      scale(1);
+
+    filter:
+      brightness(1);
+  }
+
+  50% {
+    transform:
+      scale(1.08);
+
+    filter:
+      brightness(1.25);
+  }
+
+}
+
+
+@keyframes abyssJellyFloat {
+
+  0%,
+  100% {
+    transform:
+      translateY(0);
+  }
+
+  50% {
+    transform:
+      translateY(-6%);
+  }
+
+}
+
+
+@keyframes abyssVortexSpin {
+
+  from {
+    transform:
+      rotate(0deg);
+  }
+
+  to {
+    transform:
+      rotate(360deg);
+  }
+
+}
+
+
+@keyframes abyssCrystalFloat {
+
+  0%,
+  100% {
+    transform:
+      translateY(0)
+      scale(1);
+  }
+
+  50% {
+    transform:
+      translateY(-7%)
+      scale(1.07);
+  }
+
+}
+
+
+@keyframes abyssCreatureHit {
+
+  0% {
+    transform:
+      translateX(-50%)
+      scale(1);
+  }
+
+  25% {
+    transform:
+      translateX(-58%)
+      rotate(-8deg)
+      scale(0.94);
+  }
+
+  50% {
+    transform:
+      translateX(-42%)
+      rotate(8deg)
+      scale(0.90);
+  }
+
+  75% {
+    transform:
+      translateX(-54%)
+      rotate(-5deg)
+      scale(0.84);
+  }
+
+  100% {
+    transform:
+      translateX(-50%)
+      scale(0.76);
+
+    opacity: 0.38;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 520px) {
+
+  .abyss-current-board {
+    border-radius: 20px;
+  }
+
+
+  .abyss-current-portal {
+    width: 34%;
+  }
+
+
+  .abyss-current-creature {
+    width: 23%;
+  }
+
+
+  .abyss-current-object {
+    width: 72%;
+    height: 72%;
+  }
+
+
+  .abyss-current-control {
+    min-height: 56px;
+
+    font-size: 1.9rem;
+  }
+
+}
+
+
+/* =========================================================
+   PETITS TÉLÉPHONES
+========================================================= */
+
+@media (max-width: 390px) {
+
+  .abyss-current-game {
+    gap: 10px;
+  }
+
+
+  .abyss-current-controls {
+    gap: 8px;
+  }
+
+
+  .abyss-current-control {
+    min-height: 52px;
+
+    border-radius: 15px;
+  }
+
+
+  .abyss-current-creature {
+    width: 24%;
+  }
+
+}
+
+
+/* =========================================================
+   RÉDUCTION DES ANIMATIONS
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .abyss-current-mine,
+  .abyss-current-jelly,
+  .abyss-current-vortex,
+  .abyss-current-bonus,
+  .abyss-current-creature.hit {
+    animation: none;
+  }
+
+
+  .abyss-current-creature {
+    transition: none;
+  }
+
+}
+
+
+
