@@ -4323,14 +4323,15 @@ function init() {
 
   loadPermanentData();
 
-  loadNexusWorldData();
+loadNexusWorldData();
 
-  checkDailyReset();
+loadHistory();
+
+checkDailyReset();
 
 loadDailyHabits();
 
 loadDailyRewards();
-
 
   todayLabel.textContent =
     capitalize(
