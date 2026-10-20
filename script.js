@@ -740,6 +740,10 @@ function startRandomChallenge(
   */
 
  const challenges = [
+  "crystals",
+  "portal",
+  "seal",
+  "abyssMatch",
   "abyssCurrent"
 ];
 
