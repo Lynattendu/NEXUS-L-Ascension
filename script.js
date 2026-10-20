@@ -604,11 +604,12 @@ const powerOverlay =
 
 /* =========================================================
    ÉPREUVES — SYSTÈME NEXUS
-   SEULS CES 4 MINI-JEUX SONT UTILISÉS :
+   SEULS CES 5 MINI-JEUX SONT UTILISÉS :
    1. RÉSONANCE DES CRISTAUX
    2. PORTAIL INSTABLE
    3. SCEAU FRACTURÉ
    4. Résonnance des abysses
+   5. Courant des abysses
 ========================================================= */
 
 
@@ -742,7 +743,8 @@ function startRandomChallenge(
   "crystals",
   "portal",
   "seal",
-  "abyssMatch"
+  "abyssMatch",
+  "abyssCurrent"
 ];
 
   const selected =
@@ -802,6 +804,26 @@ if (
 ) {
 
   challengeAbyssMatch(
+    hardMode,
+    callback
+  );
+
+
+  return;
+
+}
+
+
+/* =====================================================
+   COURANT DES ABYSSES
+===================================================== */
+
+if (
+  selected ===
+  "abyssCurrent"
+) {
+
+  challengeAbyssCurrent(
     hardMode,
     callback
   );
