@@ -1629,7 +1629,233 @@
 
   </main>
 
+<!-- =====================================================
+     ÉCRAN — MA PROGRESSION
+===================================================== -->
 
+<section
+  id="progressionScreen"
+  class="screen progression-screen"
+>
+
+  <div class="progression-shell">
+
+    <!-- ==============================
+         EN-TÊTE
+    =============================== -->
+
+    <header class="progression-header">
+
+      <button
+        type="button"
+        id="progressionBackBtn"
+        class="progression-back-btn"
+      >
+        ← Retour
+      </button>
+
+      <div>
+
+        <span class="progression-kicker">
+          NEXUS VITAL
+        </span>
+
+        <h1>
+          Ma progression
+        </h1>
+
+        <p>
+          Ton évolution alimentaire au fil des jours.
+        </p>
+
+      </div>
+
+    </header>
+
+
+    <!-- ==============================
+         RÉSUMÉ
+    =============================== -->
+
+    <div class="progression-summary">
+
+      <article class="progression-stat-card">
+
+        <span>
+          Moyenne 7 jours
+        </span>
+
+        <strong id="progressionAverage">
+          —
+        </strong>
+
+        <small>
+          XP / jour
+        </small>
+
+      </article>
+
+
+      <article class="progression-stat-card">
+
+        <span>
+          Portail atteint
+        </span>
+
+        <strong id="progressionPortalDays">
+          —
+        </strong>
+
+        <small>
+          sur 7 jours
+        </small>
+
+      </article>
+
+
+      <article class="progression-stat-card">
+
+        <span>
+          Tendance
+        </span>
+
+        <strong id="progressionTrend">
+          —
+        </strong>
+
+        <small id="progressionTrendText">
+          Pas encore assez de données
+        </small>
+
+      </article>
+
+    </div>
+
+
+    <!-- ==============================
+         MESSAGE GLOBAL
+    =============================== -->
+
+    <article class="progression-message-card">
+
+      <span class="progression-message-icon">
+        ✦
+      </span>
+
+      <div>
+
+        <span>
+          Tendance actuelle
+        </span>
+
+        <strong id="progressionMessage">
+          Le NEXUS observe tes habitudes…
+        </strong>
+
+      </div>
+
+    </article>
+
+
+    <!-- ==============================
+         GRAPHIQUE
+    =============================== -->
+
+    <section class="progression-panel">
+
+      <div class="progression-panel-heading">
+
+        <div>
+
+          <span>
+            Évolution
+          </span>
+
+          <h2>
+            7 derniers jours
+          </h2>
+
+        </div>
+
+        <div class="progression-target">
+          Portail : 70 XP
+        </div>
+
+      </div>
+
+
+      <div
+        id="progressionChart"
+        class="progression-chart"
+      ></div>
+
+    </section>
+
+
+    <!-- ==============================
+         HABITUDES
+    =============================== -->
+
+    <section class="progression-panel">
+
+      <div class="progression-panel-heading">
+
+        <div>
+
+          <span>
+            Habitudes
+          </span>
+
+          <h2>
+            Ce qui évolue
+          </h2>
+
+        </div>
+
+      </div>
+
+
+      <div
+        id="progressionHabits"
+        class="progression-habits"
+      ></div>
+
+    </section>
+
+
+    <!-- ==============================
+         HISTORIQUE
+    =============================== -->
+
+    <section class="progression-panel">
+
+      <div class="progression-panel-heading">
+
+        <div>
+
+          <span>
+            Historique
+          </span>
+
+          <h2>
+            Dernières journées
+          </h2>
+
+        </div>
+
+      </div>
+
+
+      <div
+        id="progressionHistory"
+        class="progression-history"
+      ></div>
+
+    </section>
+
+  </div>
+
+</section>
 
   <!-- =======================================================
        SANCTUAIRE
