@@ -3096,7 +3096,893 @@ function challengeAbyssMatch(
 
 }
 
+/* =========================================================
+   5 — COURANT DES ABYSSES
+========================================================= */
 
+function challengeAbyssCurrent(
+  hardMode = false,
+  callback = null
+) {
+
+  challengeType.textContent =
+    hardMode
+      ? "Courant abyssal critique"
+      : "Épreuve de navigation";
+
+
+  challengeTitle.textContent =
+    "Courant des Abysses";
+
+
+  challengeInstructions.textContent =
+    hardMode
+      ? "Guide la créature jusqu'au Portail. Les courants sont plus rapides."
+      : "Guide la créature jusqu'au Portail en évitant les dangers.";
+
+
+  /* =====================================================
+     CONFIGURATION
+  ====================================================== */
+
+  const lanes =
+    3;
+
+
+  const totalRows =
+    hardMode
+      ? 8
+      : 7;
+
+
+  const stepDelay =
+    hardMode
+      ? 650
+      : 850;
+
+
+  let creatureLane =
+    1;
+
+
+  let currentRow =
+    totalRows - 1;
+
+
+  let finished =
+    false;
+
+
+  let bonusCollected =
+    false;
+
+
+  let timer =
+    null;
+
+
+  /*
+    Chaque ligne peut contenir :
+    - hazard
+    - bonus
+    - rien
+
+    Une seule case dangereuse par ligne,
+    donc il reste toujours un passage.
+  */
+
+  const rows =
+    [];
+
+
+  const hazardTypes = [
+
+    {
+      type: "mine",
+      image:
+        "images/MiniJeu-Mine-Abyssale.PNG"
+    },
+
+    {
+      type: "jelly",
+      image:
+        "images/MiniJeu-Meduse-Dangereuse.PNG"
+    },
+
+    {
+      type: "vortex",
+      image:
+        "images/MiniJeu-Tourbillon-Abysses.PNG"
+    }
+
+  ];
+
+
+  /* =====================================================
+     CRÉER LE PARCOURS
+  ====================================================== */
+
+  function createCourse() {
+
+    rows.length =
+      0;
+
+
+    for (
+      let row = 0;
+      row < totalRows;
+      row++
+    ) {
+
+      rows.push({
+
+        hazardLane:
+          null,
+
+        hazard:
+          null,
+
+        bonusLane:
+          null
+
+      });
+
+    }
+
+
+    /*
+      Pas de danger sur la première ligne
+      de départ ni sur la dernière ligne
+      proche du Portail.
+    */
+
+    for (
+      let row = 1;
+      row < totalRows - 1;
+      row++
+    ) {
+
+      const shouldHaveHazard =
+        Math.random() <
+        (
+          hardMode
+            ? 0.90
+            : 0.78
+        );
+
+
+      if (
+        shouldHaveHazard
+      ) {
+
+        rows[row].hazardLane =
+          Math.floor(
+            Math.random() *
+            lanes
+          );
+
+
+        rows[row].hazard =
+          hazardTypes[
+            Math.floor(
+              Math.random() *
+              hazardTypes.length
+            )
+          ];
+
+      }
+
+    }
+
+
+    /*
+      PLACER UN CRISTAL BONUS
+    */
+
+    const bonusRow =
+      Math.floor(
+        Math.random() *
+        (
+          totalRows - 3
+        )
+      ) + 1;
+
+
+    const forbiddenLane =
+      rows[
+        bonusRow
+      ].hazardLane;
+
+
+    const possibleBonusLanes =
+      [
+        0,
+        1,
+        2
+      ]
+        .filter(
+          lane =>
+            lane !==
+            forbiddenLane
+        );
+
+
+    rows[
+      bonusRow
+    ].bonusLane =
+      possibleBonusLanes[
+        Math.floor(
+          Math.random() *
+          possibleBonusLanes.length
+        )
+      ];
+
+  }
+
+
+  /* =====================================================
+     INTERFACE
+  ====================================================== */
+
+  challengeArea.innerHTML = `
+    <div class="abyss-current-game">
+
+      <div
+        class="challenge-status"
+        id="abyssCurrentStatus"
+      >
+        Le courant t'emporte vers le Portail…
+      </div>
+
+
+      <div
+        class="abyss-current-board"
+        id="abyssCurrentBoard"
+      >
+
+        <img
+          src="images/MiniJeu-Courant-Abysses-Fond.PNG"
+          alt=""
+          class="abyss-current-background"
+        >
+
+
+        <div class="abyss-current-portal">
+
+          <img
+            src="images/MiniJeu-Portail-Abysses.PNG"
+            alt="Portail des Abysses"
+          >
+
+        </div>
+
+
+        <div
+          class="abyss-current-grid"
+          id="abyssCurrentGrid"
+        ></div>
+
+
+        <div
+          class="abyss-current-creature"
+          id="abyssCurrentCreature"
+        >
+
+          <img
+            src="images/MiniJeu-Creature-Abysses.PNG"
+            alt="Créature des Abysses"
+          >
+
+        </div>
+
+      </div>
+
+
+      <div class="abyss-current-progress">
+
+        <span>
+          Portail
+        </span>
+
+        <strong id="abyssCurrentProgress">
+          0%
+        </strong>
+
+      </div>
+
+
+      <div class="abyss-current-controls">
+
+        <button
+          type="button"
+          class="abyss-current-control"
+          id="abyssCurrentLeft"
+          aria-label="Déplacer la créature vers la gauche"
+        >
+          ←
+        </button>
+
+
+        <button
+          type="button"
+          class="abyss-current-control"
+          id="abyssCurrentRight"
+          aria-label="Déplacer la créature vers la droite"
+        >
+          →
+        </button>
+
+      </div>
+
+
+      <div class="abyss-current-help">
+        Déplace la créature avant qu'elle n'atteigne le prochain danger.
+      </div>
+
+    </div>
+  `;
+
+
+  const status =
+    document.getElementById(
+      "abyssCurrentStatus"
+    );
+
+
+  const board =
+    document.getElementById(
+      "abyssCurrentBoard"
+    );
+
+
+  const grid =
+    document.getElementById(
+      "abyssCurrentGrid"
+    );
+
+
+  const creature =
+    document.getElementById(
+      "abyssCurrentCreature"
+    );
+
+
+  const progress =
+    document.getElementById(
+      "abyssCurrentProgress"
+    );
+
+
+  const leftButton =
+    document.getElementById(
+      "abyssCurrentLeft"
+    );
+
+
+  const rightButton =
+    document.getElementById(
+      "abyssCurrentRight"
+    );
+
+
+  /* =====================================================
+     AFFICHAGE DU PARCOURS
+  ====================================================== */
+
+  function renderCourse() {
+
+    let html =
+      "";
+
+
+    for (
+      let row = 0;
+      row < totalRows;
+      row++
+    ) {
+
+      for (
+        let lane = 0;
+        lane < lanes;
+        lane++
+      ) {
+
+        let content =
+          "";
+
+
+        /*
+          DANGER
+        */
+
+        if (
+          rows[row].hazardLane ===
+          lane
+        ) {
+
+          content += `
+            <img
+              src="${rows[row].hazard.image}"
+              alt=""
+              class="
+                abyss-current-object
+                abyss-current-hazard
+                abyss-current-${rows[row].hazard.type}
+              "
+            >
+          `;
+
+        }
+
+
+        /*
+          CRISTAL BONUS
+        */
+
+        if (
+          rows[row].bonusLane ===
+          lane
+        ) {
+
+          content += `
+            <img
+              src="images/MiniJeu-Cristal-Bonus.PNG"
+              alt="Cristal bonus"
+              class="
+                abyss-current-object
+                abyss-current-bonus
+              "
+            >
+          `;
+
+        }
+
+
+        html += `
+          <div
+            class="abyss-current-cell"
+            data-row="${row}"
+            data-lane="${lane}"
+          >
+            ${content}
+          </div>
+        `;
+
+      }
+
+    }
+
+
+    grid.innerHTML =
+      html;
+
+  }
+
+
+  /* =====================================================
+     POSITIONNER LA CRÉATURE
+  ====================================================== */
+
+  function updateCreaturePosition() {
+
+    if (
+      !creature
+    ) {
+
+      return;
+
+    }
+
+
+    const laneWidth =
+      100 / lanes;
+
+
+    const left =
+      creatureLane *
+      laneWidth +
+      laneWidth / 2;
+
+
+    const travelledRows =
+      (
+        totalRows - 1
+      ) -
+      currentRow;
+
+
+    const maxTravel =
+      totalRows - 1;
+
+
+    const percentTravelled =
+      travelledRows /
+      maxTravel;
+
+
+    const bottom =
+      5 +
+      percentTravelled *
+      76;
+
+
+    creature.style.left =
+      `${left}%`;
+
+
+    creature.style.bottom =
+      `${bottom}%`;
+
+
+    progress.textContent =
+      `${
+        Math.round(
+          percentTravelled *
+          100
+        )
+      }%`;
+
+  }
+
+
+  /* =====================================================
+     DÉPLACEMENT GAUCHE / DROITE
+  ====================================================== */
+
+  function moveLeft() {
+
+    if (
+      finished
+    ) {
+
+      return;
+
+    }
+
+
+    if (
+      creatureLane > 0
+    ) {
+
+      creatureLane--;
+
+      updateCreaturePosition();
+
+    }
+
+  }
+
+
+  function moveRight() {
+
+    if (
+      finished
+    ) {
+
+      return;
+
+    }
+
+
+    if (
+      creatureLane <
+      lanes - 1
+    ) {
+
+      creatureLane++;
+
+      updateCreaturePosition();
+
+    }
+
+  }
+
+
+  leftButton.addEventListener(
+    "click",
+    moveLeft
+  );
+
+
+  rightButton.addEventListener(
+    "click",
+    moveRight
+  );
+
+
+  /* =====================================================
+     FIN DU JEU
+  ====================================================== */
+
+  function finishGame(
+    success
+  ) {
+
+    if (
+      finished
+    ) {
+
+      return;
+
+    }
+
+
+    finished =
+      true;
+
+
+    if (
+      timer
+    ) {
+
+      clearInterval(
+        timer
+      );
+
+    }
+
+
+    leftButton.disabled =
+      true;
+
+
+    rightButton.disabled =
+      true;
+
+
+    if (
+      success
+    ) {
+
+      status.textContent =
+        bonusCollected
+          ? "Portail atteint • Cristal récupéré"
+          : "Portail atteint";
+
+
+      status.classList.add(
+        "success"
+      );
+
+
+      /*
+        Le cristal bonus donne
+        quelques cristaux pendant
+        une Ascension normale.
+      */
+
+      if (
+        bonusCollected &&
+        run.active
+      ) {
+
+        addRunCrystals(
+          3
+        );
+
+
+        showToast(
+          "+3 cristaux bonus"
+        );
+
+      }
+
+
+      setTimeout(
+        () => {
+
+          resolveChallenge(
+            true,
+            callback
+          );
+
+        },
+        700
+      );
+
+    }
+
+    else {
+
+      status.textContent =
+        "La créature a heurté un danger";
+
+
+      status.classList.add(
+        "fail"
+      );
+
+
+      creature.classList.add(
+        "hit"
+      );
+
+
+      setTimeout(
+        () => {
+
+          resolveChallenge(
+            false,
+            callback
+          );
+
+        },
+        700
+      );
+
+    }
+
+  }
+
+
+  /* =====================================================
+     VÉRIFIER LA CASE ACTUELLE
+  ====================================================== */
+
+  function checkCurrentCell() {
+
+    const rowData =
+      rows[
+        currentRow
+      ];
+
+
+    if (
+      !rowData
+    ) {
+
+      return;
+
+    }
+
+
+    /*
+      DANGER
+    */
+
+    if (
+      rowData.hazardLane ===
+      creatureLane
+    ) {
+
+      finishGame(
+        false
+      );
+
+
+      return;
+
+    }
+
+
+    /*
+      CRISTAL BONUS
+    */
+
+    if (
+      rowData.bonusLane ===
+      creatureLane
+    ) {
+
+      bonusCollected =
+        true;
+
+
+      rowData.bonusLane =
+        null;
+
+
+      status.textContent =
+        "Cristal bonus récupéré ✦";
+
+
+      renderCourse();
+
+    }
+
+  }
+
+
+  /* =====================================================
+     MONTÉE AUTOMATIQUE
+  ====================================================== */
+
+  function ascendOneStep() {
+
+    if (
+      finished
+    ) {
+
+      return;
+
+    }
+
+
+    currentRow--;
+
+
+    /*
+      PORTAIL ATTEINT
+    */
+
+    if (
+      currentRow < 0
+    ) {
+
+      currentRow =
+        0;
+
+
+      updateCreaturePosition();
+
+
+      finishGame(
+        true
+      );
+
+
+      return;
+
+    }
+
+
+    updateCreaturePosition();
+
+
+    checkCurrentCell();
+
+  }
+
+
+  /* =====================================================
+     DÉMARRAGE
+  ====================================================== */
+
+  createCourse();
+
+  renderCourse();
+
+  updateCreaturePosition();
+
+
+  /*
+    Petit délai avant le départ
+    pour laisser le joueur observer.
+  */
+
+  status.textContent =
+    hardMode
+      ? "Prépare-toi… le courant est puissant"
+      : "Prépare-toi…";
+
+
+  setTimeout(
+    () => {
+
+      if (
+        finished
+      ) {
+
+        return;
+
+      }
+
+
+      status.textContent =
+        "Remonte vers le Portail";
+
+
+      timer =
+        setInterval(
+          ascendOneStep,
+          stepDelay
+        );
+
+    },
+    1100
+  );
+
+}
 /* =========================================================
    GARDIEN
 ========================================================= */
