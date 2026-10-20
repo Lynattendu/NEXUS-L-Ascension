@@ -6072,19 +6072,22 @@ function bindNavigation() {
   );
 
 
-  menuStatsBtn.addEventListener(
-    "click",
-    () => {
+ menuStatsBtn.addEventListener(
+  "click",
+  () => {
 
-      closeMenu();
+    closeMenu();
 
 
-      showToast(
-        `Ascensions réussies : ${stats.successfulAscensions}`
-      );
+    renderProgression();
 
-    }
-  );
+
+    showScreen(
+      progressionScreen
+    );
+
+  }
+);
 
 
   sanctuaryBackBtn.addEventListener(
