@@ -2169,14 +2169,14 @@ function challengeAbyssMatch(
 
   const requiredMatches =
     hardMode
-      ? 2
-      : 1;
+      ? 10
+      : 6;
 
 
   const maxMoves =
     hardMode
-      ? 7
-      : 6;
+      ? 18
+      : 12;
 
 
   let board = [];
