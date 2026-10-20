@@ -10306,7 +10306,958 @@ function showToast(
     );
 
 }
+/* =========================================================
+   MA PROGRESSION
+========================================================= */
 
+function getProgressionDays() {
+
+  const days =
+    history.map(
+      day => ({
+        ...day
+      })
+    );
+
+
+  /*
+    AJOUT DE LA JOURNÉE ACTUELLE
+
+    Ainsi la progression du jour apparaît
+    avant même le changement de date.
+  */
+
+  const today =
+    getTodayKey();
+
+
+  const todayCompleted =
+    Object.keys(
+      habits || {}
+    ).length;
+
+
+  if (
+    todayCompleted > 0
+  ) {
+
+    const todayXP =
+      calculateXPFromHabits(
+        habits
+      );
+
+
+    const existingIndex =
+      days.findIndex(
+        day =>
+          day.date === today
+      );
+
+
+    const todayData = {
+
+      date:
+        today,
+
+      xp:
+        todayXP,
+
+      completedHabits:
+        todayCompleted,
+
+      portalReached:
+        todayXP >= 70,
+
+      habits: {
+        ...habits
+      },
+
+      current:
+        true
+
+    };
+
+
+    if (
+      existingIndex >= 0
+    ) {
+
+      days[
+        existingIndex
+      ] =
+        todayData;
+
+    }
+
+    else {
+
+      days.push(
+        todayData
+      );
+
+    }
+
+  }
+
+
+  days.sort(
+    (
+      a,
+      b
+    ) =>
+      a.date.localeCompare(
+        b.date
+      )
+  );
+
+
+  return days;
+
+}
+
+
+/* =========================================================
+   MOYENNE
+========================================================= */
+
+function averageXP(
+  days
+) {
+
+  if (
+    !days.length
+  ) {
+
+    return 0;
+
+  }
+
+
+  const total =
+    days.reduce(
+      (
+        sum,
+        day
+      ) =>
+        sum +
+        Number(
+          day.xp || 0
+        ),
+      0
+    );
+
+
+  return Math.round(
+    total /
+    days.length
+  );
+
+}
+
+
+/* =========================================================
+   NOM COURT DU JOUR
+========================================================= */
+
+function getShortDayName(
+  dateKey
+) {
+
+  const date =
+    new Date(
+      `${dateKey}T12:00:00`
+    );
+
+
+  return new Intl.DateTimeFormat(
+    "fr-FR",
+    {
+      weekday:
+        "short"
+    }
+  )
+    .format(
+      date
+    )
+    .replace(
+      ".",
+      ""
+    );
+
+}
+
+
+/* =========================================================
+   DATE LISIBLE
+========================================================= */
+
+function getReadableHistoryDate(
+  dateKey
+) {
+
+  const date =
+    new Date(
+      `${dateKey}T12:00:00`
+    );
+
+
+  return new Intl.DateTimeFormat(
+    "fr-FR",
+    {
+      weekday:
+        "short",
+
+      day:
+        "numeric",
+
+      month:
+        "short"
+    }
+  ).format(
+    date
+  );
+
+}
+
+
+/* =========================================================
+   LIBELLÉS DES HABITUDES
+========================================================= */
+
+function getHabitLabel(
+  habitName
+) {
+
+  const labels = {
+
+    breakfast:
+      "Petit-déjeuner",
+
+    lunch:
+      "Déjeuner",
+
+    dinner:
+      "Dîner",
+
+    quantity:
+      "Quantités raisonnables",
+
+    slow:
+      "Manger doucement",
+
+    water:
+      "Hydratation",
+
+    snack:
+      "Pas de grignotage",
+
+    healthy:
+      "Aliments sains",
+
+    activity:
+      "Activité physique"
+
+  };
+
+
+  /*
+    Si le nom exact de ton data-habit
+    n'existe pas dans cette liste,
+    on utilise automatiquement son nom.
+  */
+
+  return (
+    labels[
+      habitName
+    ] ||
+    habitName
+  );
+
+}
+
+
+/* =========================================================
+   ANALYSE DES HABITUDES
+========================================================= */
+
+function calculateHabitProgress(
+  days
+) {
+
+  const habitData =
+    {};
+
+
+  days.forEach(
+    day => {
+
+      const dayHabits =
+        day.habits ||
+        {};
+
+
+      Object.entries(
+        dayHabits
+      )
+        .forEach(
+          (
+            [
+              name,
+              value
+            ]
+          ) => {
+
+            if (
+              !habitData[
+                name
+              ]
+            ) {
+
+              habitData[
+                name
+              ] = {
+
+                name:
+                  name,
+
+                total:
+                  0,
+
+                positive:
+                  0,
+
+                score:
+                  0
+
+              };
+
+            }
+
+
+            habitData[
+              name
+            ].total++;
+
+
+            const numericValue =
+              Number(
+                value
+              ) || 0;
+
+
+            habitData[
+              name
+            ].score +=
+              numericValue;
+
+
+            if (
+              numericValue > 0
+            ) {
+
+              habitData[
+                name
+              ].positive++;
+
+            }
+
+          }
+        );
+
+    }
+  );
+
+
+  return Object
+    .values(
+      habitData
+    )
+    .map(
+      item => {
+
+        const rate =
+          item.total
+            ? Math.round(
+                (
+                  item.positive /
+                  item.total
+                ) *
+                100
+              )
+            : 0;
+
+
+        return {
+
+          ...item,
+
+          rate:
+            rate
+
+        };
+
+      }
+    )
+    .sort(
+      (
+        a,
+        b
+      ) =>
+        b.rate -
+        a.rate
+    );
+
+}
+
+
+/* =========================================================
+   RENDU GLOBAL
+========================================================= */
+
+function renderProgression() {
+
+  if (
+    !progressionScreen
+  ) {
+
+    return;
+
+  }
+
+
+  const days =
+    getProgressionDays();
+
+
+  const last7 =
+    days.slice(
+      -7
+    );
+
+
+  const previous7 =
+    days.slice(
+      -14,
+      -7
+    );
+
+
+  const average =
+    averageXP(
+      last7
+    );
+
+
+  const previousAverage =
+    averageXP(
+      previous7
+    );
+
+
+  const portalDays =
+    last7.filter(
+      day =>
+        Number(
+          day.xp
+        ) >= 70
+    ).length;
+
+
+  /* =====================================================
+     MOYENNE
+  ====================================================== */
+
+  progressionAverage.textContent =
+    last7.length
+      ? average
+      : "—";
+
+
+  progressionPortalDays.textContent =
+    last7.length
+      ? `${portalDays} / ${last7.length}`
+      : "—";
+
+
+  /* =====================================================
+     TENDANCE
+  ====================================================== */
+
+  if (
+    previous7.length === 0 ||
+    last7.length === 0
+  ) {
+
+    progressionTrend.textContent =
+      "—";
+
+
+    progressionTrendText.textContent =
+      "Encore quelques jours de données";
+
+  }
+
+  else {
+
+    const difference =
+      average -
+      previousAverage;
+
+
+    if (
+      difference > 0
+    ) {
+
+      progressionTrend.textContent =
+        `+${difference}`;
+
+
+      progressionTrendText.textContent =
+        "XP par rapport à la semaine précédente";
+
+    }
+
+    else if (
+      difference < 0
+    ) {
+
+      progressionTrend.textContent =
+        `${difference}`;
+
+
+      progressionTrendText.textContent =
+        "XP par rapport à la semaine précédente";
+
+    }
+
+    else {
+
+      progressionTrend.textContent =
+        "Stable";
+
+
+      progressionTrendText.textContent =
+        "Même moyenne que la semaine précédente";
+
+    }
+
+  }
+
+
+  renderProgressionMessage(
+    last7,
+    average,
+    portalDays
+  );
+
+
+  renderProgressionChart(
+    last7
+  );
+
+
+  renderProgressionHabits(
+    last7
+  );
+
+
+  renderProgressionHistory(
+    days
+  );
+
+}
+
+
+/* =========================================================
+   MESSAGE DE PROGRESSION
+========================================================= */
+
+function renderProgressionMessage(
+  days,
+  average,
+  portalDays
+) {
+
+  if (
+    days.length === 0
+  ) {
+
+    progressionMessage.textContent =
+      "Commence à enregistrer tes habitudes pour révéler ta progression.";
+
+
+    return;
+
+  }
+
+
+  if (
+    average >= 90
+  ) {
+
+    progressionMessage.textContent =
+      "Ta régularité alimentaire est excellente cette semaine.";
+
+
+    return;
+
+  }
+
+
+  if (
+    average >= 70
+  ) {
+
+    progressionMessage.textContent =
+      `Le Portail est régulièrement accessible : ${portalDays} journée(s) sur ${days.length}.`;
+
+
+    return;
+
+  }
+
+
+  if (
+    average >= 50
+  ) {
+
+    progressionMessage.textContent =
+      "Ta progression est engagée. Quelques habitudes régulières peuvent encore ouvrir le Portail plus souvent.";
+
+
+    return;
+
+  }
+
+
+  progressionMessage.textContent =
+    "Chaque habitude améliorée rapproche progressivement ton énergie du Portail.";
+
+}
+
+
+/* =========================================================
+   GRAPHIQUE 7 JOURS
+========================================================= */
+
+function renderProgressionChart(
+  days
+) {
+
+  if (
+    !progressionChart
+  ) {
+
+    return;
+
+  }
+
+
+  if (
+    days.length === 0
+  ) {
+
+    progressionChart.innerHTML = `
+      <div class="progression-empty">
+        Pas encore assez de données.
+      </div>
+    `;
+
+
+    return;
+
+  }
+
+
+  progressionChart.innerHTML =
+    days
+      .map(
+        day => {
+
+          const xp =
+            Math.max(
+              0,
+              Math.min(
+                100,
+                Number(
+                  day.xp
+                ) || 0
+              )
+            );
+
+
+          const portalClass =
+            xp >= 70
+              ? "portal-reached"
+              : "";
+
+
+          return `
+            <div
+              class="
+                progression-bar-column
+                ${portalClass}
+              "
+            >
+
+              <div class="progression-bar-value">
+                ${xp}
+              </div>
+
+              <div class="progression-bar-track">
+
+                <div
+                  class="progression-bar-fill"
+                  style="height:${xp}%"
+                ></div>
+
+                <div
+                  class="progression-portal-line"
+                ></div>
+
+              </div>
+
+              <div class="progression-bar-day">
+                ${getShortDayName(day.date)}
+              </div>
+
+            </div>
+          `;
+
+        }
+      )
+      .join("");
+
+}
+
+
+/* =========================================================
+   HABITUDES
+========================================================= */
+
+function renderProgressionHabits(
+  days
+) {
+
+  if (
+    !progressionHabits
+  ) {
+
+    return;
+
+  }
+
+
+  const habitsProgress =
+    calculateHabitProgress(
+      days
+    );
+
+
+  if (
+    habitsProgress.length === 0
+  ) {
+
+    progressionHabits.innerHTML = `
+      <div class="progression-empty">
+        Les tendances apparaîtront après quelques journées.
+      </div>
+    `;
+
+
+    return;
+
+  }
+
+
+  progressionHabits.innerHTML =
+    habitsProgress
+      .map(
+        habit => {
+
+          let status =
+            "À renforcer";
+
+
+          let statusClass =
+            "watch";
+
+
+          if (
+            habit.rate >= 80
+          ) {
+
+            status =
+              "Très régulier";
+
+
+            statusClass =
+              "strong";
+
+          }
+
+          else if (
+            habit.rate >= 60
+          ) {
+
+            status =
+              "En bonne voie";
+
+
+            statusClass =
+              "good";
+
+          }
+
+
+          return `
+            <article class="progression-habit-row">
+
+              <div class="progression-habit-top">
+
+                <strong>
+                  ${getHabitLabel(habit.name)}
+                </strong>
+
+                <span class="${statusClass}">
+                  ${status}
+                </span>
+
+              </div>
+
+
+              <div class="progression-habit-track">
+
+                <div
+                  class="progression-habit-fill"
+                  style="width:${habit.rate}%"
+                ></div>
+
+              </div>
+
+
+              <small>
+                ${habit.rate}% de journées positives
+              </small>
+
+            </article>
+          `;
+
+        }
+      )
+      .join("");
+
+}
+
+
+/* =========================================================
+   HISTORIQUE JOURNALIER
+========================================================= */
+
+function renderProgressionHistory(
+  days
+) {
+
+  if (
+    !progressionHistory
+  ) {
+
+    return;
+
+  }
+
+
+  if (
+    days.length === 0
+  ) {
+
+    progressionHistory.innerHTML = `
+      <div class="progression-empty">
+        Aucun historique pour le moment.
+      </div>
+    `;
+
+
+    return;
+
+  }
+
+
+  progressionHistory.innerHTML =
+    days
+      .slice(
+        -14
+      )
+      .reverse()
+      .map(
+        day => {
+
+          const xp =
+            Number(
+              day.xp
+            ) || 0;
+
+
+          let state =
+            "Résonance faible";
+
+
+          if (
+            xp >= 90
+          ) {
+
+            state =
+              "Résonance maximale";
+
+          }
+
+          else if (
+            xp >= 70
+          ) {
+
+            state =
+              "Portail ouvert";
+
+          }
+
+          else if (
+            xp >= 50
+          ) {
+
+            state =
+              "Résonance en progression";
+
+          }
+
+
+          return `
+            <article class="progression-history-row">
+
+              <div>
+
+                <strong>
+                  ${getReadableHistoryDate(day.date)}
+                </strong>
+
+                <span>
+                  ${state}
+                </span>
+
+              </div>
+
+
+              <strong class="progression-history-xp">
+                ${xp} XP
+              </strong>
+
+            </article>
+          `;
+
+        }
+      )
+      .join("");
+
+}
 
 /* =========================================================
    OUTILS
