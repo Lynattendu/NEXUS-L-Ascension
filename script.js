@@ -4951,12 +4951,44 @@ function checkDailyReset() {
     );
 
 
+  /*
+    PREMIÈRE UTILISATION
+  */
+
+  if (
+    !savedDate
+  ) {
+
+    localStorage.setItem(
+      STORAGE.dayDate,
+      today
+    );
+
+
+    return;
+
+  }
+
+
+  /*
+    NOUVELLE JOURNÉE
+  */
+
   if (
     savedDate !== today
   ) {
 
-    habits =
-      {};
+    /*
+      Avant d'effacer la journée,
+      on la conserve dans l'historique.
+    */
+
+    archivePreviousDay(
+      savedDate
+    );
+
+
+    habits = {};
 
 
     dailyRewards = {
