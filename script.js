@@ -6241,11 +6241,12 @@ function showScreen(
 ) {
 
   [
-    homeScreen,
-    ascensionScreen,
-    sanctuaryScreen,
-    nexusWorldScreen
-  ]
+  homeScreen,
+  ascensionScreen,
+  sanctuaryScreen,
+  nexusWorldScreen,
+  progressionScreen
+]
     .filter(
       Boolean
     )
