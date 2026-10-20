@@ -15,6 +15,9 @@ const STORAGE = {
   dayDate: "nexusVital_dayDate",
   habits: "nexusVital_habits",
   dailyRewards: "nexusVital_dailyRewards",
+
+  history: "nexusVital_history",
+
   totalCrystals: "nexusVital_totalCrystals",
   collection: "nexusVital_collection",
   ascensionLevel: "nexusVital_ascensionLevel",
