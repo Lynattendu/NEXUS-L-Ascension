@@ -4722,7 +4722,218 @@ function saveNexusWorldData() {
   );
 
 }
+/* =========================================================
+   HISTORIQUE ALIMENTAIRE
+========================================================= */
 
+function loadHistory() {
+
+  try {
+
+    history =
+      JSON.parse(
+        localStorage.getItem(
+          STORAGE.history
+        ) || "[]"
+      );
+
+
+    if (
+      !Array.isArray(
+        history
+      )
+    ) {
+
+      history = [];
+
+    }
+
+  }
+
+  catch {
+
+    history = [];
+
+  }
+
+}
+
+
+function saveHistory() {
+
+  /*
+    On conserve les 90 journées
+    les plus récentes.
+  */
+
+  history =
+    history
+      .slice(-90);
+
+
+  localStorage.setItem(
+    STORAGE.history,
+    JSON.stringify(
+      history
+    )
+  );
+
+}
+
+
+/* =========================================================
+   CALCUL XP D'UNE JOURNÉE ARCHIVÉE
+========================================================= */
+
+function calculateXPFromHabits(
+  habitData
+) {
+
+  let xp = 0;
+
+
+  Object
+    .values(
+      habitData || {}
+    )
+    .forEach(
+      value => {
+
+        xp +=
+          Number(
+            value
+          ) || 0;
+
+      }
+    );
+
+
+  return Math.min(
+    xp,
+    100
+  );
+
+}
+
+
+/* =========================================================
+   ARCHIVER LA JOURNÉE PRÉCÉDENTE
+========================================================= */
+
+function archivePreviousDay(
+  dateKey
+) {
+
+  if (
+    !dateKey
+  ) {
+
+    return;
+
+  }
+
+
+  let previousHabits =
+    {};
+
+
+  try {
+
+    previousHabits =
+      JSON.parse(
+        localStorage.getItem(
+          STORAGE.habits
+        ) || "{}"
+      );
+
+  }
+
+  catch {
+
+    previousHabits =
+      {};
+
+  }
+
+
+  const completedHabits =
+    Object.keys(
+      previousHabits
+    ).length;
+
+
+  /*
+    Si aucun critère n'a été rempli,
+    on n'enregistre pas une fausse
+    journée à 0 XP.
+  */
+
+  if (
+    completedHabits === 0
+  ) {
+
+    return;
+
+  }
+
+
+  const xp =
+    calculateXPFromHabits(
+      previousHabits
+    );
+
+
+  /*
+    Empêche d'enregistrer deux fois
+    la même date.
+  */
+
+  history =
+    history.filter(
+      day =>
+        day.date !== dateKey
+    );
+
+
+  history.push({
+
+    date:
+      dateKey,
+
+    xp:
+      xp,
+
+    completedHabits:
+      completedHabits,
+
+    portalReached:
+      xp >= 70,
+
+    habits: {
+      ...previousHabits
+    }
+
+  });
+
+
+  /*
+    Classement chronologique.
+  */
+
+  history.sort(
+    (
+      a,
+      b
+    ) =>
+      a.date.localeCompare(
+        b.date
+      )
+  );
+
+
+  saveHistory();
+
+}
 
 /* =========================================================
    RESET QUOTIDIEN
