@@ -478,7 +478,54 @@ const progressionScreen =
   document.getElementById(
     "progressionScreen"
   );
+/* =========================================================
+   PROGRESSION
+========================================================= */
 
+const progressionBackBtn =
+  document.getElementById(
+    "progressionBackBtn"
+  );
+
+const progressionAverage =
+  document.getElementById(
+    "progressionAverage"
+  );
+
+const progressionPortalDays =
+  document.getElementById(
+    "progressionPortalDays"
+  );
+
+const progressionTrend =
+  document.getElementById(
+    "progressionTrend"
+  );
+
+const progressionTrendText =
+  document.getElementById(
+    "progressionTrendText"
+  );
+
+const progressionMessage =
+  document.getElementById(
+    "progressionMessage"
+  );
+
+const progressionChart =
+  document.getElementById(
+    "progressionChart"
+  );
+
+const progressionHabits =
+  document.getElementById(
+    "progressionHabits"
+  );
+
+const progressionHistory =
+  document.getElementById(
+    "progressionHistory"
+  );
    
 /* =========================================================
    ACCUEIL
