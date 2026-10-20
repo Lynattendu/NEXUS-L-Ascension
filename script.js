@@ -6089,7 +6089,22 @@ function bindNavigation() {
   }
 );
 
+if (
+  progressionBackBtn
+) {
 
+  progressionBackBtn.addEventListener(
+    "click",
+    () => {
+
+      showScreen(
+        homeScreen
+      );
+
+    }
+  );
+
+}
   sanctuaryBackBtn.addEventListener(
     "click",
     () => {
