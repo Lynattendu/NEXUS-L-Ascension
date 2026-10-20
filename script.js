@@ -4138,6 +4138,8 @@ const toastText =
 
 let habits = {};
 
+let history = [];
+
 let currentXP = 0;
 
 let totalPermanentCrystals = 0;
