@@ -474,7 +474,12 @@ const sanctuaryScreen =
 const nexusWorldScreen =
   document.getElementById("nexusWorldScreen");
 
+const progressionScreen =
+  document.getElementById(
+    "progressionScreen"
+  );
 
+   
 /* =========================================================
    ACCUEIL
 ========================================================= */
